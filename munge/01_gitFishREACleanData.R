@@ -1,4 +1,3 @@
-setwd("~/Analyses/fish-paste")
 rm(list=ls())
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
