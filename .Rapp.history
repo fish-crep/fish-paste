@@ -1,0 +1,36 @@
+ODBC INCLUDE
+--with-odbc-include
+Sys.getenv("ODBC_INCLUDE")
+Sys.getenv("ODBC_LIBS")
+./configure
+configure
+?configure
+~/.odbc.ini
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")
+source(".\lib/fish_team_functions.R")
+source(".\lib/fish_team_functions.R")
+source("..\lib/fish_team_functions.R")
+source("\\..\lib/fish_team_functions.R")
+source("../lib/fish_team_functions.R")
+setwd ~/Documents/CRED/Fish Team/FishPaste/fish-paste
+setwd ("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste")
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2015.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2015.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df
