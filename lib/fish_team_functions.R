@@ -2,101 +2,29 @@
 library(reshape)
 library(ggplot2) ## to create the diver vs diver graphs
 
-
-#Calc_Site_Bio_By_Trophic_MonRep<-function(x){  
-#  # I would prefer this to be a function that can work with any value (species, family, trophic group etc.., am not there yet) 
-#  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case Trophic_MonRep
-#  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as Trophic_MonRep for now!)
-#  
-#  #add a Biomassgm2 field to x
-#  x$Bio_gm2<-Calc_Biomassgm2(x)
-#  
-#  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-#  field_of_interest<-c("TROPHIC_MONREP") # this can later be a function parameter
-#  base_cols=c("SITEVISITID","METHOD","REP", "REPLICATEID") # minimum set of fields to build up from
-#  pool_cols<-c(base_cols,field_of_interest)                # minimum set, plus the one we are interested in
-#  
-#  #first calculate total biomass per rep for all values of this field
-#  y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
-#  names(y)<-c(pool_cols, "Bio_gm2")
-#  #now format this more or less as a crosstab, with field of interest as column variable
-#  y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ TROPHIC_MONREP, value="Bio_gm2", fill=0)
-#  
-#  #pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
-#  num_row_cols=length(base_cols)
-#  pool_cols<-c("SITEVISITID","METHOD","REP")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  num_row_cols=length(pool_cols) #working data now has fewer columns
-#  pool_cols<-c("SITEVISITID", "METHOD")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  
-#  return(y)
-#  
-#}# end Calc_Site_Bio_By_Trophic_MonRep
-#
-#Calc_Site_Bio_By_Species<-function(x){  
-#  # I would prefer this to be a function that can work with any value (species, family, trophic group etc.., am not there yet) 
-#  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case Species
-#  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as Species for now!)
-#  
-#  #add a Biomassgm2 field to x
-#  x$Bio_gm2<-Calc_Biomassgm2(x)
-#  
-#  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-#  field_of_interest<-c("SPECIES") # this can later be a function parameter
-#  base_cols=c("SITEVISITID","METHOD","REP", "REPLICATEID") # minimum set of fields to build up from
-#  pool_cols<-c(base_cols,field_of_interest)                # minimum set, plus the one we are interested in
-#  
-#  #first calculate total biomass per rep for all values of this field
-#  y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
-#  names(y)<-c(pool_cols, "Bio_gm2")
-#  #now format this more or less as a crosstab, with field of interest as column variable
-#  y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ SPECIES, value="Bio_gm2", fill=0)
-#  
-#  #pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
-#  num_row_cols=length(base_cols)
-#  pool_cols<-c("SITEVISITID","METHOD","REP")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  num_row_cols=length(pool_cols) #working data now has fewer columns
-#  pool_cols<-c("SITEVISITID", "METHOD")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  
-#  return(y)
-#  
-#} # end Calc_Site_Bio_By_Species
-##
-#
-#Calc_Site_Abu_By_Species<-function(x){  
-#  # I would prefer this to be a function that can work with any value (species, family, trophic group etc.., am not there yet) 
-#  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case Species
-#  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as Species for now!)
-#  
-#  #add a Biomassgm2 field to x
-#  x$Abund_m2<-Calc_Abundm2(x)
-#  
-#  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-#  field_of_interest<-c("SPECIES") # this can later be a function parameter
-#  base_cols=c("SITEVISITID","METHOD","REP", "REPLICATEID") # minimum set of fields to build up from
-#  pool_cols<-c(base_cols,field_of_interest)                # minimum set, plus the one we are interested in
-#  
-#  #first calculate total biomass per rep for all values of this field
-#  y<-aggregate(x$Abund_m2,by=x[,pool_cols], sum)
-#  names(y)<-c(pool_cols, "Abund_m2")
-#  #now format this more or less as a crosstab, with field of interest as column variable
-#  y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ SPECIES, value="Abund_m2", fill=0)
-#  
-#  #pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
-#  num_row_cols=length(x=base_cols)
-#  pool_cols<-c("SITEVISITID","METHOD","REP")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  num_row_cols=length(pool_cols) #working data now has fewer columns
-#  pool_cols<-c("SITEVISITID", "METHOD")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  
-#  return(y)
-#  
-#} # end Calc_Site_Abu_By_Species
-
+Calc_Site_MeanLength<-function(x, min_size=1){  
+	# function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
+	# function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)
+		
+	#Base unit will be the entire survey
+	base_cols=c("SITEVISITID", "METHOD") 
+	pool_cols<-c(base_cols, "SIZE_")                          
+	
+	#set count to zero for all sizes smaller than min size
+#	x[x$SIZE_< (min_size),]$COUNT<-0
+	
+	#sum total number offishes per SIZE_
+	y<-aggregate(x$COUNT,by=x[,pool_cols], sum)
+	names(y)<-c(pool_cols, "COUNT")
+	y$CS<-y$COUNT*y$SIZE_
+	
+	#now format this more or less as a crosstab, with field of interest as column variable
+	y<-aggregate(y[,c("COUNT", "CS")],by=y[,base_cols], sum)
+	y$MEAN_SIZE<-y$CS/y$COUNT
+		
+	return(y[,c(base_cols, "MEAN_SIZE")])
+	
+} # end Calc_Site_MeanLength
 
 Calc_Site_Species_Richness<-function(x){  
   # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
@@ -112,68 +40,6 @@ Calc_Site_Species_Richness<-function(x){
 }
 # end Calc_Site_Species_Richness
 
-
-#Calc_Site_Abu_By_CommonFamily<-function(x){  
-#	# I would prefer this to be a function that can work with any value (species, family, trophic group etc.., am not there yet) 
-#	# function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
-#	# function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)
-#	
-#	#add an Abundance m2 field to x
-#	x$Abund_m2<-Calc_Abundm2(x)
-#	
-#	#Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-#	field_of_interest<-c("COMMONFAMILY") # this can later be a function parameter
-#	base_cols=c("SITEVISITID","METHOD","REP", "REPLICATEID") # minimum set of fields to build up from
-#	pool_cols<-c(base_cols,field_of_interest)                # minimum set, plus the one we are interested in
-#	
-#	#first calculate total biomass per rep for all values of this field
-#	y<-aggregate(x$Abund_m2,by=x[,pool_cols], sum)
-#	names(y)<-c(pool_cols, "Abund_m2")
-#	#now format this more or less as a crosstab, with field of interest as column variable
-#	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ CommonFamily, value="Abund_m2", fill=0)
-#	
-#	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
-#	num_row_cols=length(base_cols)
-#	pool_cols<-c("SITEVISITID","METHOD","REP")
-#	y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#	num_row_cols=length(pool_cols) #working data now has fewer columns
-#	pool_cols<-c("SITEVISITID", "METHOD")
-#	y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#	
-#	return(y)
-#	
-#} # end Calc_Site_Abu_By_CommonFamily
-#
-#Calc_Site_Bio_By_CommonFamily<-function(x){  
-#  # I would prefer this to be a function that can work with any value (species, family, trophic group etc.., am not there yet) 
-#  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
-#  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)
-#  
-#  #add an Abundance m2 field to x
-#  x$Bio_gm2<-Calc_Biomassgm2(x)
-#  
-#  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-#  field_of_interest<-c("COMMONFAMILY") # this can later be a function parameter
-#  base_cols=c("SITEVISITID","METHOD","REP", "REPLICATEID") # minimum set of fields to build up from
-#  pool_cols<-c(base_cols,field_of_interest)                # minimum set, plus the one we are interested in
-#  
-#  #first calculate total biomass per rep for all values of this field
-#  y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
-#  names(y)<-c(pool_cols, "Bio_gm2")
-#  #now format this more or less as a crosstab, with field of interest as column variable
-#  y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ COMMONFAMILY, value="Bio_gm2", fill=0)
-#  
-#  #pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
-#  num_row_cols=length(base_cols)
-#  pool_cols<-c("SITEVISITID","METHOD","REP")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  num_row_cols=length(pool_cols) #working data now has fewer columns
-#  pool_cols<-c("SITEVISITID", "METHOD")
-#  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
-#  
-#  return(y)
-#  
-#}# end Calc_Site_Bio_By_CommonFamily
 
 Aggregate_InputTable<-function(x, field_list){  
 	# function assumes that x is a data frame looking like our standard input
@@ -296,10 +162,6 @@ Calc_Site_Abund_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50,Inf)
 	return(y)
 	
 } # end Calc_Site_Abund_By_SizeClass
-
-
-
-
 
 
 ##### IDW - this function superceeded by Aggregate_InputTable function - there is nothing in it that is specific to survey info (its a general function will summarize results for whatever set of fields is used as input)
