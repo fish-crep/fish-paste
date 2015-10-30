@@ -119,7 +119,7 @@ Calc_Site_Bio_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50, Inf))
 	y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
 	names(y)<-c(pool_cols, "Bio_gm2")
 	#now format this more or less as a crosstab, with field of interest as column variable
-	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ sizeclass, value="Bio_gm2", fill=0)
+	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ sizeclass, fun.aggregate=sum, value="Bio_gm2", fill=0)
 	
 	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
 	num_row_cols=length(base_cols)
@@ -150,7 +150,7 @@ Calc_Site_Abund_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50,Inf)
 	y<-aggregate(x$Abund_m2,by=x[,pool_cols], sum)
 	names(y)<-c(pool_cols, "Abund_m2")
 	#now format this more or less as a crosstab, with field of interest as column variable
-	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ sizeclass, value="Abund_m2", fill=0)
+	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ sizeclass, fun.aggregate=sum, value="Abund_m2", fill=0)
 	
 	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
 	num_row_cols=length(base_cols)
@@ -308,7 +308,7 @@ Calc_Site_Abund<-function(x, grouping_field){
 	y<-aggregate(x$Abund_m2,by=x[,pool_cols], sum)
 	names(y)<-c(pool_cols, "Abund_m2")
 	#now format this more or less as a crosstab, with field of interest as column variable
-	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ GROUP, value="Abund_m2", fill=0)
+	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Abund_m2", fill=0)
 	
 	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
 	num_row_cols=length(base_cols)
@@ -339,7 +339,7 @@ Calc_Site_Bio<-function(x, grouping_field){
 	y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
 	names(y)<-c(pool_cols, "Bio_gm2")
 	#now format this more or less as a crosstab, with field of interest as column variable
-	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ GROUP, value="Bio_gm2", fill=0)
+	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Bio_gm2", fill=0)
 	
 	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
 	num_row_cols=length(base_cols)
@@ -608,7 +608,7 @@ Calc_REP_Bio<-function(x, grouping_field){
   y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
   names(y)<-c(pool_cols, "Bio_gm2")
   #now format this more or less as a crosstab, with field of interest as column variable
-  y<-cast(y, SITEVISITID + METHOD + SITE + REP + DIVER + REPLICATEID ~ GROUP, value="Bio_gm2", fill=0)
+  y<-cast(y, SITEVISITID + METHOD + SITE + REP + DIVER + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Bio_gm2", fill=0)
   
   return(y)
   
