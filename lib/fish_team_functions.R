@@ -11,7 +11,7 @@ Calc_Site_MeanLength<-function(x, min_size=1){
 	pool_cols<-c(base_cols, "SIZE_")                          
 	
 	#set count to zero for all sizes smaller than min size
-	x[is.na(x$SIZE_),]$SIZE_<-0
+	#x[is.na(x$SIZE_),]$SIZE_<-0
 	x[x$SIZE_< (min_size),]$COUNT<-0
 	
 	#sum total number offishes per SIZE_
