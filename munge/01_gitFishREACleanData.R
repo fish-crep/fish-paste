@@ -59,7 +59,7 @@ x$ANALYSIS_SEC<-tmp
 ###### new section .. where there is substrate_height data, work out average height && ave_height_variability so that we get standardized complexity metrics (mean hieght, mean height variability, max-height) 
 sh_out<-CalcMeanSHMeanSHDiff(x)
 x$MEAN_SH<-sh_out[[1]]
-x$MEAN_SH_DIFF<-sh_out[[2]]
+x$SD_SH_DIFF<-sh_out[[3]]
 
 # remove the component SUBSTRATE_HEIGHT fields
 x<-x[, setdiff(names(x),c("SUBSTRATE_HEIGHT_0", "SUBSTRATE_HEIGHT_20", "SUBSTRATE_HEIGHT_50", "SUBSTRATE_HEIGHT_100", "SUBSTRATE_HEIGHT_150"))]

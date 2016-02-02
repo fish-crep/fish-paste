@@ -416,13 +416,13 @@ CalcMeanSHMeanSHDiff<-function(xx) {
 	sh_diff<- abs(mh - MEAN_SH)
 	MEAN_SH_DIFF<-rowSums(sh_diff*sh)/100
 	
-	SD_SH<-sqrt(rowSums((sh_diff^2)*(sh/100)))
+	SD_SH_DIFF<-sqrt(rowSums((sh_diff^2)*(sh/100)))
 
 	MEAN_SH[!xx$SH_DATA_EXISTS]<-NaN
 	MEAN_SH_DIFF[!xx$SH_DATA_EXISTS]<-NaN
-	SD_SH[!xx$SH_DATA_EXISTS]<-NaN
+	SD_SH_DIFF[!xx$SH_DATA_EXISTS]<-NaN
 
-	return(list(MEAN_SH, MEAN_SH_DIFF, SD_SH))
+	return(list(MEAN_SH, MEAN_SH_DIFF, SD_SH_DIFF))
 
 } # CalcMeanSHMeanSHDiff
 #######################################################################################
