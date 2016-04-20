@@ -10,27 +10,299 @@ rm(list=ls())#
 library(gdata)             # needed for drop_levels()#
 library(reshape)           # reshape library inclues the cast() function used below#
 #LOAD LIBRARY FUNCTIONS ... #
-source("lib/fish_team_functions.R")#
-#source("lib/Islandwide Mean&Variance Functions.R")
-source(".\lib/fish_team_functions.R")
-source(".\lib/fish_team_functions.R")
-source("..\lib/fish_team_functions.R")
-source("\\..\lib/fish_team_functions.R")
-source("../lib/fish_team_functions.R")
-setwd ~/Documents/CRED/Fish Team/FishPaste/fish-paste
-setwd ("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste")
-rm(list=ls())#
-library(gdata)             # needed for drop_levels()#
-library(reshape)           # reshape library inclues the cast() function used below#
-#
-#LOAD LIBRARY FUNCTIONS ... #
-source("lib/fish_team_functions.R")#
-#source("lib/Islandwide Mean&Variance Functions.R")#
+source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/fish_team_functions.R")#
+source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
 # get strata and sectors data data - NB - the data in the raw file should be checked and updated#
-sectors<-read.csv("data/Sectors-Strata-Areas2015.csv", stringsAsFactors=FALSE)#
+sectors<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/data/Sectors-Strata-Areas2015.csv", stringsAsFactors=FALSE)#
 # load site master to merge with sector names#
-site_master<-read.csv("data/SITE MASTER2015.csv")#
+site_master<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/data/SITE MASTER2015.csv")#
 site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
 ## LOAD AND CLEAN fish data#
-load("data/ALL_REA_FISH_RAW.rdata")#
+load("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/data/ALL_REA_FISH_RAW.rdata")#
 x<-df
+# HOUSEKEEPING ------------------------------------------------------------#
+# clean up the data to only fields we currently use#
+DATA_COLS<-c("SITEVISITID", "METHOD", "DATE_", "OBS_YEAR",  "SITE", "REEF_ZONE",  "DEPTH_BIN",  "ISLAND", "LATITUDE",  "LONGITUDE",  "REGION" , "REGION_NAME", "SECTOR", "SPECIAL_AREA", "EXCLUDE_FLAG",#
+"REP",  "REPLICATEID", "DIVER", "HABITAT_CODE", "DEPTH", #
+"HARD_CORAL", "MA",  "TA",  "CCA",  "SAND",  "SOFT_CORAL", "CLAM" , "SPONGE", "CORALLIMORPH", "CYANO", "TUNICATE", "ZOANTHID" , "COMPLEXITY",#
+"SPECIES", "COUNT", "SIZE_", "OBS_TYPE", #
+"SUBSTRATE_HEIGHT_0", "SUBSTRATE_HEIGHT_20", "SUBSTRATE_HEIGHT_50", "SUBSTRATE_HEIGHT_100", "SUBSTRATE_HEIGHT_150", "MAX_HEIGHT",#
+"SCIENTIFIC_NAME",  "TAXONNAME", "COMMONNAME", "GENUS", "FAMILY" , "COMMONFAMILYALL", "LMAX", "LW_A",  "LW_B",  "LENGTH_CONVERSION_FACTOR", "TROPHIC", "TROPHIC_MONREP")#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+##IDW.. possibly better to do little or no filtering at this stage#
+# by default, remove sites with EXCLUDE_FLAG set to TRUE#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)
+x<-subset(x, x$OBS_YEAR >2006, drop=TRUE)
+x<-subset(x, x$OBS_TYPE %in% c("U","I","N"))  # note this includes all the data .. wlll need to add filtering to the scripts that analyse the data
+x<-subset(x, x$METHOD %in% c("BLT"), drop=TRUE)
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$SCIENTIFIC_NAME); head(tmp.lev)#
+levels(x$SCIENTIFIC_NAME)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMONNAME); head(tmp.lev)#
+levels(x$COMMONNAME)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$GENUS); head(tmp.lev)#
+levels(x$GENUS)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$FAMILY); head(tmp.lev)#
+levels(x$FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMONFAMILYALL); head(tmp.lev)#
+levels(x$COMMONFAMILYALL)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$TROPHIC_MONREP); head(tmp.lev)#
+levels(x$TROPHIC_MONREP)<-c(tmp.lev, "UNKNOWN")#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$SCIENTIFIC_NAME),"SCIENTIFIC_NAME"]<-"UNKNOWN"#
+x[is.na(x$COMMONNAME),"COMMONNAME"]<-"UNKNOWN"#
+x[is.na(x$GENUS),"GENUS"]<-"UNKNOWN"#
+x[is.na(x$FAMILY),"FAMILY"]<-"UNKNOWN"#
+x[is.na(x$COMMONFAMILYALL),"COMMONFAMILYALL"]<-"UNKNOWN"#
+x[is.na(x$TROPHIC_MONREP),"TROPHIC_MONREP"]<-"UNKNOWN"
+x[is.na(x$COUNT),]$COUNT
+x[is.na(x$COUNT),]$COUNT<-0
+x[is.na(x$SIZE_),]$SIZE_<-0
+x<-subset(x, x$OBS_YEAR <2010, drop=TRUE)
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
+wd<-droplevels(x)
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
+st<-survey_table
+head(st)
+table(st$OBS_YEAR, st$REGION)
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/fish_team_functions.R")#
+#source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
+load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files/ALL_TOW_FISH_RAW.rdata")#
+# FISH TOW WORKINGS -------------------------------------------------------#
+wd<-df#
+#
+head(wd)#
+ISLANDS<-c("Baker", "Howland", "Jarvis", "Johnston", "Kingman", "Ofu & Olosega", "Palmyra", "Rose", "Alamagan", "Asuncion", "Farallon de Pajaros", "Guguan", "Maug", "Pagan", "Saipan", "Sarigan", "Hawaii", "Kauai", "Lanai", "Maui", "Molokai", "Niihau", "Oahu", "French Frigate", "Lisianski", "Pearl & Hermes")#
+#
+wd<-subset(wd, wd$ISLAND %in% ISLANDS)#
+wd<-subset(wd, wd$OBS_YEAR>2009)#
+#
+wd<-droplevels(wd)#
+#
+## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
+## remove these so that the tow length is corrected....#
+nosc<-which(wd$SPECIES == "NOSC")#
+nosc#
+wd<-wd[-nosc,]#
+#
+miss<-which(wd$SPECIES == "MISS")#
+miss#
+#wd<-wd[-miss,]#
+#
+#CONSIDER REMOVING SEGMENTS WITH APPARENTLY BOGUS LENGTHS#
+tmp<-wd[wd$PROJECTEDLENGTH<100,]$DIVEID#
+wd[wd$DIVEID %in% tmp, c("DIVEID", "SEGMENT", "PROJECTEDLENGTH", "OBS_YEAR", "SPECIES", "COUNT"),]#
+head(wd)#
+#
+length(unique(wd$DIVEID))#
+#
+wd[is.na(wd$COUNT),]$COUNT<-0#
+wd[is.na(wd$DEPTH),]$DEPTH<-0	#
+wd[is.na(wd$SIZE_),]$SIZE_<-0	#
+wd[is.na(wd$CENTROIDLAT),]$CENTROIDLAT<-0	#
+wd[is.na(wd$CENTROIDLON),]$CENTROIDLON<-0	#
+wd[is.na(wd$BIOMASS),]$BIOMASS<-0#
+wd[is.na(wd$BIOMASS_G_M2),]$BIOMASS_G_M2<-0#
+#
+tmp.lev<-levels(wd$REEF_ZONE); head(tmp.lev)#
+levels(wd$REEF_ZONE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(wd$FAMILY); head(tmp.lev)#
+levels(wd$FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(wd$TAXONNAME); head(tmp.lev)#
+levels(wd$TAXONNAME)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(wd$TROPHIC_MONREP); head(tmp.lev)#
+levels(wd$TROPHIC_MONREP)<-c(tmp.lev, "UNKNOWN")#
+#
+wd[is.na(wd$REEF_ZONE),"REEF_ZONE"]<-"UNKNOWN"#
+wd[is.na(wd$TAXONNAME),"TAXONNAME"]<-"UNKNOWN"#
+wd[is.na(wd$FAMILY),"FAMILY"]<-"UNKNOWN"#
+wd[is.na(wd$TROPHIC_MONREP),"TROPHIC_MONREP"]<-"UNKNOWN"#
+#
+wd$biomass_g<-wd$LW_A*wd$COUNT*((wd$SIZE*wd$LENGTH_CONVERSION_FACTOR)^wd$LW_B)#
+#wd[is.na(wd$biomass_g),]$biomass_g<-0#
+#
+length(unique(wd$DIVEID))#
+#
+#Fix errors in the database#
+wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
+#
+wd[wd$SPECIES=="CHUD" & wd$SIZE_ < 50,]$COUNT<-0    # THis is really a presence record ... NOT a QUAN cont record#
+#wd[wd$SPECIES=="SPHE" & wd$SIZE_ == 48,]$COUNT<-48; wd[wd$SPECIES=="SPHE" & wd$SIZE_ == 48,]$SIZE_<-50#
+wd[wd$SPECIES=="CHCH" & wd$SIZE_ == 27,]$COUNT<-27; wd[wd$SPECIES=="CHCH" & wd$SIZE_ == 27,]$SIZE_<-55#
+wd[wd$SPECIES=="CASE" & wd$SIZE_ == 40,]$COUNT<-40; wd[wd$SPECIES=="CASE" & wd$SIZE_ == 40,]$SIZE_<-50#
+#
+wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
+#
+wd<-droplevels(wd)#
+#CREATE A SHARK FUNC FIELD#
+unique(wd$FAMILY)#
+wd$FUNC<-"Other"#
+wd[wd$FAMILY %in% c("Carcharhinidae", "Ginglymostomatidae", "Sphyrnidae"),]$FUNC<-"Shark"#
+#
+write.csv(wd, file="CRED tow data ByTow.csv")#
+#
+#summarize tow information (length, depth, lat-long, date)#
+#    first do that by segment#
+TOW_DATA<-c("REGION", "ISLAND", "CENTROIDLAT", "CENTROIDLON", "DATE_", "DEPTH", "STARTLOCALTIME", "STRATA", "PROJECTEDLENGTH", "DIVEID")   #
+#
+SEGMENT_ID2<-c( "DIVEID", "SEGMENT")#
+SEGMENT_INFO<-c("REGION", "ISLAND", "DATE_", "OBS_YEAR")#
+SEGMENT_INFO_TO_SUM<-c("PROJECTEDLENGTH")#
+SEGMENT_INFO_TO_AVE<-c("CENTROIDLAT", "CENTROIDLON", "DEPTH")#
+SEGMENT_INFO_TO_MIN<-c("STARTLOCALTIME")#
+SEGMENT_INFO_TO_MODE<-c("REEF_ZONE")#
+SEGMENT_FIELDS<-c(SEGMENT_INFO, SEGMENT_INFO_TO_SUM, SEGMENT_INFO_TO_AVE, SEGMENT_INFO_TO_MODE, SEGMENT_ID2)#
+DIVE_INFO<-c("DIVEID", SEGMENT_INFO)#
+segment.info<-aggregate(wd$COUNT, by=wd[,SEGMENT_FIELDS], sum)## aggregate sums total count of all fishes per record, using field_list #
+#
+segment.info<-segment.info[,SEGMENT_FIELDS] # drop the count - was just using that to generate a summary table#
+#sum up to total length etc.. for the dive ID#
+#set depth, and centroid lat-long field to NaN if zero ... #
+segment.info[segment.info$DEPTH==0,"DEPTH"]<-NaN#
+segment.info[segment.info$CENTROIDLAT==0,"CENTROIDLAT"]<-NaN#
+segment.info[segment.info$CENTROIDLON==0,"CENTROIDLON"]<-NaN#
+#
+sum.segments<-aggregate(segment.info[,SEGMENT_INFO_TO_SUM],by=segment.info[,DIVE_INFO], sum, na.rm=TRUE);#
+dimnames(sum.segments)[[2]]<-c(DIVE_INFO, SEGMENT_INFO_TO_SUM)#
+ave.segments<-aggregate(segment.info[,SEGMENT_INFO_TO_AVE],by=segment.info[,DIVE_INFO], mean, na.rm=TRUE)  #
+med.segments<-aggregate(segment.info[,SEGMENT_INFO_TO_AVE],by=segment.info[,DIVE_INFO], median, na.rm=TRUE)  #
+mode.segments<-aggregate(segment.info[,SEGMENT_INFO_TO_MODE],by=segment.info[,DIVE_INFO], Mode)
+dimnames(mode.segments)[[2]]<-c(DIVE_INFO, SEGMENT_INFO_TO_MODE)#
+#
+tt<-merge(ave.segments, mode.segments[,c("DIVEID",SEGMENT_INFO_TO_MODE)], by="DIVEID")#
+dive.info<-merge(tt, sum.segments[,c("DIVEID",SEGMENT_INFO_TO_SUM)], by="DIVEID")
+#output data#
+write.csv(dive.info, file="tmpTows.csv")
+FISH_SPECIES_FIELDS<-c("SPECIES","FAMILY", "TAXONNAME", "TROPHIC", "TROPHIC_MONREP", "FUNC", "LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR")#
+t.species.table<-aggregate(wtd$COUNT,by=wtd[,FISH_SPECIES_FIELDS], sum, na.rm=FALSE)#
+write.csv(t.species.table, file="tmpTowSpecies.csv")
+FISH_SPECIES_FIELDS<-c("SPECIES","FAMILY", "TAXONNAME", "TROPHIC", "TROPHIC_MONREP", "FUNC", "LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR")#
+t.species.table<-aggregate(wd$COUNT,by=wd[,FISH_SPECIES_FIELDS], sum, na.rm=FALSE)#
+write.csv(t.species.table, file="tmpTowSpecies.csv")
+summary(wd)#
+OUTPUT_DATA<-c("REGION", "ISLAND", "OBS_YEAR", "DATE_", "REEF_ZONE", "DEPTH", "LATITUDE", "LONGITUDE", "DIVEID", "SEGMENT", "SEGMENTID", "PROJECTEDLENGTH", "CENTROIDLAT", "CENTROIDLON", "FUNC", "FAMILY", "SPECIES", "COUNT", "SIZE_", "OLD_BIN_VALUES")#
+write.csv(wd[,OUTPUT_DATA], file="tmpTowData.csv")
+sum.abund.bio<-aggregate(wtd[,c("COUNT", "biomass_g")],by=wtd[,c("DIVEID", "SPECIES")], sum, na.rm=TRUE);#
+t.fish.data<-merge(sum.abund.bio, dive.info[,c("DIVEID","PROJECTEDLENGTH")], by="DIVEID", all.x=TRUE)#
+t.fish.data$BIOGM2<-t.fish.data$biomass_g / (10*t.fish.data$PROJECTEDLENGTH)#
+t.fish.data$ABUN2<-t.fish.data$COUNT / (10*t.fish.data$PROJECTEDLENGTH)
+sum.abund.bio<-aggregate(wd[,c("COUNT", "biomass_g")],by=wd[,c("DIVEID", "SPECIES")], sum, na.rm=TRUE);#
+t.fish.data<-merge(sum.abund.bio, dive.info[,c("DIVEID","PROJECTEDLENGTH")], by="DIVEID", all.x=TRUE)#
+t.fish.data$BIOGM2<-t.fish.data$biomass_g / (10*t.fish.data$PROJECTEDLENGTH)#
+t.fish.data$ABUN2<-t.fish.data$COUNT / (10*t.fish.data$PROJECTEDLENGTH)
+## add consumer group to tow data, filter to forereef ONLY, add depth to give option to later filter by depth range .. then pool up by island & year and save SE#
+#
+# add consumer group (and family, inc ase it is useful later) to t.fish.data#
+x.fish.data<-merge(t.fish.data, t.species.table[, FISH_SPECIES_FIELDS], by="SPECIES", all.x=TRUE)#
+# add data about the tow (island, zone, year, depth)#
+x.fish.data<-merge(x.fish.data, dive.info[, c("DIVEID", "REGION", "ISLAND", "REEF_ZONE", "OBS_YEAR", "DEPTH")], by="DIVEID", all.x=TRUE)
+#filter out forereef tows only...!!!!!#
+#x.fish.data<-subset(x.fish.data, x.fish.data$REEF_ZONE=="Forereef", drop=TRUE)#
+t.fish.data<-(x.fish.data)
+xx<-aggregate(t.fish.data$BIOGM2, by=t.fish.data[,c("DIVEID", "REGION", "ISLAND", "OBS_YEAR", "REEF_ZONE", "FUNC")], sum, na.rm=TRUE)#
+dimnames(xx)[[2]]<-c("DIVEID", "REGION", "ISLAND", "YEAR", "STRATA", "FUNC", "BIOGM2")#
+#now format this more or less as a crosstab, with field of interest as column variable
+dim(xx)
+head(xx)
+t.fish.func.bio<-cast(xx, DIVEID + REGION + ISLAND + YEAR + STRATA ~ FUNC, value="BIOGM2", fill=0)
+xx<-aggregate(t.fish.data$BIOGM2, by=t.fish.data[,c("DIVEID", "REGION", "ISLAND", "OBS_YEAR", "REEF_ZONE", "FUNC")], sum, na.rm=TRUE)#
+dimnames(xx)[[2]]<-c("DIVEID", "REGION", "ISLAND", "YEAR", "STRATA", "FUNC", "BIOGM2")#
+wtdB<-cast(xx, DIVEID + REGION + ISLAND + YEAR + STRATA ~ FUNC, value="BIOGM2", fill=0)
+dim(wtdB)
+t.fish.data$ABUNDM2<-t.fish.data$COUNT / (10*t.fish.data$PROJECTEDLENGTH)
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# THIS SHOULD BE MOVED TO fish_team_Functions .. it calculates richness only for species with count>0#
+# The old Calc_Site_Species_Richness still has value for some circumstances - this should not replace that function#
+Modified_Site_Species_Richness<-function(x){  #
+  # Modification fos tandard Calc_Site_Species_Richness to not count species with zero counts (as they can be left in data file to ensure that the site has data records at all) #
+  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "REP", "SPECIES")], sum)	#convert to count per species per rep#
+  y[y$x>1,]$x<-1																	#convert any non-zero count to 1, so we can sum those to get total number of species with count>0 #
+  z<-aggregate(y$x,by=y[,c("SITEVISITID", "METHOD", "REP")], sum)  		            # count number of species with non-zero counts this REP	#
+  xx<-aggregate(z$x,by=z[,c("SITEVISITID", "METHOD")], mean)				  		# count number of entries per rep	#
+  dimnames(xx)[[2]]<-c("SITEVISITID", "METHOD", "SPECIESRICHNESS")#
+  return(xx)#
+}#
+# end Modified_Site_Species_Richness#
+#LOAD THE CLEAN wd #
+load("TMPwd.Rdata")#
+#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0#
+wd<-subset(wd, wd$METHOD %in% c("nSPC"))#
+wd<-droplevels(wd)#
+#base information about the survey - field names should match those in input file (obviously!)#
+UNIQUE_SURVEY<-c("SITEVISITID","METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+#
+#get base survey info, calculate average depth+complexity+so on#
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
+setwd("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste")
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# THIS SHOULD BE MOVED TO fish_team_Functions .. it calculates richness only for species with count>0#
+# The old Calc_Site_Species_Richness still has value for some circumstances - this should not replace that function#
+Modified_Site_Species_Richness<-function(x){  #
+  # Modification fos tandard Calc_Site_Species_Richness to not count species with zero counts (as they can be left in data file to ensure that the site has data records at all) #
+  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "REP", "SPECIES")], sum)	#convert to count per species per rep#
+  y[y$x>1,]$x<-1																	#convert any non-zero count to 1, so we can sum those to get total number of species with count>0 #
+  z<-aggregate(y$x,by=y[,c("SITEVISITID", "METHOD", "REP")], sum)  		            # count number of species with non-zero counts this REP	#
+  xx<-aggregate(z$x,by=z[,c("SITEVISITID", "METHOD")], mean)				  		# count number of entries per rep	#
+  dimnames(xx)[[2]]<-c("SITEVISITID", "METHOD", "SPECIESRICHNESS")#
+  return(xx)#
+}#
+# end Modified_Site_Species_Richness#
+#LOAD THE CLEAN wd #
+load("TMPwd.Rdata")
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0#
+wd<-subset(wd, wd$METHOD %in% c("nSPC"))#
+wd<-droplevels(wd)#
+#base information about the survey - field names should match those in input file (obviously!)#
+UNIQUE_SURVEY<-c("SITEVISITID","METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+#
+#get base survey info, calculate average depth+complexity+so on#
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
