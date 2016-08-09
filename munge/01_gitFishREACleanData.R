@@ -18,7 +18,7 @@ x<-df
 
 # HOUSEKEEPING ------------------------------------------------------------
 # clean up the data to only fields we currently use
-DATA_COLS<-c("SITEVISITID", "METHOD", "DATE_", "OBS_YEAR",  "SITE", "REEF_ZONE",  "DEPTH_BIN",  "ISLAND", "LATITUDE",  "LONGITUDE",  "REGION" , "REGION_NAME", "SECTOR", "SPECIAL_AREA", "EXCLUDE_FLAG",
+DATA_COLS<-c("SITEVISITID", "METHOD", "DATE_", "OBS_YEAR",  "SITE", "REEF_ZONE",  "DEPTH_BIN",  "ISLAND", "LATITUDE",  "LONGITUDE",  "REGION" , "REGION_NAME", "SECTOR", "SPECIAL_AREA", "EXCLUDE_FLAG", "TRAINING_YN",
 "REP",  "REPLICATEID", "DIVER", "HABITAT_CODE", "DEPTH", 
 "HARD_CORAL", "MA",  "TA",  "CCA",  "SAND",  "SOFT_CORAL", "CLAM" , "SPONGE", "CORALLIMORPH", "CYANO", "TUNICATE", "ZOANTHID" , "OTHER", "OTHER_TYPE", 
 "SPECIES", "COUNT", "SIZE_", "OBS_TYPE", 
@@ -33,9 +33,8 @@ x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')
 ## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)
 x$SITE<-SiteNumLeadingZeros(x$SITE)
 
-
-##IDW.. possibly better to do little or no filtering at this stage
-# by default, remove sites with EXCLUDE_FLAG set to TRUE
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training falg of NA is equivalent to a FALSE .. as none of the odler data was 'training data'
+x<-subset(x, x$TRAINING_YN==FALSE)
 x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)
 x<-subset(x, x$METHOD %in% c("nSPC", "nSPC-CCR"), drop=TRUE)
 #x<-subset(x, x$OBS_YEAR >2008, drop=TRUE)
