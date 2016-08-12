@@ -76,68 +76,7 @@ Calc_REP_Bio<-function(x, grouping_field){
 	return(y)
 	
 } # end Calc_REP_Bio
-
-#divervsdiver2<-function(data=compdata, field_of_interest="TotFish", title_string="TEST", x_range=50){
-##data<-compdata
-##field_of_interest<-"TotFish"
-##title_string<-"fish biomass"
-##x_range<-100
-#  
- # 
-#  data<-droplevels(data)
-#  divers<-levels(data$DIVER)
-#  
-#  scr<-data[,c("SITE", "DIVER", field_of_interest)] ### stripped down
-#  names(scr)<-c("SITE", "DIVER", "COMPARISON_FIELD")
-#  msd<-data.frame(with(scr, tapply(COMPARISON_FIELD, list(SITE, DIVER), sum))) ## mean of value of interest per diver per site
-#  
-#  thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset 
-#  toplotR<-list()
-#  toplotD<-list()
-#  
-#  for(i in 1:length(divers)){
-#    ##i<-(divers)[7]
-#    diver<-which(thenas[,i] == FALSE)
-#    
-#    ##select out the sites for diver from the dataframe
-#    diverdata<-msd[diver,i]
-#    
-#    ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
-#    otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
-#    
-#    ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
-#    xDIFF<-as.vector(diverdata - otherdiver)
-#    xRATIO<-as.vector(diverdata/otherdiver)
-#    toplotR[[i]]<-log(xRATIO,2)   
-#    toplotD[[i]]<-xDIFF   
-#  }
-#  
-#  toplotR<-(melt(toplotR))
-#  names(toplotR)<-c("ratio", "diver")
-#  toplotR$diver<-as.factor(toplotR$diver)#
-#
-#  toplotD<-(melt(toplotD))
-#  names(toplotD)<-c("diff", "diver")
-#  toplotD$diver<-as.factor(toplotD$diver)
-#  
-#  
-#  p <- ggplot(toplotD, aes(factor(diver), diff))
-#  p + geom_boxplot() + coord_flip() + labs(y = paste("Difference in", title_string, "relative to buddy"), x = "Diver") + scale_y_continuous(limits=c(-x_range,x_range)) + scale_x_discrete(breaks = 1:length(levels(data$DIVER)), labels = levels(data$DIVER))
-#  p + geom_boxplot() + coord_flip() + geom_jitter(colour = "red", size =1, alpha = 0.4) + labs(y = paste("Difference in", title_string, "relative to buddy"), x = "Diver") + scale_y_continuous(limits=c(-x_range,x_range)) + scale_x_discrete(breaks = 1:length(levels(data$DIVER)), labels = levels(data$DIVER))
-#  suppressMessages(ggsave(filename =paste("TMPqc_divervsdiver",title_string,".pdf"), width=13, height = 12.0, units = c("cm")))
-
-##  p <- ggplot(toplotR, aes(factor(diver), ratio))
-##  p + geom_boxplot() + coord_flip() + geom_jitter(colour = "red", size =1, alpha = 0.4) + labs(y = expression(paste("Biomass ratio relative to buddy")), x = "Diver") +# scale_x_discrete(breaks = 1:length(levels(data$DIVER)), labels = levels(data$DIVER))
-#  suppressMessages(ggsave(filename ="appendix_qc_divervsdiverRATIO.pdf", width=13, height = 12.0, units = c("cm")))
-
-##
-##  p <- ggplot(toplotR, aes(factor(diver), ratio))
-##  p + geom_boxplot() + coord_flip() + labs(y = paste("Difference in", title_string, "relative to buddy"), x = "Diver") + scale_y_continuous(limits=c(-x_range,x_range)) + scale_x_discrete(breaks = 1:length(levels(data$DIVER)), labels = levels(data$DIVER))
-##  p + geom_boxplot() + coord_flip() + geom_jitter(colour = "red", size =1, alpha = 0.4) + labs(y = paste("Difference in", title_string, "relative to buddy"), x = "Diver") + scale_y_continuous(limits=c(-x_range,x_range)) + scale_x_discrete(breaks = 1:length(levels(data$DIVER)), labels = levels(data$DIVER))
-##  suppressMessages(ggsave(filename =paste("TMPqc_divervsdiver",title_string,".pdf"), width=13, height = 12.0, units = c("cm")))
-#
-#}   ## divervsdiver2                                                                                                          
-
+                                                                                           
 
 # FISH REA WORKINGS ----------------------------------------------------------------
 
@@ -149,17 +88,18 @@ x<-subset(x, x$METHOD == "nSPC")
 
 
 x$DATE_<-as.POSIXct(strptime(x$DATE_, format="%m/%d/%y"))
+#x$DATE_<-as.POSIXct(strptime(x$DATE_, format="%d-%b-%y"))
+head(x)
 x$DATE_<-as.character(x$DATE_)
 #select only second leg
 #x<-x[x$DATE_ >"2015-06-24",]
 x<-droplevels(x)
 
 
-#sectors<-read.csv("Sectors-Strata-Areas2014.csv", stringsAsFactors=FALSE)  #MARAMP2014
-
 
 ########### IVOR added this Jan 23 2012 ##################################################
-# Maxe sure that records with EXCLUDE FLAG-TRUE are filtered out...
+# Probably we shold remove records with TRAINING_YN=TRUE filtered out... (but need that to be in the Access query)
+# 
 
 #select records gathered from Mar012 onwards
 #x<-x[x$DATE_> "2015-03-11",]
@@ -249,7 +189,6 @@ survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE
 FISH_SPECIES_FIELDS<-c("SPECIES","TAXONNAME", "FAMILY", "COMMONFAMILYALL", "TROPHIC_MONREP", "LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR")
 species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)
 
-## read data into fish_base_qc_mar_2014
 ## run through to create wd raw working data - ignore benthic stuff for now....
 r1<-Calc_REP_Bio(wd, "FAMILY"); family.cols<-names(r1)[7:dim(r1)[2]]
 
@@ -282,50 +221,33 @@ size_comp<-compdata
 
 
 divers<-levels(size_comp$DIVER); divers
-## list divers in alphabetical order
-divers<-c("C1", "P1", "C2", "F1", "C3", "F2", "C4", "F3",  "C5", "C6", "C7", "C8",  "C9", "C10", "C11", "P2", "C12", "F4", "P3", "C12")
-
-## COMMENTED THIS OUT::
-#levels(site.data$REGION)<-c("Mariana Arch.", "Main HI", "Northwest HI", "PRIAs", "Am.Samoa")
+#divers<-c("C1", "P1", "C2", "F1", "C3", "F2", "C4", "F3",  "C5", "C6", "C7", "C8",  "C9", "C10", "C11", "P2", "C12", "F4", "P3", "C12")
 
 scr<-size_comp[,c("SITEVISITID", "DIVER", "TotFish")] ### stripped down
 msd<-data.frame(with(scr, tapply(TotFish, list(SITEVISITID, DIVER), mean))) ## mean biomass estimate per diver per site
 
 thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset
-
-
 toplot<-list()
 
 for(i in 1:length(divers)){
-  ##i<-(divers)[7]
   diver<-which(thenas[,i] == FALSE)
   
   ##select out the sites for diver from the dataframe
   diverdata<-msd[diver,i]
   
   ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
-  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+#  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% divers[i])], na.rm = TRUE)
   
   ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
   x<-as.vector(diverdata - otherdiver)
   toplot[[i]]<-x
-  
 }
 
 toplot<-(melt(toplot))
 
 names(toplot)<-c("biomass_ratio", "diver")
 toplot$diver<-as.factor(toplot$diver)
-
-# bio_anon <- ggplot(toplot, aes(factor(diver), biomass_ratio))
-# bio_anon <- bio_anon + 
-#  geom_boxplot() + 
-#   coord_flip() + 
-#   geom_jitter(colour = "red", size =1, alpha = 0.4) + 
-#   theme_bw() +
-#   scale_y_continuous(limits=c(-x_range,x_range))+
-#   labs(y = expression(paste("Difference in biomass estimate (g ", m^-2,") relative to buddy")), x = "Diver")# + scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
-# suppressMessages(ggsave(filename = paste("divervsdiver_biomass",region,"_",year, "_anon.png", sep = ""), width=13, height = 12.0, units = c("cm")))
 
 bio <- ggplot(toplot, aes(factor(diver), biomass_ratio))
 bio <- bio + 
@@ -337,7 +259,6 @@ bio <- bio +
   labs(y = expression(paste("Difference in biomass estimate (g ", m^-2,") relative to buddy")), x = "Diver") + 
   scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = divers)
 
-
 suppressMessages(ggsave(filename =paste("divervsdiver_biomass","_.png", sep = ""), width=13, height = 12.0, units = c("cm")))     
 
 ######## diver vs diver for species richness (here number of species)
@@ -346,39 +267,27 @@ scr<-size_comp[,c("SITE", "DIVER", "SPECIESRICHNESS")] ### stripped down
 msd<-data.frame(with(scr, tapply(SPECIESRICHNESS, list(SITE, DIVER), mean))) ## total number of species per diver at each site
 
 thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset
-
-
 toplot<-list()
 
 for(i in 1:length(divers)){
-  ##i<-(divers)[7]
   diver<-which(thenas[,i] == FALSE)
   
   ##select out the sites for diver from the dataframe
   diverdata<-msd[diver,i]
   
   ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
-  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+#  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% divers[i])], na.rm = TRUE)
   
   ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
   x<-as.vector(diverdata - otherdiver)
   toplot[[i]]<-x
-  
 }
 
 toplot<-(melt(toplot))
 
 names(toplot)<-c("species", "diver")
 toplot$diver<-as.factor(toplot$diver)
-
-# species_anon <- ggplot(toplot, aes(factor(diver), species))
-# species_anon <- species_anon + 
-#   geom_boxplot() + 
-#   coord_flip() + 
-#   geom_jitter(colour = "red", size =1, alpha = 0.4) + 
-#   theme_bw() +
-#   labs(y = "Difference in species richness relative to buddy", x = "Diver")# + scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
-# suppressMessages(ggsave(filename = paste("divervsdiver_species",region,"_",year, "_anon.png", sep = ""), width=13, height = 12.0, units = c("cm")))
 
 species <- ggplot(toplot, aes(factor(diver), species))
 species <- species + 
@@ -392,33 +301,28 @@ suppressMessages(ggsave(filename = paste("divervsdiver_species",".png", sep = ""
 
 
 ######## diver vs diver for coral estimates
-
 scr<-size_comp[,c("SITE", "DIVER", "HARD_CORAL")] ### stripped down
 msd<-data.frame(with(scr, tapply(HARD_CORAL, list(SITE, DIVER), mean))) ## mean biomass estimate per diver per site
 
 thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset
-
-
 toplot<-list()
 
 for(i in 1:length(divers)){
-  ##i<-(divers)[7]
   diver<-which(thenas[,i] == FALSE)
   
   ##select out the sites for diver from the dataframe
   diverdata<-msd[diver,i]
   
   ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
-  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+#  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+  otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% divers[i])], na.rm = TRUE)
   
   ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
   x<-as.vector(diverdata - otherdiver)
   toplot[[i]]<-x
-  
 }
 
 toplot<-(melt(toplot))
-
 names(toplot)<-c("hard_coral", "diver")
 toplot$diver<-as.factor(toplot$diver)
 
