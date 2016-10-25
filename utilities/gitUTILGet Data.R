@@ -21,6 +21,10 @@ save(df, file="ALL_REA_FISH_RAW.rdata")
 ##
 ##
 
+#TOW FISH PRESENCE DATA#
+df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_FISH_TDS_SIGHTINGS")); head(df)
+save(df, file="ALL_TOW_FISH_SIGHTINGS.rdata")
+
 
 #TOW FISH #
 df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_FISH_TDS")); head(df)
