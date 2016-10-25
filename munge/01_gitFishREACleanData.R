@@ -7,9 +7,9 @@ source("lib/fish_team_functions.R")
 #source("lib/Islandwide Mean&Variance Functions.R")
 
 # get strata and sectors data data - NB - the data in the raw file should be checked and updated
-sectors<-read.csv("data/Sectors-Strata-Areas2015.csv", stringsAsFactors=FALSE)
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)
 # load site master to merge with sector names
-site_master<-read.csv("data/SITE MASTER2015.csv")
+site_master<-read.csv("data/SITE MASTER2016.csv")
 site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)
 
 ## LOAD AND CLEAN fish data
