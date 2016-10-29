@@ -5,7 +5,7 @@ setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
 Sys.setenv(ODBCINI = "/library/ODBC/odbc.ini")
 
 ##*******## jump down to FISH REA WORKINGS if already saved as a .rfile
-ch <- odbcConnect("CRED_Oracle", uid = "XXXXXXXX", pwd = "XXXXXXXXXX")
+ch <- odbcConnect("CRED_Oracle", uid = "IWILLIAMS", pwd = "Flor1Nick2Ma")
 ##
 ## #list available tables
 tv<-sqlTables(ch, tableType = "VIEW")
@@ -40,6 +40,11 @@ save(df, file="ALL_TOW_BENT_RAW.rdata")
 bia <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V_BIA_PERC_COVER_PHOTO_STR_")); head(bia)
 save(bia, file="ALL_BIA_STR_RAW_NEW.rdata")
 
+cli <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V_BIA_PERC_COVER_PHOTO_CLI_")); head(cli)
+save(cli, file="ALL_BIA_CLIMATE_PERM.rdata")
+
+
 # Coral Net Benthic Data
 cnet <- sqlQuery(ch, paste("SELECT * FROM GISDAT.MV_BIA_CNET_ANALYSIS_DATA")); head(cnet)
 save(cnet, file="ALL_BIA_STR_CNET.rdata")
+
