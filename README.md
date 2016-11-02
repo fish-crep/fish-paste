@@ -1,7 +1,7 @@
 # fish-paste
 Routine preprocessing to create analysis ready data from REA SPC surveys
 
-# Folder structure 2
+# Folder structure
 * lib - local functions
 * data - files used (raw data ALL_REA_FISH_RAW, Sectors-Strata_Areas_2015 - needs to be updated after every new survey round, and SITEMASTER 2015 - also to be updated every new survey round)
 * munge - working scripts to get data analysis ready, whether working site or pooled up to island across years (work through scripts in order, each depends on the output of the preceding script).
