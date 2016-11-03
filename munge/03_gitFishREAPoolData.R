@@ -82,13 +82,13 @@ sectors$ANALYSIS_SEC<-sectors[,CURRENT_SCHEME]
 if(CURRENT_SCHEME=="RAMP_BASIC") {
 	#in this case removing 2014 ACHANG_MPA sites (The shorebased ones) and changing ANALYSIS_SEC for all other GUAM MPA sectors to the RAMP base one "GUAM_MP", also remove SAMOA 2015 sites, they will run in AS_SANCTUARY 2015 and Tutuila 2010&012
 	wsd<-wsd[!(wsd$ANALYSIS_SEC == "ACHANG_MPA" & wsd$ANALYSIS_YEAR==2014),]
-	wsd<-wsd[!(wsd$REGION == "SAMOA" & wsd$ANALYSIS_YEAR==2015),]
+	wsd<-wsd[!(wsd$REGION == "SAMOA" & wsd$ANALYSIS_YEAR %in% c(2015, 2016)),]
 	wsd<-wsd[!(wsd$ISLAND == "Tutuila" & wsd$ANALYSIS_YEAR %in% c(2010,2012)),]
 	wsd[wsd$ANALYSIS_SEC %in% c("PATI_PT_MPA", "ACHANG_MPA", "TUMON_BAY_MPA", "PITI_BOMB_MPA", "GUAM_MP_MINUS_ACHANG"),]$ANALYSIS_SEC<-"GUAM_MP"
 }
 if(CURRENT_SCHEME=="MARI2011") {wsd<-wsd[(wsd$REGION %in% c("N.MARIAN", "S.MARIAN") & wsd$OBS_YEAR==2011),]}	#in this case remove everything that isnt MARIANA surveyed in 2011
 if(CURRENT_SCHEME=="MARI2014") {wsd<-wsd[(wsd$REGION %in% c("N.MARIAN", "S.MARIAN") & wsd$OBS_YEAR==2014),]}	#in this case remove everything that isnt MARIANA surveyed in 2014
-if(CURRENT_SCHEME=="AS_SANCTUARY") {wsd<-wsd[(wsd$REGION == "SAMOA" & wsd$OBS_YEAR==2015),]}	#in this case remove everything that isnt SAMOA surveyed in 2015
+if(CURRENT_SCHEME=="AS_SANCTUARY") {wsd<-wsd[(wsd$REGION == "SAMOA" & wsd$OBS_YEAR %in% c(2015, 2016)),]}	#in this case remove everything that isnt SAMOA surveyed in 2015
 if(CURRENT_SCHEME=="TUT10_12") {wsd<-wsd[(wsd$ISLAND == "Tutuila" & wsd$OBS_YEAR %in% c(2010,2012)),]}  #in this case remove everything that isnt Tutuila in 2010 or 2012
 
 ##DETERMINE WHICH SITES HAVE ANALYSIS STRATA THAT ARE NOT IN THIS 
