@@ -22,7 +22,7 @@ DATA_COLS<-c("SITEVISITID", "METHOD", "DATE_", "OBS_YEAR",  "SITE", "REEF_ZONE",
 "REP",  "REPLICATEID", "DIVER", "HABITAT_CODE", "DEPTH", 
 "HARD_CORAL", "MA",  "TA",  "CCA",  "SAND",  "SOFT_CORAL", "CLAM" , "SPONGE", "CORALLIMORPH", "CYANO", "TUNICATE", "ZOANTHID" , "OTHER", "OTHER_TYPE", 
 "SPECIES", "COUNT", "SIZE_", "OBS_TYPE", 
-"COMPLEXITY", "SUBSTRATE_HEIGHT_0", "SUBSTRATE_HEIGHT_20", "SUBSTRATE_HEIGHT_50", "SUBSTRATE_HEIGHT_100", "SUBSTRATE_HEIGHT_150", "MAX_HEIGHT",
+"COMPLEXITY", "SUBSTRATE_HEIGHT_0", "SUBSTRATE_HEIGHT_20", "SUBSTRATE_HEIGHT_50", "SUBSTRATE_HEIGHT_100", "SUBSTRATE_HEIGHT_150", "MAX_HEIGHT", "VISIBILITY",
 "SCIENTIFIC_NAME",  "TAXONNAME", "COMMONNAME", "GENUS", "FAMILY" , "COMMONFAMILYALL", "LMAX", "LW_A",  "LW_B",  "LENGTH_CONVERSION_FACTOR", "TROPHIC", "TROPHIC_MONREP")
 head(x[,DATA_COLS])
 x<-x[,DATA_COLS]
@@ -108,11 +108,20 @@ x[is.na(x$COUNT),]$COUNT<-0
 x[is.na(x$SIZE_),]$SIZE_<-0
 ###x[is.na(x$LMAX),]$LMAX<-999
 
+###NEED TO SET VISIBILITY to -9999 when its NA
+x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999
+#x[x$VISIBILITY>30,]$VISIBILITY<- 30
+
 
 #fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close
 # .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file
 x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173
 x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428
+
+
 
 # change lehua to Niihau
 #x[x$ISLAND == "Lehua",]$ISLAND<-"Niihau"
