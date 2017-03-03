@@ -142,14 +142,6 @@ UNIQUE_SURVEY<-c("SITEVISITID","METHOD")
 UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")
 UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")
 
-#get base survey info, calculate average depth+complexity+so on
-SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")
-survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
-island_table<-Aggregate_InputTable(wd, c("REGION","ISLAND"))
-OTHER_BENTHIC<-c("CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "TA", "OTHER")
-wd$OTHER_BENTHIC<-rowSums(wd[,OTHER_BENTHIC],na.rm=T)
-SURVEY_SITE_DATA<-c("DEPTH", "HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "SAND", "CYANO", "OTHER_BENTHIC", "ComplexityValue", "MEAN_SH", "MEAN_SH_DIFF", "MAX_HEIGHT")
-
 #NOTE THAT BENTHOS DOES NOT ALWAYS SUM TO 100% .. I THINK BECAUSE OF ERRORS IN THE ORIGINAL DATA ENTERED INTO THE DATABASE. NEW CODE BELOW IS AN ATTEMPT TO FIX THAT
 # Go through all surveys checking for situation where some reps have NAs in a particular BENTHIC_FIELDS, but other records have non-zeros - in that situation, we were recording a field but one other diver left it balnk - those should be zeros not NAs
 # this is something that should really be fixed in the database rather than here (as its an error at time of data entry)
@@ -186,6 +178,16 @@ for(i in 1:dim(round_table)[1])
 }
 # now reset zeros to NAs for all records where there was NO benthic data at all
 wd[wd$countBD==0,BENTHIC_FIELDS]<-NA
+
+#get base survey info, calculate average depth+complexity+so on
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
+island_table<-Aggregate_InputTable(wd, c("REGION","ISLAND"))
+OTHER_BENTHIC<-c("CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "TA", "OTHER")
+wd$OTHER_BENTHIC<-rowSums(wd[,OTHER_BENTHIC],na.rm=T)
+SURVEY_SITE_DATA<-c("DEPTH", "HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "SAND", "CYANO", "OTHER_BENTHIC", "ComplexityValue", "MEAN_SH", "MEAN_SH_DIFF", "MAX_HEIGHT")
+
+
 
 # OUTPUT raw working data (used to create appendix species list) -------------------------
 setwd("E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/data/Data Outputs")
