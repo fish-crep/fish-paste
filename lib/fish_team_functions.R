@@ -27,6 +27,33 @@ Calc_Site_MeanLength<-function(x, min_size=1){
 	
 } # end Calc_Site_MeanLength
 
+
+Calc_Site_MeanLengthByGroup<-function(x, grouping_field, min_size=10){  
+	
+	#Base unit will be the entire survey
+	base_cols=c("SITEVISITID", "METHOD", grouping_field) 
+	pool_cols<-c(base_cols, "SIZE_")                          
+	
+	#set count to zero for all sizes smaller than min size
+	#x[is.na(x$SIZE_),]$SIZE_<-0
+	x[x$SIZE_< (min_size),]$COUNT<-0
+	
+	#sum total number offishes per SIZE_
+	y<-aggregate(x$COUNT,by=x[,pool_cols], sum)
+	names(y)<-c(pool_cols, "COUNT")
+	y$CS<-y$COUNT*y$SIZE_
+	
+	#now format this more or less as a crosstab, with field of interest as column variable
+	y<-aggregate(y[,c("COUNT", "CS")],by=y[,base_cols], sum)
+	y$MEAN_SIZE<-y$CS/y$COUNT
+				
+	y$GROUP_FIELD<-y[,grouping_field]
+	z<-cast(y, SITEVISITID + METHOD ~ GROUP_FIELD, value="MEAN_SIZE", fill=NaN)	
+	return(z)
+	
+} # end Calc_Site_MeanLengthByGroup
+
+
 Calc_Site_Species_Richness<-function(x){  
   # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
   # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
