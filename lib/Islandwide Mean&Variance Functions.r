@@ -373,6 +373,163 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 } #end Calc_Weighted
 
 
+#############################################################################################################################
+#Version of Calc per Strata BUT qllows for situations where there are NAs at some sites (and variable numbers of those per data col)
+#############################################################################################################################
+Calc_PerStrata_w_NA <- function (sample_data, data_cols, pooling_level = c("ISLAND", "STRATA", "OBS_YEAR", "METHOD"))
+{
+	
+#sample_data<-wsd
+#data_cols<-data.cols
+#pooling_level<-POOLING_LEVEL
+
+tmp_length<-function(x){length(x[!is.na(x)])}
+#tmp_length(wsd$SITEVISITID)
+#tmp_length(wsd$SCRU)
+
+  BASE_DATA_COLS<-c(pooling_level, "SITEVISITID", data_cols)
+  
+  #first clean up sample data to just have the data that will be used for generating islandwide mean, var, N values (per strata, method, year)
+  sample_data<-sample_data[,BASE_DATA_COLS]
+  
+  # Calculate aggregate Mean, Var, N	
+  s.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean, na.rm=T)
+  s.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var, na.rm=T)
+  s.N<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], tmp_length)
+  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  s.means$N<-s.vars$N<-s.N$N<-N
+  s.se<-s.vars
+  s.se[,data_cols]<-sqrt(s.vars[,data_cols])/sqrt(s.N[,data_cols])
+  
+  out.x<-list(s.means[,c(pooling_level,"N", data_cols)], s.se[,c(pooling_level,"N", data_cols)], s.vars[,c(pooling_level,"N", data_cols)], s.N[,c(pooling_level,"N", data_cols)])
+  names(out.x)<-list("Mean", "SampleSE", "SampleVar", "NonZero.N")
+  return(out.x)
+  
+}
+# end Calc_PerStrata_w_NA
+
+############################################################################################################################
+# Version of Calc_Pooled, but allowing for possibility that spome strata have NAs for data.cols
+#################################################################################################################################
+X_Calc_Pooled<-function (means_data, var_data, n_data, data_cols, aggregation_level=c("REGION","ISLAND"), by_fields=c("METHOD", "OBS_YEAR"), pooling_fields=c("REGION", "ISLAND", "SEC_NAME", "REEF_ZONE","DEPTH_BIN"), habitat_areas_table)
+{
+
+# means_data<-dps$Mean
+# var_data<-dps$SampleVar
+# n_data<-dps$NonZero.N
+# data_cols<-data.cols
+# aggregation_level<-AGGREGATION_LEVEL
+# by_fields<-ADDITIONAL_POOLING_BY
+# pooling_fields<-SPATIAL_POOLING_BASE
+# habitat_areas_table<-sectors
+
+
+GRID_CELL_SIZE<-50*50   #grid cells are 50*50
+AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
+
+
+	#Generate data frame to hold total area for each of the pooling_fields i.e sums total area of all records that match the pooling_fields
+	habitat_areas<-aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,pooling_fields], sum)             # this is the size of each of the base sample areas [eg szie of FOREREEF within ISLAND within REGION
+
+
+	#Create "OL" "AL" amd "PL" fields, which concatentates the various sets of fields above .. will make it much easier to match between the different data structures
+	output_level<-c(aggregation_level, by_fields)
+	means_data$OL<-FieldConcat(means_data,output_level)
+	var_data$OL<-FieldConcat(var_data,output_level)
+	n_data$OL<-FieldConcat(n_data,output_level)
+
+	means_data$AL<-FieldConcat(means_data,aggregation_level)
+	var_data$AL<-FieldConcat(var_data,aggregation_level)
+	n_data$AL<-FieldConcat(n_data,aggregation_level)
+	habitat_areas$AL<-FieldConcat(habitat_areas,aggregation_level)
+	
+	means_data$PL<-FieldConcat(means_data,pooling_fields)
+	var_data$PL<-FieldConcat(var_data,pooling_fields)
+	n_data$PL<-FieldConcat(n_data,pooling_fields)
+	habitat_areas$PL<-FieldConcat(habitat_areas,pooling_fields)
+
+	#add the right habitat area to the means_data and var_data record (matching on pooling_fields) THIS ASSUMES THERE IS no more than one habitat_area record for each means_data record 
+	# which will be the case if habitat_area and means_data were both built using those same pooling fields
+	means_data<-merge(means_data, habitat_areas[,c(pooling_fields, "TotalArea")], by=pooling_fields, all.x=T)
+	var_data<-merge(var_data, habitat_areas[,c(pooling_fields, "TotalArea")], by=pooling_fields, all.x=T)
+	n_data<-merge(n_data, habitat_areas[,c(pooling_fields, "TotalArea")], by=pooling_fields, all.x=T)
+
+	
+	#Generate output structures
+	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level, "OL", "AL")],sum)
+	pooled.means[,data_cols]<-NA
+	pooled.se<-pooled.means
+	
+	#generate a simplifed habitat_area output table, pooled at the output_level, to be passed out of the function
+	hab.areas.out<-aggregate(list(TotalArea=means_data$TotalArea), by=means_data[,c(output_level,"OL", "AL")], sum)
+#	hab.areas.out$TotalAreaWithSamples<-0
+	
+
+	#go through the output structures row by row pooling and weighting the mean and vars data for that output level
+	for(i in 1:dim(pooled.means)[1]){
+		md<-subset(means_data, means_data$OL == pooled.means[i,"OL"])		
+		vd<-subset(var_data, var_data$OL == pooled.means[i,"OL"])
+		nd<-subset(n_data, n_data$OL == pooled.means[i,"OL"])
+		
+		tot.area<-sum(md$TotalArea)
+#		hab.areas.out[hab.areas.out$OL==pooled.means[i,"OL"],]$TotalAreaWithSamples<-tot.area
+		md$wt<-md$TotalArea / tot.area
+		vd$wt<-vd$TotalArea / tot.area
+		
+		vd$pctSampled<-(vd$N*GRID_CELL_SIZE)/(vd$TotalArea*AREA_UNITS)
+    	#TMP FIDDLE, SHOULD NEVER HAPPEN, BUT pctSampled should not be above 1
+    	if(max(vd$pctSampled, na.rm=T)>1)
+    	{
+    		cat("pctSampled is greater than 1: ", max(vd$pctSampled))
+    		cat(" Sample is ", vd[vd$pctSampled==max(vd$pctSampled),]$OL, vd[vd$pctSampled==max(vd$pctSampled),]$PL)
+    		cat(" N is ", vd[vd$pctSampled==max(vd$pctSampled),"N"])
+    		cat(" Area(Ha) is ", vd[vd$pctSampled==max(vd$pctSampled),"TotalAreaWithSamples"])
+    		vd[vd$pctSampled>1,]$pctSampled<-1
+    	}
+
+		#now do the weighting ... By data.column
+
+		for(j in 1:length(data_cols)){
+			
+			data.col<-data.cols[j]
+			#drop stratas that do not have variance for this data.col
+			md.j<-md[!is.na(vd[,data.col]),]
+			vd.j<-vd[!is.na(vd[,data.col]),]
+			nd.j<-nd[!is.na(vd[,data.col]),]
+			
+			tot.area<-sum(md.j$TotalArea)
+	#		hab.areas.out[hab.areas.out$OL==pooled.means[i,"OL"],]$TotalAreaWithSamples<-tot.area
+			md.j$wt<-md.j$TotalArea / tot.area
+			vd.j$wt<-vd.j$TotalArea / tot.area
+
+			pooled.means[i,data.col]<-sum(md.j[,data.col]*md.j$wt)  
+			# multiply sample variance values by square of strata weight and divided by number of samples this strata, and adjust for proportion of total area sampled (I am using Krebs formula 8.18 p276)
+			pooled.se[i,data.col]<-sum(vd.j[,data.col]*((vd.j$wt^2)/nd.j[,data.col])*(1-vd.j$pctSampled))     #IDW this is effectively variance of sample means for entire domain
+			pooled.se[i,data.col]<-sqrt(pooled.se[i,data.col])                                   #now converting this to standard deviation of sample means for entire domain (=equiv to sample SE)
+		}
+	}
+
+	#also generate a total area table for total area at the level that 
+	habitat_areas_table$AL<-FieldConcat(habitat_areas_table,aggregation_level)
+	AL_habitat_area<-aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,c(aggregation_level, "AL")], sum)		# this is the total area of habitat at the aggregation level (eg all habitat within the REGION or the ISLAND within REGION or whatever)
+	hab.areas.out$TotalAreaWithSamples<-hab.areas.out$TotalArea
+	hab.areas.out$TotalArea<-NULL
+	hab.areas.out<-merge(hab.areas.out,AL_habitat_area,by=c(aggregation_level, "AL"),all.x=TRUE)
+
+	#add the area sampled and total area to pooled.means using merge
+	pooled.means<-merge(pooled.means, hab.areas.out[,c("OL", "TotalArea", "TotalAreaWithSamples")], by="OL", all.x=TRUE)
+
+	#order pooled.means and pooled.se by OL, then delete that field	
+	pooled.means<-pooled.means[order(pooled.means$OL),]
+	pooled.se<-pooled.se[order(pooled.se$OL),]
+	pooled.means$OL<-pooled.se$OL<-NULL
+	pooled.means$AL<-pooled.se$AL<-NULL
+
+  	out.x<-list(pooled.means, pooled.se)
+  	names(out.x)<-list("Mean", "PooledSE")
+  	return(out.x)
+  
+} #end X_Calc_Pooled
 
 
 
