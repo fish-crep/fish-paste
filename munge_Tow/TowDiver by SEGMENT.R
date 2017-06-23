@@ -1,5 +1,7 @@
 rm(list=ls())
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Data Requests/Adel TowedDiver")
+#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Data Requests/Adel TowedDiver")
+#### THIS TOW GENRATES SECTOR LEVEL INFORMATION ON BIOMASS BY TOW SPECIES, USING SEGMENT AS THE BASE UNIT
+#### CODE HERE CAN BE USED AS DEFAULT TO GENERATE BIOMASS OR ABUNDANCE AT SEGMENT OR TOW LEVEL
 
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
@@ -7,13 +9,19 @@ source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/f
 source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")
 
 #read info that gives sector for each segment
-towss<-read.csv("tow_segment_sectors.csv")
+towss<-read.csv("data/tow_segment_sectors.csv")
 towss$SEC_NAME<-as.character(towss$ANALYSIS_SEC)
 towss$ANALYSIS_SEC<-NULL
 table(towss$SEC_NAME)
 #write.csv(unique(towss$ANALYSIS_SEC), file="List of SECS.csv")
 
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/data/ALL_TOW_FISH_RAW.rdata")
+#read in information in depths of tows with known missing depths
+tmd<-read.csv("Tow Missing Depths.csv")
+tmd<-tmd[,c("DIVEID", "Average")]
+
+
+
+load(file="data/ALL_TOW_FISH_RAW.rdata")
 wd<-df
 
 nosc<-which(wd$SPECIES == "NOSC")
@@ -135,8 +143,6 @@ si[si$CENTROIDLON==0,"CENTROIDLON"]<-NaN
 si[si$TEMPERATURE==0,"TEMPERATURE"]<-NaN
 
 #Fixing Others from a csv file with missing depth info
-tmd<-read.csv("tmpTMD.csv")
-tmd<-tmd[,c("DIVEID", "Average")]
 dim(si)
 si<-merge(si, tmd, by="DIVEID", all.x=T)
 summary(si)
