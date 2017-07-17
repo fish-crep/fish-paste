@@ -1,9 +1,10 @@
 # Calculate variance based off old functions using Ault Formulas .. but modified to not use secondary unit variance (there is not real replication at that level) and assuming different input structure - more in keeping with structure of data coming directly from REA_FISH_BASE and standard manipulations
 #
 
-
 # gdata library inclues the drop.levels() function used below
 library(gdata)
+library(dplyr)
+
 
 #############################################################################################################################
 # Function reads a strata areas csv, and converts those to weightings per strata per island, and returns a matrix with weights
@@ -530,6 +531,56 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
   	return(out.x)
   
 } #end X_Calc_Pooled
+
+
+
+############################################################################################################################
+# Greatly simplified versio of Calc_Pooled - that uses a weighting field in the data, rather than a joi with the sector table.
+# This should be far mroe flexible and straightofrward to apply than the previous version
+#################################################################################################################################
+Calc_Pooled_Simple<-function (means_data, var_data, data_cols, output_level=c("REGION","ISLAND", "OBS_YEAR"), weighting_field="AREA_HA")
+{
+
+GRID_CELL_SIZE<-50*50   #grid cells are 50*50
+AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
+
+	#Generate output structures
+	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level)],sum)
+	pooled.means[,data_cols]<-NA
+	pooled.se<-pooled.means
+	pooled.means$TOT_AREA_WT<-NA
+	
+	#go through the output structures row by row pooling and weighting the mean and vars data for that output level
+	for(i in 1:dim(pooled.means)[1]){
+		md<-inner_join(means_data, pooled.means[i, OUTPUT_LEVEL], by=OUTPUT_LEVEL)		
+		vd<-inner_join(var_data, pooled.means[i, OUTPUT_LEVEL], by=OUTPUT_LEVEL)	
+		
+		tot.wt<-sum(md[,weighting_field])
+		md$wt<-md[,weighting_field] / tot.wt
+		vd$wt<-md$wt
+				
+		vd$pctSampled<-(vd$N*GRID_CELL_SIZE)/(vd$AREA_HA*AREA_UNITS)
+
+    	#TMP FIDDLE, SHOULD NEVER HAPPEN, BUT pctSampled should not be above 1
+    	if(max(vd$pctSampled, na.rm=T)>1)
+    	{
+    		print("pctSampled is greater than 1: ")
+    		print(vd[vd$pctSampled==max(vd$pctSampled),!colnames(vd) %in% data_cols])
+    		vd[vd$pctSampled>1,]$pctSampled<-1
+    	}
+
+		#now do the weighting ...
+		pooled.means[i,data_cols]<-colSums(md[,data_cols]*md$wt) 
+		pooled.means[i,]$TOT_AREA_WT<-tot.wt 
+		# multiply sample variance values by square of strata weight and divided by number of samples this strata, and adjust for proportion of total area sampled (I am using Krebs formula 8.18 p276)
+		pooled.se[i,data_cols]<-colSums(vd[,data_cols]*((vd$wt^2)/vd$N)*(1-vd$pctSampled))     #IDW this is effectively variance of sample means for entire domain
+		pooled.se[i,data_cols]<-sqrt(pooled.se[i,data_cols])                                   #now converting this to standard deviation of sample means for entire domain (=equiv to sample SE)
+	}
+
+  	return(list(Mean=pooled.means, PooledSE=pooled.se))
+  
+} #end Calc_Pooled_Simple
+
 
 
 
