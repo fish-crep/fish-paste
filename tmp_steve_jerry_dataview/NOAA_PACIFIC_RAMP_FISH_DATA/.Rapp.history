@@ -1,0 +1,2687 @@
+summary(tmp)
+summary(tmp$SEC_NAME)
+which(tmp$SEC_NAME == "South Guam non-MPA")
+tmp[which(tmp$SEC_NAME == "South Guam non-MPA"),]
+tmp[!tmp$SEC_NAME %in% c("Guam South Guam non-MPA"), ]$SEC_NAME <-"GUAM_WEST_OPEN"
+head(tmp)
+tmp<-droplevels(tmp)
+write.csv(tmp, file="data/spc_for_calibration_2011_2014.csv")
+library(reshape)#
+####
+#
+setwd("~/Documents/pRojects/Large_excavators/fish-paste")#
+#
+## file with site location details and CREP sectors#
+bt_cs<-read.csv("~/Documents/pRojects/Large_excavators/data/Guam_BT_sites_matched_on_CREP_sectors.csv")#
+#
+bt_cs<-unique(bt_cs)#
+#
+## densities estimates#
+bt_den<-read.csv("~/Documents/pRojects/Large_excavators/data/calibration_density_guam_BT.csv")#
+#
+## crep data formatted #
+#
+cp_den<-read.csv("data/spc_for_calibration_2011_2014.csv")#
+#
+test<-melt(bt_den)#
+names(test)<-c("SITEID", "DEPTH_BIN", "METHOD", "SPECIES", "DENSITY")#
+#
+tester<-merge(test, bt_cs, all=F, by="SITEID")#
+#
+## clean up#
+tester<-tester[,c("SITEID","DEPTH_BIN","METHOD.x","SPECIES","DENSITY","LOCALITY", "CREP_SECTOR","LAT","LONG","PROVINCE","ECOREGION","SPECIAL_AREA")]#
+names(tester)[3]<-c("METHOD")#
+names(tester)[8]<-c("LATITUDE")#
+names(tester)[9]<-c("LONGITUDE")
+cp_c<-cp_den[,c("SEC_NAME","SITE","SPECIES","METHOD","DENSITY","PRESENCE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH" )]#
+#
+bt_c<-tester[,c("CREP_SECTOR", "SITEID", "SPECIES", "METHOD", "DENSITY", "DEPTH_BIN", "LATITUDE", "LONGITUDE")]#
+levels(bt_c$DEPTH_BIN)<-c(levels(bt_c$DEPTH_BIN), "6_10", "16_22")#
+bt_c[bt_c$DEPTH_BIN=="SHALLOW",]$DEPTH_BIN<-"6_10"#
+bt_c[bt_c$DEPTH_BIN=="DEEP",]$DEPTH_BIN<-"16_22"#
+bt_c<-droplevels(bt_c)#
+#
+names(bt_c)[1:2]<-c("ANALYSIS_SEC", "SITE")#
+bt_c$DEPTH<-NA#
+bt_c$PRESENCE<-NA#
+bt_c[bt_c$DENSITY > 0,]$PRESENCE<-1#
+bt_c[bt_c$DENSITY == 0,]$PRESENCE<-0
+names(cp_den)
+names(cp_den)
+names(cp_den)[5]<-c("METHOD")
+cp_c<-cp_den[,c("SEC_NAME","SITE","SPECIES","METHOD","DENSITY","PRESENCE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH" )]
+bt_c<-tester[,c("CREP_SECTOR", "SITEID", "SPECIES", "METHOD", "DENSITY", "DEPTH_BIN", "LATITUDE", "LONGITUDE")]
+levels(bt_c$DEPTH_BIN)<-c(levels(bt_c$DEPTH_BIN), "6_10", "16_22")#
+bt_c[bt_c$DEPTH_BIN=="SHALLOW",]$DEPTH_BIN<-"6_10"#
+bt_c[bt_c$DEPTH_BIN=="DEEP",]$DEPTH_BIN<-"16_22"#
+bt_c<-droplevels(bt_c)
+names(bt_c)[1:2]<-c("ANALYSIS_SEC", "SITE")#
+bt_c$DEPTH<-NA#
+bt_c$PRESENCE<-NA#
+bt_c[bt_c$DENSITY > 0,]$PRESENCE<-1#
+bt_c[bt_c$DENSITY == 0,]$PRESENCE<-0#
+#### #
+#
+bt_c<-bt_c[c(names(cp_c))]#
+#
+levels(bt_c$SPECIES)<-c(levels(bt_c$SPECIES), "CEOC")#
+bt_c[bt_c$SPECIES == "CEBI",]$SPECIES<-"CEOC"#
+cp_c<-cp_c[!cp_c$SPECIES == "NONE",]#
+#
+cal_ds<-rbind(bt_c, cp_c)
+names(cp_c)
+names(bt_x)
+names(bt_c)
+library(reshape)#
+####
+#
+setwd("~/Documents/pRojects/Large_excavators/fish-paste")#
+#
+## file with site location details and CREP sectors#
+bt_cs<-read.csv("~/Documents/pRojects/Large_excavators/data/Guam_BT_sites_matched_on_CREP_sectors.csv")#
+#
+bt_cs<-unique(bt_cs)#
+#
+## densities estimates#
+bt_den<-read.csv("~/Documents/pRojects/Large_excavators/data/calibration_density_guam_BT.csv")#
+#
+## crep data formatted #
+#
+cp_den<-read.csv("data/spc_for_calibration_2011_2014.csv")#
+#
+test<-melt(bt_den)#
+names(test)<-c("SITEID", "DEPTH_BIN", "METHOD", "SPECIES", "DENSITY")#
+#
+tester<-merge(test, bt_cs, all=F, by="SITEID")#
+#
+## clean up#
+tester<-tester[,c("SITEID","DEPTH_BIN","METHOD.x","SPECIES","DENSITY","LOCALITY", "CREP_SECTOR","LAT","LONG","PROVINCE","ECOREGION","SPECIAL_AREA")]#
+names(tester)[3]<-c("METHOD")#
+names(tester)[8]<-c("LATITUDE")#
+names(tester)[9]<-c("LONGITUDE")#
+## getting the data in the right format before merging#
+names(cp_den)[5]<-c("METHOD")#
+cp_c<-cp_den[,c("SEC_NAME","SITE","SPECIES","METHOD","DENSITY","PRESENCE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH" )]#
+#
+bt_c<-tester[,c("CREP_SECTOR", "SITEID", "SPECIES", "METHOD", "DENSITY", "DEPTH_BIN", "LATITUDE", "LONGITUDE")]#
+levels(bt_c$DEPTH_BIN)<-c(levels(bt_c$DEPTH_BIN), "6_10", "16_22")#
+bt_c[bt_c$DEPTH_BIN=="SHALLOW",]$DEPTH_BIN<-"6_10"#
+bt_c[bt_c$DEPTH_BIN=="DEEP",]$DEPTH_BIN<-"16_22"#
+bt_c<-droplevels(bt_c)#
+#
+names(bt_c)[1:2]<-c("SEC_NAME", "SITE")#
+bt_c$DEPTH<-NA#
+bt_c$PRESENCE<-NA#
+bt_c[bt_c$DENSITY > 0,]$PRESENCE<-1#
+bt_c[bt_c$DENSITY == 0,]$PRESENCE<-0#
+#### #
+#
+bt_c<-bt_c[c(names(cp_c))]#
+#
+levels(bt_c$SPECIES)<-c(levels(bt_c$SPECIES), "CEOC")#
+bt_c[bt_c$SPECIES == "CEBI",]$SPECIES<-"CEOC"#
+cp_c<-cp_c[!cp_c$SPECIES == "NONE",]#
+#
+cal_ds<-rbind(bt_c, cp_c)
+cal_ds<-droplevels(cal_ds)
+cal_ds<-cal_ds[-which(cal_ds$DEPTH > 22),]
+summary(cal_ds)
+write.csv(cal_ds, file="data/guam_2011_2014_less_than_22m_BT_CP_data_calibration.csv")
+head(cal_ds)
+cal_ds<-cal_ds[,c("SEC_NAME", "SPECIES", "METHOD", "DENSITY", "PRESENCE")]
+dim(cal_ds)
+cal_ds$REP<-1:dim(cal_ds)[1]
+head(cal_ds)
+cal_ds<-cal_ds[,c("REP", "SEC_NAME", "SPECIES","METHOD", "DENSITY", "PRESENCE"))]
+cal_ds<-cal_ds[,c("REP", "SEC_NAME", "SPECIES","METHOD", "DENSITY", "PRESENCE")]
+names(cal_ds)
+names(cal_ds)<-c("REP", "BLOCK", "GROUP", "METHOD", "DENSITY", "PRESENCE")
+write.csv(cal_ds, file="data/guam_2011_2014_less_than_22m_BT_CP_data_calibration.csv")
+head(cal_ds)
+summary(cal_ds
+)
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+setwd("~/Documents/pRojects/Large_excavators/fish-paste")#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# THIS SHOULD BE MOVED TO fish_team_Functions .. it calculates richness only for species with count>0#
+# The old Calc_Site_Species_Richness still has value for some circumstances - this should not replace that function#
+Modified_Site_Species_Richness<-function(x){  #
+  # Modification fos tandard Calc_Site_Species_Richness to not count species with zero counts (as they can be left in data file to ensure that the site has data records at all) #
+  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "REP", "SPECIES")], sum)	#convert to count per species per rep#
+  y[y$x>1,]$x<-1																	#convert any non-zero count to 1, so we can sum those to get total number of species with count>0 #
+  z<-aggregate(y$x,by=y[,c("SITEVISITID", "METHOD", "REP")], sum)  		            # count number of species with non-zero counts this REP	#
+  xx<-aggregate(z$x,by=z[,c("SITEVISITID", "METHOD")], mean)				  		# count number of entries per rep	#
+  dimnames(xx)[[2]]<-c("SITEVISITID", "METHOD", "SPECIESRICHNESS")#
+  return(xx)#
+}#
+# end Modified_Site_Species_Richness#
+#LOAD THE CLEAN wd #
+load("TMPwd.Rdata")#
+#tmp<-read.csv("data/spc_guam_sites_2011.csv")#
+#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!#
+wd[!wd$OBS_TYPE %in% c("U", "I", "N", "F", "T"), ]$COUNT<-0#
+wd<-subset(wd, wd$METHOD %in% c("nSPC"))#
+wd<-subset(wd, wd$ISLAND %in% c("Guam"))#
+wd<-subset(wd, wd$REEF_ZONE %in% c("Forereef"))#
+wd<-droplevels(wd)#
+#wd<-merge(tmp, wd, by="SITE", all.x=T)#
+wd<-droplevels(wd)#
+#
+#base information about the survey - field names should match those in input file (obviously!)#
+UNIQUE_SURVEY<-c("SITEVISITID","METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+#
+#get base survey info, calculate average depth+complexity+so on#
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)#
+#
+OTHER_BENTHIC<-c("CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "TA", "CYANO", "OTHER", "SOFT_CORAL")#
+wd$OTHER_BENTHIC<-rowSums(wd[,OTHER_BENTHIC],na.rm=T)#
+SURVEY_SITE_DATA<-c("DEPTH", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER_BENTHIC", "ComplexityValue", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")#
+#
+# Generate a data frame with all benthic and site level information for each survey#
+survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. #
+surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)#
+#save(surveys, file="TMPsurveys.Rdata")#
+#
+#Pull all species information into a separate df, for possible later use ..#
+FISH_SPECIES_FIELDS<-c("SPECIES","TAXONNAME", "FAMILY", "COMMONFAMILYALL", "TROPHIC_MONREP", "LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR")#
+species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)#
+#save(species_table, file="TMPspecies.Rdata")#
+#
+WD_SAVED<-wd#
+#
+#### DATA CLEANING#
+levels(wd$SPECIES)<-c(levels(wd$SPECIES), "NONE")#
+HERB_SPECIES<-c("CEOC","CHMC", "SCRU", "CHFN", "CHPE")#
+wd[!wd$SPECIES %in% HERB_SPECIES,]$SPECIES<-"NONE" ## note: I can't use wd for any #
+wd<-droplevels(wd)#
+#
+# #wd<-wd[wd$SIZE_ > 50,]#
+# # GENERATE SUMMARY METRICS --------------------------------------------------#
+# # GENERATE SUMMARY METRICS --------------------------------------------------#
+# ### DENSITY PER SPECIES PER SITE#
+r2a<-Calc_Site_Abund(wd, "SPECIES")#; species.cols<-levels(species_table$SPECIES)#
+names(r2a)<-c("SITEVISITID","METHOD", "CEOC", "CHFN","CHMC","SCRU","NONE")#
+wsd_den<-merge(surveys,r2a, by=UNIQUE_SURVEY, all.x=T)#
+#
+wsd_den<-wsd_den[,c("SITE", "METHOD", "CEOC", "CHFN","CHMC","SCRU","NONE")]#
+tmp<-melt(wsd_den)#
+names(tmp)[3:4]<-c("SPECIES", "DENSITY")#
+wsd_den<-tmp#
+#
+## PRESENCE PER SPECIES PER SITE#
+## first get rid of the B reps for simplicity - of which there are only 3#
+#
+wd<-wd[!wd$REP %in% "B",]#
+	#Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the grouping field passed in#
+	base_cols=c("SITEVISITID", "METHOD", "REP", "REPLICATEID") # minimum set of fields to build up from#
+	pool_cols<-c(base_cols, "SPECIES")                    # minimum set, plus the one we are interested in#
+	#first calculate total abundance per rep for all values of this field#
+	y<-aggregate(wd$COUNT,by=wd[,pool_cols], sum)#
+	names(y)<-c(pool_cols, "COUNT")#
+	y[y$COUNT>1,]$COUNT<-1#
+	#now format this more or less as a crosstab, with field of interest as column variable#
+	y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ SPECIES, fun.aggregate=sum, value="COUNT", fill=0)#
+	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)#
+	num_row_cols=length(base_cols)#
+	pool_cols<-c("SITEVISITID","METHOD","REP")#
+	y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)#
+	num_row_cols=length(pool_cols) #working data now has fewer columns#
+	pool_cols<-c("SITEVISITID", "METHOD")#
+	y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)#
+	#return(y)#
+r3<-y#
+wsd_pre<-merge(surveys,r3, by=UNIQUE_SURVEY, all.x=T)#
+#
+wsd_pre<-wsd_pre[,c("SITE", "METHOD", "CEOC", "CHFN","CHMC","SCRU","NONE")]#
+tmp<-melt(wsd_pre)#
+names(tmp)[3:4]<-c("SPECIES", "PRESENCE")#
+wsd_pre<-tmp#
+#
+tmp<-cbind(wsd_den, wsd_pre$PRESENCE)#
+names(tmp)[5]<-c("PRESENCE")#
+#
+tmp<-merge(tmp, surveys, all.x=T, by="SITE")#
+tmp<-tmp[,c(1:21)]#
+#
+tmp<-tmp[,c("SEC_NAME", "SITE", "SPECIES", "METHOD.x", "DENSITY", "PRESENCE","OBS_YEAR","REGION","REGION_NAME","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR","ANALYSIS_STRATA","DATE_","REEF_ZONE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH")]#
+names(tmp)[4]<-c("METHOD")#
+#
+## drop the 2009 years#
+tmp<-tmp[-which(tmp$OBS_YEAR == "2009"),]
+tmp<-tmp{-which(tmp$SEC_NAME == "Guam South Guam non-MPA"),]
+tmp<-tmp[-which(tmp$SEC_NAME == "Guam South Guam non-MPA"),]
+tmp<-droplevels(tmp)
+summary(tmp)
+tmp<-cbind(wsd_den, wsd_pre$PRESENCE)#
+names(tmp)[5]<-c("PRESENCE")#
+#
+tmp<-merge(tmp, surveys, all.x=T, by="SITE")#
+tmp<-tmp[,c(1:21)]#
+#
+tmp<-tmp[,c("SEC_NAME", "SITE", "SPECIES", "METHOD.x", "DENSITY", "PRESENCE","OBS_YEAR","REGION","REGION_NAME","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR","ANALYSIS_STRATA","DATE_","REEF_ZONE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH")]#
+names(tmp)[4]<-c("METHOD")#
+#
+## drop the 2009 years#
+tmp<-tmp[-which(tmp$OBS_YEAR == "2009"),]
+summary(tmp)
+tmp<-tmp[-which(tmp$SEC_NAME == "Guam South Guam non-MPA"),]
+summary(tmp)
+tmp$SEC_NAME %in% "Guam South Guam non-MPA"
+tmp<-cbind(wsd_den, wsd_pre$PRESENCE)#
+names(tmp)[5]<-c("PRESENCE")#
+#
+tmp<-merge(tmp, surveys, all.x=T, by="SITE")#
+tmp<-tmp[,c(1:21)]#
+#
+tmp<-tmp[,c("SEC_NAME", "SITE", "SPECIES", "METHOD.x", "DENSITY", "PRESENCE","OBS_YEAR","REGION","REGION_NAME","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR","ANALYSIS_STRATA","DATE_","REEF_ZONE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH")]#
+names(tmp)[4]<-c("METHOD")#
+#
+## drop the 2009 years#
+tmp<-tmp[-which(tmp$OBS_YEAR == "2009"),]
+summary(tmp)
+tmp<-tmp[-c(tmp$SEC_NAME %in% "Guam South Guam non-MPA"),]
+summary(tmp)
+tmp<-cbind(wsd_den, wsd_pre$PRESENCE)#
+names(tmp)[5]<-c("PRESENCE")#
+#
+tmp<-merge(tmp, surveys, all.x=T, by="SITE")#
+tmp<-tmp[,c(1:21)]#
+#
+tmp<-tmp[,c("SEC_NAME", "SITE", "SPECIES", "METHOD.x", "DENSITY", "PRESENCE","OBS_YEAR","REGION","REGION_NAME","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR","ANALYSIS_STRATA","DATE_","REEF_ZONE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH")]#
+names(tmp)[4]<-c("METHOD")#
+#
+## drop the 2009 years#
+tmp<-tmp[-which(tmp$OBS_YEAR == "2009"),]#
+tmp[!tmp$SEC_NAME %in% c(Guam South Guam non-MPA), ]
+tmp[!tmp$SEC_NAME %in% c("Guam South Guam non-MPA"), ]
+tmp<-cbind(wsd_den, wsd_pre$PRESENCE)#
+names(tmp)[5]<-c("PRESENCE")#
+#
+tmp<-merge(tmp, surveys, all.x=T, by="SITE")#
+tmp<-tmp[,c(1:21)]#
+#
+tmp<-tmp[,c("SEC_NAME", "SITE", "SPECIES", "METHOD.x", "DENSITY", "PRESENCE","OBS_YEAR","REGION","REGION_NAME","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR","ANALYSIS_STRATA","DATE_","REEF_ZONE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH")]#
+names(tmp)[4]<-c("METHOD")#
+#
+## drop the 2009 years#
+tmp<-tmp[-which(tmp$OBS_YEAR == "2009"),]#
+tmp<-tmp[!tmp$SEC_NAME %in% c("Guam South Guam non-MPA"), ]
+tmp<-droplevels(tmp)
+summary(mtp)
+summary(tmp)
+write.csv(tmp, file="data/spc_for_calibration_2011_2014.csv")
+library(reshape)#
+####
+#
+setwd("~/Documents/pRojects/Large_excavators/fish-paste")#
+#
+## file with site location details and CREP sectors#
+bt_cs<-read.csv("~/Documents/pRojects/Large_excavators/data/Guam_BT_sites_matched_on_CREP_sectors.csv")#
+#
+bt_cs<-unique(bt_cs)#
+#
+## densities estimates#
+bt_den<-read.csv("~/Documents/pRojects/Large_excavators/data/calibration_density_guam_BT.csv")#
+#
+## crep data formatted #
+#
+cp_den<-read.csv("data/spc_for_calibration_2011_2014.csv")#
+#
+test<-melt(bt_den)#
+names(test)<-c("SITEID", "DEPTH_BIN", "METHOD", "SPECIES", "DENSITY")#
+#
+tester<-merge(test, bt_cs, all=F, by="SITEID")#
+#
+## clean up#
+tester<-tester[,c("SITEID","DEPTH_BIN","METHOD.x","SPECIES","DENSITY","LOCALITY", "CREP_SECTOR","LAT","LONG","PROVINCE","ECOREGION","SPECIAL_AREA")]#
+names(tester)[3]<-c("METHOD")#
+names(tester)[8]<-c("LATITUDE")#
+names(tester)[9]<-c("LONGITUDE")#
+## getting the data in the right format before merging#
+names(cp_den)[5]<-c("METHOD")#
+cp_c<-cp_den[,c("SEC_NAME","SITE","SPECIES","METHOD","DENSITY","PRESENCE","DEPTH_BIN","LATITUDE","LONGITUDE","DEPTH" )]#
+#
+bt_c<-tester[,c("CREP_SECTOR", "SITEID", "SPECIES", "METHOD", "DENSITY", "DEPTH_BIN", "LATITUDE", "LONGITUDE")]#
+levels(bt_c$DEPTH_BIN)<-c(levels(bt_c$DEPTH_BIN), "6_10", "16_22")#
+bt_c[bt_c$DEPTH_BIN=="SHALLOW",]$DEPTH_BIN<-"6_10"#
+bt_c[bt_c$DEPTH_BIN=="DEEP",]$DEPTH_BIN<-"16_22"#
+bt_c<-droplevels(bt_c)#
+#
+names(bt_c)[1:2]<-c("SEC_NAME", "SITE")#
+bt_c$DEPTH<-NA#
+bt_c$PRESENCE<-NA#
+bt_c[bt_c$DENSITY > 0,]$PRESENCE<-1#
+bt_c[bt_c$DENSITY == 0,]$PRESENCE<-0#
+#### #
+#
+bt_c<-bt_c[c(names(cp_c))]#
+#
+levels(bt_c$SPECIES)<-c(levels(bt_c$SPECIES), "CEOC")#
+bt_c[bt_c$SPECIES == "CEBI",]$SPECIES<-"CEOC"#
+cp_c<-cp_c[!cp_c$SPECIES == "NONE",]#
+#
+cal_ds<-rbind(bt_c, cp_c)#
+cal_ds<-droplevels(cal_ds)#
+#
+## strip out the spc sites which are > 22 m depth#
+cal_ds<-cal_ds[-which(cal_ds$DEPTH > 22),]#
+#
+summary(cal_ds)
+cal_ds<-cal_ds[,c("SEC_NAME", "SPECIES", "METHOD", "DENSITY", "PRESENCE")]#
+cal_ds$REP<-1:dim(cal_ds)[1]#
+cal_ds<-cal_ds[,c("REP", "SEC_NAME", "SPECIES","METHOD", "DENSITY", "PRESENCE")]#
+names(cal_ds)<-c("REP", "BLOCK", "GROUP", "METHOD", "DENSITY", "PRESENCE")#
+#
+write.csv(cal_ds, file="data/guam_2011_2014_less_than_22m_BT_CP_data_calibration.csv")
+43-15
+rm(list=ls())
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE)
+head(x)
+table(x$REGION, x$REGION_NAME)
+levels(x$REGION)
+levels(x$REGION) %in% c("PRIAs")
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")
+levels(x$REGION) %in% c("PRIAs")<-"PRIA"
+levels(x$REGION) %in% c("PRIAs")<-c("PRIA")
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")
+x[which(x$SITE == "PRIAs"),]$REGION<-"PRIA"
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"
+x<-droplevels(x)
+table(x$REGION)
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA#
+#
+#CONSIDER INLCUDING OTHER CLEAN-UPS OR CHECKS HERE#
+# such as check for NAs; CLEAN UP A and B REP VALUES#
+#
+table(x$SITE, x$REP)
+which(x$REP == "D")#
+which(x$REP == "C")
+x<-x[!x$SITE == "PHR-00286",]#
+x<-droplevels(x)#
+summary(x)
+a<-table(x$SITE, x$REP)
+a<-as.data.frame.matrix(a)
+a$SITE<-rownames(a)
+head(a)
+which(x$SITE == "HAW-00177")
+x[which(x$SITE == "HAW-00177"),]
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA#
+#
+#CONSIDER INLCUDING OTHER CLEAN-UPS OR CHECKS HERE#
+# such as check for NAs; CLEAN UP A and B REP VALUES#
+#
+table(x$SITE, x$REP)#
+#
+### C D reps - taking a coarse approach - dropping the site altogether if there were CD reps, simple, avoids issue with other diver presence?#
+#
+which(x$REP == "D")#
+which(x$REP == "C")
+x<-x[x$SITE == "PHR-00286",]
+x
+x<-droplevels(x)
+levels(x$DIVER)
+table(x$DIVER, x$REP)
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA
+head(x)
+which(x$SITE == "HOW-00116")
+x[which(x$SITE == "HOW-00116"),''
+which(x$SITE == "HOW-00116"),]
+x[which(x$SITE == "HOW-00116"),]
+which(x$SITE == "HOW-00104")
+names(x)
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+head(tmp)
+tmptmp<-unique(tmp)
+head(tmptmp)
+?rowSums
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")])
+tmptmp
+?rowSums
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T)
+tmptmp
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs
+tmptmp
+x[which(x$SITE == "HOW-00104" &  x$DIVER == "D_814"),]
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00104" &  x$DIVER == "D_814"),]
+tmp<-droplevels(tmp)
+tmp<-droplevels(tmp); levels(tmp$REP)
+tmp<-droplevels(tmp); darep<-levels(tmp$REP)
+darep
+tmp
+dim(mtp)
+dim(tmp)
+str(tmp)
+tbr<-x[which(x$SITE == "HOW-00104" &  !x$DIVER == "D_814" & x$REP == darep),]
+tbd
+tbr
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]<-tbr[,c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tbr[,c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]<-tbr[,c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tbr[,c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]<-tbr[which(x$SITE == "HOW-00104" &  !x$DIVER == "D_814" & x$REP == darep),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID","CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")]$HARD_CORAL<-tbr[which(x$SITE == "HOW-00104" &  !x$DIVER == "D_814" & x$REP == darep),c("HARD_CORAL")]
+tmp[which(tmp$SITE == "HOW-00104" &  tmp$DIVER == "D_814"),c("HARD_CORAL")]$HARD_CORAL<-tbr[which(x$SITE == "HOW-00104" &  !x$DIVER == "D_814" & x$REP == darep),c("HARD_CORAL")]
+tmp<-x[which(x$SITE == "HOW-00108"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00114"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs
+tmptpm
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "KIN-00118"),]$CCA<-12
+x[which(x$SITE == "KIN-00118"),]$TA<-11
+x[which(x$SITE == "KIN-00118"),]$SAND<-7
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$CCA<-12#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814")),]$TA<-11#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814")),]$SAND<-7
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$CCA<-12#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$TA<-11#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$SAND<-7
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]
+mptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+mp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "ROS-00217" & x$DIVER == "D_737"),]$SAND<-10 # match buddy
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "ROS-00217" & x$DIVER == "D_737" & x$REP == "B"),]$SAND<-10 # match buddy
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA#
+## BENTHIC DATA CLEAN UP#
+## Howland HOW-00104     2010         0 # missing data#
+#Howland HOW-00108     2010         0 # missing data #
+#Howland HOW-00114     2010         0 # missing data#
+#Kingman KIN-00118     2010       110 # doesn't add up on datasheet - manual edits below #
+#Rose ROS-00217     2010       110 ##
+#Swains SWA-00232     2010       110#
+#Tau TAU-00201     2010       110#
+#Tutuila TUT-00216     2010       110#
+#
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$CCA<-12#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$TA<-11#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$SAND<-7#
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "ROS-00217" & x$DIVER == "D_737" & x$REP == "B"),]$SAND<-10 # match buddy
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "B"),]$CCA<-20 # match buddy
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "B"),]$MA<-25 # decrease to include TA estimate
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "A"),]$CCA<-20 # match buddy
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "A"),]$TA<-25 # decrease as buddy not 0 TA
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA#
+## BENTHIC DATA CLEAN UP#
+## Howland HOW-00104     2010         0 # missing data#
+#Howland HOW-00108     2010         0 # missing data #
+#Howland HOW-00114     2010         0 # missing data#
+#Kingman KIN-00118     2010       110 # doesn't add up on datasheet - manual edits below #
+#Rose ROS-00217     2010       110 #  doesn't add up on datasheet - manual edits below #
+#Swains SWA-00232     2010       110 # doesn't add up on datasheet - manual edits below #
+#Tau TAU-00201     2010       110#
+#Tutuila TUT-00216     2010       110#
+#
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$CCA<-12#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$TA<-11#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$SAND<-7#
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "ROS-00217" & x$DIVER == "D_737" & x$REP == "B"),]$SAND<-10 # match buddy#
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "B"),]$CCA<-20 # match buddy#
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "B"),]$MA<-25 # decrease to include TA estimate
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "A"),]$CCA<-20 # match buddy#
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "A"),]$TA<-10 # decrease as buddy not 0 TA
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "TAU-00201"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "TAU-00201" & x$DIVER == "D_814" & x$REP == "B"),]$SAND<-10 # match buddy
+tmp<-x[which(x$SITE == "TAU-00201"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "TAU-00201" & x$DIVER == "D_814" & x$REP == "B"),]$SAND<-10 # match buddy
+mp<-x[which(x$SITE == "TAU-00201"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+x[which(x$SITE == "TAU-00201" & x$DIVER == "D_814" & x$REP == "B"),]$SAND<-0 # match buddy
+tmp<-x[which(x$SITE == "TAU-00201"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "TUT-00216"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]
+tmptmp<-unique(tmp)
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs
+tmptmp
+x[which(x$SITE == "TUT-00216" & x$DIVER == "D_871" & x$REP == "B"),]$SAND<-5 # closer to buddy estiamte
+tmp<-x[which(x$SITE == "TUT-00216"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & REP = "A"),]$HARD_CORAL<-5 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & REP = "A"),]$CCA <-45 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & REP = "A"),]$TA <-45 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & REP = "A"),]$SAND <-5 # set to buddy est
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & REP = "A"),]$HARD_CORAL<-5 # set to buddy est
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$CCA<-12
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP = "A"),]$HARD_CORAL<-5 # set to buddy est
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$HARD_CORAL<-5 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$CCA <-45 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$TA <-45 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$SAND <-5 # set to buddy est
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00108"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00108"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "HOW-00108" & x$DIVER == "D_814" & x$REP == "A"),]$HARD_CORAL<-1 # set to buddy est#
+x[which(x$SITE == "HOW-00108" & x$DIVER == "D_814" & x$REP == "A"),]$CCA <-9 # set to buddy est#
+x[which(x$SITE == "HOW-00108" & x$DIVER == "D_814" & x$REP == "A"),]$SOFT_CORAL <- 90 # set to buddy est
+tmp<-x[which(x$SITE == "HOW-00108"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+tmp<-x[which(x$SITE == "HOW-00114"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc")#
+rm(list=ls())#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions.R")#
+#source("lib/Islandwide Mean&Variance Functions.R")#
+#
+# get strata and sectors data data - NB - the data in the raw file should be checked and updated#
+sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)#
+# load site master to merge with sector names#
+site_master<-read.csv("data/SITE MASTER2016.csv")#
+site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)#
+#
+## LOAD AND CLEAN fish data#
+load("data/ALL_REA_FISH_RAW.rdata")#
+x<-df#
+#
+names(x)#
+#
+## first steps of tidying strip out data not to be used#
+#
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'#
+x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)#
+x<-subset(x, x$TRAINING_YN==FALSE)#
+x<-subset(x, x$OBS_YEAR > 2009)#
+x<-subset(x, x$METHOD %in% c("nSPC"), drop=TRUE) # remove the ccr surveys#
+## remove non-standard islands#
+x<-subset(x, !x$ISLAND %in% c("South Bank", "Timor Leste"), drop=TRUE) #
+## this works fine for a one off data dump - but if we want continuity across datasets, as we complete more survey rounds, we might want to change this / have a master diver code file that new divers are added to - as the method below will change the code per diver when new names are added#
+levels(x$DIVER)#
+#
+length(levels(x$DIVER))#
+set.seed(123) ## to give divers the same code#
+a<-floor(runif(96, min=101, max=999))#
+a<-paste("D_",a, sep="")#
+diver_codes<-cbind(levels(x$DIVER), a)#
+#
+write.csv(diver_codes, file="data/diver_codes_to_numbers.csv")#
+#
+levels(x$DIVER)<-a#
+x<-droplevels(x)#
+## HOUSEKEEPING - first strip of cols not to be shared#
+DATA_COLS<-c("REGION","REGION_NAME", "ISLAND","SITE","LATITUDE",                  "LONGITUDE","REEF_ZONE","DEPTH_BIN","SITEVISITID","DATE_","OBS_YEAR","DIVER","REPLICATEID","REP","METHOD","DEPTH","HARD_CORAL","MA","CCA","TA","SAND","TUNICATE","ZOANTHID","CORALLIMORPH"            ,"CLAM","CYANO","SOFT_CORAL","SPONGE","OTHER","HABITAT_CODE", "CURRENT_STRENGTH","VISIBILITY","SLOPE_MIN_DEPTH","SLOPE_MAX_DEPTH","COMPLEXITY","SUBSTRATE_HEIGHT_0","SUBSTRATE_HEIGHT_20","SUBSTRATE_HEIGHT_50","SUBSTRATE_HEIGHT_100","SUBSTRATE_HEIGHT_150","MAX_HEIGHT","URCHIN_DACOR","BORING_URCHIN_DACOR","SPECIES","TAXONNAME","COMMONFAMILYALL", "FAMILY","TROPHIC_MONREP","LW_A","LW_B","LMAX", "LENGTH_CONVERSION_FACTOR","COUNT","SIZE_","OBS_TYPE", "METHOD")#
+#
+## change names to match archived data#
+## DEPTH = DEPTH_M#
+## change TA and other categories into other to HC, MA, CCA, SAND and OTHER, then HABITAT_CODE#
+## remove the old complexity with shared?#
+## change name of SLOPE_MIN and MAX to MIN_DEPTH_M and MAX_DEPTH_M#
+# change COMMONFAMILYALL to COMMON_FAMILY#
+# changed TROPHIC_MONREP to CONSUMERGROUP#
+# rename SIZE_ to SIZE_TL_CM#
+# added OBS_DESC#
+#
+## not including these ones...#
+setdiff(names(x), DATA_COLS)#
+head(x[,DATA_COLS])#
+x<-x[,DATA_COLS]#
+#
+## tidy up the names - make sure to go through and correct functions and code still works#
+names(x)[names(x) == 'DATE_'] <- 'DATE'#
+names(x)[names(x) == 'DEPTH'] <- 'DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MIN_DEPTH'] <- 'MIN_DEPTH_M'#
+names(x)[names(x) == 'SLOPE_MAX_DEPTH'] <- 'MAX_DEPTH_M'#
+names(x)[names(x) == 'COMMONFAMILYALL'] <- 'COMMON_FAMILY'#
+names(x)[names(x) == 'TROPHIC_MONREP'] <- 'CONSUMER_GROUP'#
+names(x)[names(x) == 'SIZE_'] <- 'SIZE_TL_CM'#
+#
+# dropping the annoying small s in PRIAs#
+levels(x$REGION)<-c(levels(x$REGION), "PRIA")#
+x[which(x$REGION == "PRIAs"),]$REGION<-"PRIA"#
+x<-droplevels(x)#
+#
+#generate a simple "Strata" field, by concatenating Stratum and Depth fields#
+x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')#
+#
+## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)#
+x$SITE<-SiteNumLeadingZeros(x$SITE)#
+#
+#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.#
+# this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet#
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)#
+#
+#CHECK THAT all ANALYSIS_SEC are present in the site_master file)#
+idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]#
+if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SEC")}   # should be 0#
+#
+#for ones that are missing, set it to ISLAND#
+no_secs<-is.na(x$ANALYSIS_SEC)#
+tmp<-as.character(x$ANALYSIS_SEC)#
+tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)#
+x$ANALYSIS_SEC<-tmp#
+#
+############################################################################################
+x<-droplevels(x)#
+#
+#convert COMPLEXITY to a numeric field ### #
+x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))#
+x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"#
+COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))#
+x$ComplexityValue<-NaN#
+for (i in 1:length(COMPLEXITY_VALUES)){#
+	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){#
+		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i#
+	}#
+}#
+#
+x$COMPLEXITY <-x$ComplexityValue#
+########################
+## CLEAN UP NAs ########
+########################
+tmp.lev<-levels(x$HABITAT_CODE); head(tmp.lev)#
+levels(x$HABITAT_CODE)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$COMMON_FAMILY); head(tmp.lev)#
+levels(x$COMMON_FAMILY)<-c(tmp.lev, "UNKNOWN")#
+tmp.lev<-levels(x$CONSUMER_GROUP); head(tmp.lev)#
+levels(x$CONSUMER_GROUP)<-c(tmp.lev, "UNKNOWN")#
+#
+x[is.na(x$HABITAT_CODE),"HABITAT_CODE"]<-"UNKNOWN"#
+x[is.na(x$COMMON_FAMILY),"COMMON_FAMILY"]<-"UNKNOWN"#
+x[is.na(x$CONSUMER_GROUP),"CONSUMER_GROUP"]<-"UNKNOWN"#
+#
+x[is.na(x$COUNT),]$COUNT<-0#
+x[is.na(x$SIZE_TL_CM),]$SIZE_TL_CM<-0#
+###x[is.na(x$LMAX),]$LMAX<-999#
+#
+###NEED TO SET VISIBILITY to -9999 when its NA#
+## finding missing viz estimates#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#
+x[is.na(x$VISIBILITY) & x$OBS_YEAR=="2016",]#
+##  TUT-02368 AND OFU-00792#
+#
+head(x[x$SITE == "TUT-02368",])#
+x[is.na(x$VISIBILITY) & x$SITE=="TUT-02368",]$VISIBILITY<-28 # value from other DIVER#
+#
+head(x[x$SITE == "OFU-00792",])#
+x[is.na(x$VISIBILITY) & x$SITE=="OFU-00792",]$VISIBILITY<-30 # value from other DIVER#
+#
+#x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER#
+### NOTE THAT NWHI 2012 has VISIBLITY OF NA#
+unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])#
+#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999#
+tmp<-which(x$VISIBILITY >30)#
+x[tmp,]$VISIBILITY<- 30#
+#### REMOVING WEIRDY SPECIES#
+todrop<-c("Turtle", "Sailfish", "Dolphin", "Monk Seal")#
+x<-subset(x, !x$COMMON_FAMILY %in% todrop, drop=TRUE) #
+#fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close#
+# .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file#
+x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173#
+x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428#
+#
+# change lehua to Niihau#
+#
+## separate out the north and south marianas #
+#levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")#
+#x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"#
+#x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"#
+#
+x<-droplevels(x)#
+#
+#BENTHOS DOES NOT ALWAYS SUM TO 100% .. THIS IS A (LONG-LIVED!) TEMP FIX .. PROBABLY BETTER TO FIX THIS INSIDE ORACLE#
+BENTHIC_FIELDS<-c("HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "TA", "SAND", "CYANO", "CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "OTHER")#
+UNIQUE_ROUND<-c("REGION", "OBS_YEAR", "METHOD")#
+round_table<-Aggregate_InputTable(x, UNIQUE_ROUND)#
+#
+x$countBD<-apply(x[,BENTHIC_FIELDS], 1, function(xx) length(which(!is.na(xx))))  #IDW 10-22-2013 checking for situation where there is NO benthic data at all#
+for(i in 1:dim(round_table)[1])#
+{#
+	if(round_table[i,"METHOD"] %in% c("nSPC", "nSPC-CCR"))#
+	{#
+		tmp_data<-x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],]#
+#
+		#go through BENTHIC_FIELDS, checking whether there are some NAs and some data values#
+		for(j in 1:length(BENTHIC_FIELDS))#
+		{#
+			## IF there are both non NAs and NAs#
+			if(length(tmp_data[!is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0 #
+			        & length(tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]) > 0) #
+			{#
+				#set all NAs of that field to 0#
+				tmp_data[is.na(tmp_data[,BENTHIC_FIELDS[j]]),BENTHIC_FIELDS[j]]<-0	#
+#
+				#now rewrite the benthic fields with NAs converted to zeros#
+				x[x$OBS_YEAR==round_table[i,"OBS_YEAR"] & x$METHOD==round_table[i,"METHOD"] & x$REGION==round_table[i,"REGION"],BENTHIC_FIELDS[j]]<-tmp_data[,BENTHIC_FIELDS[j]]#
+			}#
+		}#
+	}#
+}#
+# now reset zeros to NAs for all records where there was NO benthic data at all#
+x[x$countBD==0,BENTHIC_FIELDS]<-NA#
+## BENTHIC DATA CLEAN UP#
+## Howland HOW-00104     2010         0 # missing data on sheet- manual fix below#
+#Howland HOW-00108     2010         0 # missing data on sheet#
+#Howland HOW-00114     2010         0 # missing data on sheet#
+#Kingman KIN-00118     2010       110 # doesn't add up on datasheet - manual edits below #
+#Rose ROS-00217     2010       110 #  doesn't add up on datasheet - manual edits below #
+#Swains SWA-00232     2010       110 # doesn't add up on datasheet - manual edits below #
+#Tau TAU-00201     2010       110 # doesn't add up on datasheet - manual edits below #
+#Tutuila TUT-00216     2010       110 # doesn't add up on datasheet - manual edits below #
+#
+tmp<-x[which(x$SITE == "HOW-00104"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$HARD_CORAL<-5 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$CCA <-45 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$TA <-45 # set to buddy est#
+x[which(x$SITE == "HOW-00104" & x$DIVER == "D_814" & x$REP == "A"),]$SAND <-5 # set to buddy est#
+#
+#################
+#
+tmp<-x[which(x$SITE == "HOW-00108"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "HOW-00108" & x$DIVER == "D_814" & x$REP == "A"),]$HARD_CORAL<-1 # set to buddy est#
+x[which(x$SITE == "HOW-00108" & x$DIVER == "D_814" & x$REP == "A"),]$CCA <-9 # set to buddy est#
+x[which(x$SITE == "HOW-00108" & x$DIVER == "D_814" & x$REP == "A"),]$SOFT_CORAL <- 90 # set to buddy est#
+#
+#################
+#
+tmp<-x[which(x$SITE == "HOW-00114"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "HOW-00114" & x$DIVER == "D_814" & x$REP == "B"),]$HARD_CORAL<-30 # set to buddy est#
+x[which(x$SITE == "HOW-00114" & x$DIVER == "D_814" & x$REP == "B"),]$CCA <-70 # set to buddy est#
+#
+#################
+tmp<-x[which(x$SITE == "KIN-00118"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$CCA<-12#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$TA<-11#
+x[which(x$SITE == "KIN-00118" & x$DIVER == "D_814"),]$SAND<-7#
+###################
+tmp<-x[which(x$SITE == "ROS-00217"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "ROS-00217" & x$DIVER == "D_737" & x$REP == "B"),]$SAND<-10 # match buddy#
+#
+##################
+tmp<-x[which(x$SITE == "SWA-00232"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "B"),]$CCA<-20 # match buddy#
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "B"),]$MA<-25 # decrease to include TA estimate#
+#
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "A"),]$CCA<-20 # match buddy#
+x[which(x$SITE == "SWA-00232" & x$DIVER == "D_814" & x$REP == "A"),]$TA<-10 # decrease as buddy not 0 TA#
+#
+###################
+tmp<-x[which(x$SITE == "TAU-00201"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "TAU-00201" & x$DIVER == "D_814" & x$REP == "B"),]$SAND<-0 # match buddy#
+#
+###################
+tmp<-x[which(x$SITE == "TUT-00216"), c("SITE", "DIVER", "HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER", "REP")]#
+tmptmp<-unique(tmp)#
+tmptmp$SUM<-rowSums(tmptmp[c("HARD_CORAL","MA","CCA","TA","SAND", "TUNICATE" ,"ZOANTHID",               "CORALLIMORPH" ,"CLAM","CYANO","SOFT_CORAL", "SPONGE","OTHER")], na.rm = T) ## all the diver obs#
+tmptmp#
+#
+x[which(x$SITE == "TUT-00216" & x$DIVER == "D_871" & x$REP == "B"),]$SAND<-5 # closer to buddy estiamte
+table(x$SITE, x$REP)
+x<-x[!x$SITE == "PHR-00286",]
+x<-droplevels(x)
+summary(x)
+#(1) CHANGE REP To A for sites where either two SPCs at REP B only OR where there is one SPC at REP A and one SPC at REP B#
+#
+a<-table(x$SITE, x$REP)#
+a<-as.data.frame.matrix(a) #
+a$SITE<-rownames(a)#
+#
+### SITES with only B reps#
+a[which(a$A == 0),]#
+CHANGE_FROM_B_TO_A<-c("HOW-00212")#
+x[x$SITE %in% CHANGE_FROM_B_TO_A,]$REP<-"A"#
+#
+### SITES WITH ONE SPC @ REP A and ONE SPC @ REP B (using the tmp_surveys_check.csv file)#
+### nCounts = 2 and nReps = 2#
+ONE_A_ONE_B<-c("TUT-00245", "TUT-00299", "TUT-00320", "TUT-00367", "TUT-00481", "JAR-00112", "FFS-00185")#
+x[x$SITE %in% ONE_A_ONE_B,]$REP<-"A"#
+#
+## DELETING SITES WITH ONLY ONE SPC CYLINDER (using the tmp_surveys_check.csv file)#
+ONE_REP_ID<-c("TUT-00304", "TUT-00457", "JAR-00105", "PAL-00154", "WAK-00168", "WAK-00280", "GUA-01079", "GUA-01111", "GUA-01107", "SAI-00579", "SAI-00586", "SAI-00490", "GUA-00805", "GUA-00806", "GUA-01301", "GUA-01302", "GUA-01303", "GUA-01304", "GUA-01305", "GUA-01306", "GUA-01307", "GUA-01308", "GUA-01309", "GUA-01310", "GUA-01311", "GUA-01312", "GUA-01313", "GUA-01314", "GUA-01315", "GUA-01316", "GUA-01317", "GUA-01318", "GUA-01319", "HOW-00457", "TUT-01127", "TUT-01195", "TUT-01001", "TUT-01266", "TUT-02306", "TUT-02376")#
+x<-x[!x$SITE %in% ONE_REP_ID,]#
+## DELETING THE SITES WHERE THERE ARE TWO B or A COUNTS AND ONLY ONE A or B COUNT #
+tmp<-x[,c("SITE", "DIVER", "REP")]#
+length(levels(tmp$SITE)) #
+tmp<-unique(tmp)#
+tapply(tmp, length(tmp$DIVER), sum)#
+a<-table(tmp$SITE)#
+a<-as.data.frame(table(tmp$SITE)); names(a)<-c("SITE", "COUNTS")#
+b<-a[which(a$COUNTS == "3"),]; b<-droplevels(b); #
+THREE_COUNTS_AAB_BBA<-levels(b$SITE)#
+x<-x[!x$SITE %in% THREE_COUNTS_AAB_BBA,]#
+#
+wd<-droplevels(x)#
+#
+#### TIDYING UP THE OLD BENTHIC DATA #
+OTHER_BENTHIC<-c("CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "TA", "CYANO", "OTHER", "SOFT_CORAL")#
+wd$OTHER_BENTHIC<-rowSums(wd[,OTHER_BENTHIC],na.rm=T)#
+#
+wd$OTHER<-wd$OTHER_BENTHIC#
+wd$VISIBILITY_M<-wd$VISIBILITY#
+#### getting rid of unneeded cols#
+names(wd)#
+wd<-wd[,!names(wd) %in% c("OTHER_BENTHIC","TUNICATE", "ZOANTHID", "CORALLIMORPH", "CLAM", "TA","CYANO", "SOFT_CORAL", "SPONGE", "METHOD", "METHOD.1", "STRATA", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "ComplexityValue", "countBD", "VISIBILITY")]
+tmp<-c("REGION", "ISLAND", "SITE", "LATITUDE", "LONGITUDE", "REEF_ZONE", "DEPTH_BIN", "SITEVISITID" ,"DATE", "OBS_YEAR", "DIVER", "REPLICATEID", "REP", "DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "HABITAT_CODE", "CURRENT_STRENGTH", "VISIBILITY_M", "MIN_DEPTH_M", "MAX_DEPTH_M", "COMPLEXITY", "SUBSTRATE_HEIGHT_0", "SUBSTRATE_HEIGHT_20", "SUBSTRATE_HEIGHT_50", "SUBSTRATE_HEIGHT_100", "SUBSTRATE_HEIGHT_150", "MAX_HEIGHT", "URCHIN_DACOR", "BORING_URCHIN_DACOR", "SPECIES", "TAXONNAME", "COMMON_FAMILY", "FAMILY", "CONSUMER_GROUP", "LW_A", "LW_B", "LMAX", "LENGTH_CONVERSION_FACTOR", "COUNT", "SIZE_TL_CM", "OBS_TYPE")#
+#
+wd<-wd[,c(tmp)]#
+#
+### summary wd - check for anything unless untoward#
+summary(wd) ## missing depth values#
+wd[is.na(wd$DEPTH_M),] ## PHR-00369
+wd[which(wd$SITE == "PHR-00369"),c("DIVER", "DEPTH_M", "MIN_DEPTH_M", "MAX_DEPTH_M")] ## take it from the buddy depth_m = 14.5, min_depth = 14 max_depth = 15
+wd[which(wd$SITE == "PHR-00369"),]$DEPTH_M<-14.5#
+wd[which(wd$SITE == "PHR-00369"),]$MIN_DEPTH_M<-14#
+wd[which(wd$SITE == "PHR-00369"),]$MAX_DEPTH_M<-15#
+wd<-droplevels(wd)#
+save(wd, file="data/NOAA_PACIFIC_RAMP_FISH_SPC_2010_2016_SCI_DATA_.Rdata")  #Save clean working data
+rm(list=ls())
+setwd("~/Documents/GitHub/scientific_data_descriptor_spc/NOAA_PACIFIC_RAMP_FISH_DATA")
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions_share.R")#
+## LOAD THE DATA#
+## --------------------------------------------------#
+load('data/NOAA_PACIFIC_RAMP_FISH_SPC_2010_2016_SCI_DATA_.Rdata')#
+head(wd)#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE! #
+##--------------------------------------------------#
+wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0 ### Instanteous and Non-instaneous counts only   #
+## NOTE OBS_TYPE "P" SHOULD NEVER BE USED FOR BIOMASS OR ABUNDANCE ESTIMATES#
+## NOTE IF OBS_TYPE "F" and "T" ARE USED SUBSET FROM 2012 ONWARDS#
+#wd<-subset(wd, wd$REGION %in% c("SAMOA"))#
+#wd<-droplevels(wd)#
+#
+## GENERATE A FISH SPECIES LIST#
+##--------------------------------------------------#
+FISH_SPECIES_FIELDS<-c("SPECIES","TAXONNAME", "FAMILY", "COMMON_FAMILY", "CONSUMER_GROUP", "LW_A", "LW_B", "LMAX", "LENGTH_CONVERSION_FACTOR")#
+species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)#
+head(species_table)#
+## GENERATE BASE SURVEY INFORMATION#
+##--------------------------------------------------#
+UNIQUE_SURVEY<-c("SITEVISITID", "METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+wd$METHOD<-"nSPC" ## allows functions which require method type to run#
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND","SITE", "DATE", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)#
+## COMPLEXITY ESTIMATES#
+sh_out<-CalcMeanSHMeanSHDiff(wd)#
+wd$MEAN_SH<-sh_out$MEAN_SH ## mean height#
+wd$SD_SH_DIFF<-sh_out$SD_SH_DIFF ## mean height variability#
+## SPECIFY NON-FISH SITE FIELDS TO BE CALCULATED#
+SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "COMPLEXITY", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")#
+survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. #
+surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)#
+## GENERATE SUMMARY FISH METRICS - EXAMPLES#
+##-------------------------------------------------------------#
+# ALWAYS DROP OBS TYPE "P" BEFORE BIOMASS OR ABUNDANCE ESTIMATES#
+wd<-subset(wd, wd$OBS_TYPE != "P")
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions_share.R")
+load('data/NOAA_PACIFIC_RAMP_FISH_SPC_2010_2016_SCI_DATA_.Rdata')#
+head(wd)
+wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0 ### Instanteous and Non-instaneous counts only   #
+## NOTE OBS_TYPE "P" SHOULD NEVER BE USED FOR BIOMASS OR ABUNDANCE ESTIMATES#
+## NOTE IF OBS_TYPE "F" and "T" ARE USED SUBSET FROM 2012 ONWARDS#
+#wd<-subset(wd, wd$REGION %in% c("SAMOA"))#
+#wd<-droplevels(wd)#
+#
+## GENERATE A FISH SPECIES LIST#
+##--------------------------------------------------#
+FISH_SPECIES_FIELDS<-c("SPECIES","TAXONNAME", "FAMILY", "COMMON_FAMILY", "CONSUMER_GROUP", "LW_A", "LW_B", "LMAX", "LENGTH_CONVERSION_FACTOR")#
+species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)#
+head(species_table)#
+## GENERATE BASE SURVEY INFORMATION#
+##--------------------------------------------------#
+UNIQUE_SURVEY<-c("SITEVISITID", "METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+wd$METHOD<-"nSPC" ## allows functions which require method type to run#
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND","SITE", "DATE", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)#
+## COMPLEXITY ESTIMATES#
+sh_out<-CalcMeanSHMeanSHDiff(wd)#
+wd$MEAN_SH<-sh_out$MEAN_SH ## mean height#
+wd$SD_SH_DIFF<-sh_out$SD_SH_DIFF ## mean height variability#
+## SPECIFY NON-FISH SITE FIELDS TO BE CALCULATED#
+SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "COMPLEXITY", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")#
+survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. #
+surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)#
+## GENERATE SUMMARY FISH METRICS - EXAMPLES#
+##-------------------------------------------------------------#
+# ALWAYS DROP OBS TYPE "P" BEFORE BIOMASS OR ABUNDANCE ESTIMATES#
+wd<-subset(wd, wd$OBS_TYPE != "P") # Do not calculate biomass, abundance, or richness with OBS_TYPE "P"#
+## FISH BIOMASS, ABUNDANCE, RICHNESS AND Biomass by Size Class#
+x1<-Calc_Site_Bio(wd, "CONSUMER_GROUP"); names.cols<-names(x1[3:dim(x1)[2]]) # BIOMASS BY CONS.GRP
+head(x1)
+x2<-Calc_Site_Abund(wd, "COMMON_FAMILY")
+head(x2)
+x3<-Calc_Site_Bio(wd, "SPECIES")
+head(x3)
+x4<-Calc_Site_Bio_By_SizeClass(wd, c(0,20,50,Inf))
+head(x4)
+x5<-Calc_Site_Abund_By_SizeClass(wd, c(0,20,50,Inf))
+head(x5)
+x6<-Calc_Site_MeanLength(wd,min_size=1)
+head(x6)
+ls()
+x7<-Calc_Site_Species_Rich(wd)
+x7<-Calc_Site_Species_Rich(wd)
+head(x7)
+wsd<-merge(surveys, x1, by=UNIQUE_SURVEY)
+UNIQUE_SURVEY<-c("SITEVISITID", "METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+wd$METHOD<-"nSPC" ## allows functions which require method type to run#
+SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND","SITE", "DATE", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)#
+## COMPLEXITY ESTIMATES#
+sh_out<-CalcMeanSHMeanSHDiff(wd)#
+wd$MEAN_SH<-sh_out$MEAN_SH ## mean height#
+wd$SD_SH_DIFF<-sh_out$SD_SH_DIFF ## mean height variability#
+## SPECIFY NON-FISH SITE FIELDS TO BE CALCULATED#
+SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "COMPLEXITY", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")#
+survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. #
+surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)
+UNIQUE_SURVEY<-c("SITEVISITID", "METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+wd$METHOD<-"nSPC" ## allows functions which require method type to run#
+SURVEY_INFO<-c("OBS_YEAR", "REGION","ISLAND","SITE", "DATE", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
+sh_out<-CalcMeanSHMeanSHDiff(wd)#
+wd$MEAN_SH<-sh_out$MEAN_SH ## mean height#
+wd$SD_SH_DIFF<-sh_out$SD_SH_DIFF ## mean height variability#
+## SPECIFY NON-FISH SITE FIELDS TO BE CALCULATED#
+SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "COMPLEXITY", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")#
+survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. #
+surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+#LOAD LIBRARY FUNCTIONS ... #
+source("lib/fish_team_functions_share.R")#
+## LOAD THE DATA#
+## --------------------------------------------------#
+load('data/NOAA_PACIFIC_RAMP_FISH_SPC_2010_2016_SCI_DATA_.Rdata')#
+head(wd)#
+## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE! #
+##--------------------------------------------------#
+wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0 ### Instanteous and Non-instaneous counts only   #
+## NOTE OBS_TYPE "P" SHOULD NEVER BE USED FOR BIOMASS OR ABUNDANCE ESTIMATES#
+## NOTE IF OBS_TYPE "F" and "T" ARE USED SUBSET FROM 2012 ONWARDS#
+#wd<-subset(wd, wd$REGION %in% c("SAMOA"))#
+#wd<-droplevels(wd)#
+#
+## GENERATE A FISH SPECIES LIST#
+##--------------------------------------------------#
+FISH_SPECIES_FIELDS<-c("SPECIES","TAXONNAME", "FAMILY", "COMMON_FAMILY", "CONSUMER_GROUP", "LW_A", "LW_B", "LMAX", "LENGTH_CONVERSION_FACTOR")#
+species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)#
+head(species_table)#
+## GENERATE BASE SURVEY INFORMATION#
+##--------------------------------------------------#
+UNIQUE_SURVEY<-c("SITEVISITID", "METHOD")#
+UNIQUE_REP<-c(UNIQUE_SURVEY, "REP")#
+UNIQUE_COUNT<-c(UNIQUE_REP, "REPLICATEID")#
+wd$METHOD<-"nSPC" ## allows functions which require method type to run#
+SURVEY_INFO<-c("OBS_YEAR", "REGION","ISLAND","SITE", "DATE", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")#
+survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)#
+## COMPLEXITY ESTIMATES#
+sh_out<-CalcMeanSHMeanSHDiff(wd)#
+wd$MEAN_SH<-sh_out$MEAN_SH ## mean height#
+wd$SD_SH_DIFF<-sh_out$SD_SH_DIFF ## mean height variability#
+## SPECIFY NON-FISH SITE FIELDS TO BE CALCULATED#
+SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "COMPLEXITY", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")#
+survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. #
+surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)
+wd<-subset(wd, wd$OBS_TYPE != "P") # Do not calculate biomass, abundance, or richness with OBS_TYPE "P"#
+## FISH BIOMASS, ABUNDANCE, RICHNESS AND Biomass by Size Class#
+x1<-Calc_Site_Bio(wd, "CONSUMER_GROUP"); names.cols<-names(x1[3:dim(x1)[2]]) # BIOMASS BY CONS.GRP#
+head(x1)
+wsd<-merge(surveys, x1, by=UNIQUE_SURVEY)
+wsd$TotFish<-rowSums(wsd[,names.cols])
+wsd<-merge(wsd, x7, by=UNIQUE_SURVEY)
+head(wsd)
+save(wsd, file="data/NOAA_PACIFIC_RAMP_FISH_SITE_LEVEL_DATA.RData")
+library(Rserve)
+Rserve()
+Rserve('--no-save')
+?Rserve
+Rserve(args="--no-save")
+rm(list=ls())
