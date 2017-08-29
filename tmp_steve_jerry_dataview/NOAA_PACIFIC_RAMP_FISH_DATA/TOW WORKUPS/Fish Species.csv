@@ -1,0 +1,165 @@
+"","SPECIES","FAMILY","TAXONNAME","CONSUMER_GROUP","x"
+"1","ACSO","Scombridae","Acanthocybium solandri","PISCIVORE",11
+"2","ALCI","Carangidae","Alectis ciliaris","PISCIVORE",9
+"3","APFU","Lutjanidae","Aphareus furca","PISCIVORE",25
+"4","APVI","Lutjanidae","Aprion virescens","PISCIVORE",1725
+"5","AUCH","Aulostomidae","Aulostomus chinensis","PISCIVORE",396
+"6","NEED","Belonidae","Belonidae","PISCIVORE",12
+"7","JACK","Carangidae","Carangidae","PISCIVORE",39
+"8","CAFE","Carangidae","Carangoides ferdau","PISCIVORE",125
+"9","CAOR","Carangidae","Carangoides orthogrammus","PISCIVORE",175
+"10","CAIG","Carangidae","Caranx ignobilis","PISCIVORE",2830
+"11","CALU","Carangidae","Caranx lugubris","PISCIVORE",1240
+"12","CAME","Carangidae","Caranx melampygus","PISCIVORE",2400
+"13","CAPP","Carangidae","Caranx papuensis","PISCIVORE",8
+"14","CASE","Carangidae","Caranx sexfasciatus","PISCIVORE",11688
+"15","CASP","Carangidae","Caranx sp","PISCIVORE",38
+"16","SHAR","Carcharhinidae","Carcharhinidae","PISCIVORE",24
+"17","CAAL","Carcharhinidae","Carcharhinus albimarginatus","PISCIVORE",1
+"18","CAAB","Carcharhinidae","Carcharhinus amblyrhynchos","PISCIVORE",5360
+"19","CAGA","Carcharhinidae","Carcharhinus galapagensis","PISCIVORE",413
+"20","CAML","Carcharhinidae","Carcharhinus melanopterus","PISCIVORE",508
+"21","CEAR","Serranidae","Cephalopholis argus","PISCIVORE",121
+"22","CESX","Serranidae","Cephalopholis sexmaculata","PISCIVORE",3
+"23","CESO","Serranidae","Cephalopholis sonnerati","PISCIVORE",1
+"24","ELBI","Carangidae","Elagatis bipinnulata","PISCIVORE",3197
+"25","ENPA","Muraenidae","Enchelycore pardalis","PISCIVORE",1
+"26","EPLA","Serranidae","Epinephelus lanceolatus","PISCIVORE",4
+"27","EPPO","Serranidae","Epinephelus polyphekadion","PISCIVORE",28
+"28","EPQU","Serranidae","Epinephelus quernus","PISCIVORE",76
+"29","EPSO","Serranidae","Epinephelus socialis","PISCIVORE",1
+"30","EPSP","Serranidae","Epinephelus sp","PISCIVORE",38
+"31","EPTA","Serranidae","Epinephelus tauvina","PISCIVORE",8
+"32","EUAF","Scombridae","Euthynnus affinis","PISCIVORE",8
+"33","FICO","Fistulariidae","Fistularia commersonii","PISCIVORE",923
+"34","GACU","Carcharhinidae","Galeocerdo cuvier","PISCIVORE",3
+"35","GNSP","Carangidae","Gnathanodon speciosus","PISCIVORE",4
+"36","GOHA","Congridae","Gorgasia hawaiiensis","PISCIVORE",215
+"37","GRAL","Serranidae","Gracila albomarginata","PISCIVORE",2
+"38","GRBI","Scombridae","Grammatorcynus bilineatus","PISCIVORE",2
+"39","GYUC","Scombridae","Gymnosarda unicolor","PISCIVORE",259
+"40","GYFL","Muraenidae","Gymnothorax flavimarginatus","PISCIVORE",111
+"41","GYJA","Muraenidae","Gymnothorax javanicus","PISCIVORE",84
+"42","GYME","Muraenidae","Gymnothorax meleagris","PISCIVORE",52
+"43","GYSP","Muraenidae","Gymnothorax sp","PISCIVORE",31
+"44","GYUN","Muraenidae","Gymnothorax undulatus","PISCIVORE",87
+"45","LEOL","Lethrinidae","Lethrinus olivaceus","PISCIVORE",118
+"46","LEXA","Lethrinidae","Lethrinus xanthochilus","PISCIVORE",2
+"47","LUBO","Lutjanidae","Lutjanus bohar","PISCIVORE",11256
+"48","LUMO","Lutjanidae","Lutjanus monostigma","PISCIVORE",47
+"49","MORA","Muraenidae","Muraenidae","PISCIVORE",3
+"50","NEFE","Ginglymostomatidae","Nebrius ferrugineus","PISCIVORE",141
+"51","NEAC","Carcharhinidae","Negaprion acutidens","PISCIVORE",1
+"52","PACY","Mullidae","Parupeneus cyclostomus","PISCIVORE",22
+"53","PLAL","Serranidae","Plectropomus areolatus","PISCIVORE",2
+"54","PLLV","Serranidae","Plectropomus laevis","PISCIVORE",77
+"55","PLLP","Serranidae","Plectropomus leopardus","PISCIVORE",2
+"56","PSDE","Carangidae","Pseudocaranx dentex","PISCIVORE",285
+"57","SCLY","Carangidae","Scomberoides lysan","PISCIVORE",98
+"58","TUNA","Scombridae","Scombridae","PISCIVORE",12
+"59","SCCA","Scorpaenidae","Scorpaenopsis cacopsis","PISCIVORE",1
+"60","SEDU","Carangidae","Seriola dumerili","PISCIVORE",184
+"61","GROU","Serranidae","Serranidae","PISCIVORE",29
+"62","SPBA","Sphyraenidae","Sphyraena barracuda","PISCIVORE",486
+"63","SPHE","Sphyraenidae","Sphyraena helleri","PISCIVORE",2805
+"64","SPQE","Sphyraenidae","Sphyraena qenie","PISCIVORE",7098
+"65","BARR","Sphyraenidae","Sphyraenidae","PISCIVORE",1496
+"66","SPLE","Sphyrnidae","Sphyrna lewini","PISCIVORE",111
+"67","SPMO","Sphyrnidae","Sphyrna mokarran","PISCIVORE",5
+"68","HAMM","Sphyrnidae","Sphyrnidae","PISCIVORE",4
+"69","THAL","Scombridae","Thunnus albacares","PISCIVORE",1
+"70","TROB","Carcharhinidae","Triaenodon obesus","PISCIVORE",1655
+"71","TYCR","Belonidae","Tylosurus crocodilus","PISCIVORE",84
+"72","VALO","Serranidae","Variola louti","PISCIVORE",566
+"73","ACMT","Acanthuridae","Acanthurus mata","PLANKTIVORE",4
+"74","ECNA","Echeneidae","Echeneis naucrates","PLANKTIVORE",8
+"75","MAMA","Lutjanidae","Macolor macularis","PLANKTIVORE",755
+"76","MANI","Lutjanidae","Macolor niger","PLANKTIVORE",1477
+"77","MACO","Lutjanidae","Macolor sp","PLANKTIVORE",231
+"78","MABI","Myliobatidae","Manta birostris","PLANKTIVORE",302
+"79","NAAN","Acanthuridae","Naso annulatus","PLANKTIVORE",76
+"80","NABR","Acanthuridae","Naso brevirostris","PLANKTIVORE",141
+"81","NACA","Acanthuridae","Naso caesius","PLANKTIVORE",15
+"82","NAHE","Acanthuridae","Naso hexacanthus","PLANKTIVORE",3739
+"83","NALO","Acanthuridae","Naso lopezi","PLANKTIVORE",3
+"84","NASP","Acanthuridae","Naso sp","PLANKTIVORE",300
+"85","NAVL","Acanthuridae","Naso vlamingii","PLANKTIVORE",621
+"86","SURG","Acanthuridae","Acanthuridae","PRIMARY",202
+"87","ACDU","Acanthuridae","Acanthurus dussumieri","PRIMARY",28
+"88","ACSP","Acanthuridae","Acanthurus sp","PRIMARY",27
+"89","ACXA","Acanthuridae","Acanthurus xanthopterus","PRIMARY",53
+"90","CACA","Scaridae","Calotomus carolinus","PRIMARY",6
+"91","CEOC","Scaridae","Cetoscarus ocellatus","PRIMARY",151
+"92","CHCH","Chanidae","Chanos chanos","PRIMARY",1360
+"93","CHFN","Scaridae","Chlorurus frontalis","PRIMARY",74
+"94","CHMC","Scaridae","Chlorurus microrhinos","PRIMARY",3142
+"95","CHPE","Scaridae","Chlorurus perspicillatus","PRIMARY",2572
+"96","HILO","Scaridae","Hipposcarus longiceps","PRIMARY",115
+"97","KYCI","Kyphosidae","Kyphosus cinerascens","PRIMARY",7
+"98","KYPA","Kyphosidae","Kyphosus pacificus","PRIMARY",8
+"99","CHUB","Kyphosidae","Kyphosus sp","PRIMARY",124
+"100","NABH","Acanthuridae","Naso brachycentron","PRIMARY",59
+"101","NALI","Acanthuridae","Naso lituratus","PRIMARY",0
+"102","NATO","Acanthuridae","Naso tonganus","PRIMARY",424
+"103","NAUN","Acanthuridae","Naso unicornis","PRIMARY",1422
+"104","PARR","Scaridae","Scaridae","PRIMARY",2
+"105","SCAL","Scaridae","Scarus altipinnis","PRIMARY",278
+"106","SCFE","Scaridae","Scarus festivus","PRIMARY",6
+"107","SCFO","Scaridae","Scarus forsteni","PRIMARY",54
+"108","SCFR","Scaridae","Scarus frenatus","PRIMARY",8
+"109","SCGH","Scaridae","Scarus ghobban","PRIMARY",11
+"110","SCRU","Scaridae","Scarus rubroviolaceus","PRIMARY",3997
+"111","SCSP","Scaridae","Scarus sp","PRIMARY",360
+"112","SCXA","Scaridae","Scarus xanthopleura","PRIMARY",51
+"113","AENA","Myliobatidae","Aetobatus narinari","SECONDARY",467
+"114","ALGL","Albulidae","Albula glossodonta","SECONDARY",100
+"115","ALSC","Monacanthidae","Aluterus scriptus","SECONDARY",169
+"116","ARHI","Tetraodontidae","Arothron hispidus","SECONDARY",5
+"117","ARMA","Tetraodontidae","Arothron mappa","SECONDARY",7
+"118","ARST","Tetraodontidae","Arothron stellatus","SECONDARY",70
+"119","BAPO","Balistidae","Balistes polylepis","SECONDARY",3
+"120","TRIG","Balistidae","Balistidae","SECONDARY",3
+"121","BAVI","Balistidae","Balistoides viridescens","SECONDARY",322
+"122","BOBI","Labridae","Bodianus bilunulatus","SECONDARY",44
+"123","BOMU","Scaridae","Bolbometopon muricatum","SECONDARY",388
+"124","CHUD","Labridae","Cheilinus undulatus","SECONDARY",643
+"125","CHIN","Labridae","Cheilio inermis","SECONDARY",1
+"126","COAY","Labridae","Coris aygula","SECONDARY",87
+"127","COFL","Labridae","Coris flavovittata","SECONDARY",43
+"128","DASY","Dasyatidae","Dasyatidae","SECONDARY",19
+"129","DAKU","Dasyatidae","Dasyatis kuhlii","SECONDARY",1
+"130","DALA","Dasyatidae","Dasyatis lata","SECONDARY",4
+"131","DIHY","Diodontidae","Diodon hystrix","SECONDARY",215
+"132","GYZE","Muraenidae","Gymnomuraena zebra","SECONDARY",2
+"133","GYRU","Muraenidae","Gymnothorax rueppellii","SECONDARY",1
+"134","SWEL","Haemulidae","Haemulidae","SECONDARY",1
+"135","HEME","Labridae","Hemigymnus melapterus","SECONDARY",1
+"136","HIFA","Dasyatidae","Himantura fai","SECONDARY",59
+"137","WRAS","Labridae","Labridae","SECONDARY",30
+"138","EMPE","Lethrinidae","Lethrinidae","SECONDARY",17
+"139","LETH","Lethrinidae","Lethrinus sp","SECONDARY",18
+"140","SNAP","Lutjanidae","Lutjanidae","SECONDARY",126
+"141","LUGI","Lutjanidae","Lutjanus gibbus","SECONDARY",20
+"142","LURI","Lutjanidae","Lutjanus rivulatus","SECONDARY",2
+"143","MOGR","Lethrinidae","Monotaxis grandoculis","SECONDARY",322
+"144","MYMA","Ophichthidae","Myrichthys magnificus","SECONDARY",4
+"145","OPFA","Oplegnathidae","Oplegnathus fasciatus","SECONDARY",11
+"146","OPPU","Oplegnathidae","Oplegnathus punctatus","SECONDARY",541
+"147","PABA","Mullidae","Parupeneus barberinus","SECONDARY",8
+"148","PAPO","Mullidae","Parupeneus porphyreus","SECONDARY",8
+"149","PASE","Dasyatidae","Pastinachus sephen","SECONDARY",4
+"150","PLOR","Ephippidae","Platax orbicularis","SECONDARY",6
+"151","PLTE","Ephippidae","Platax teira","SECONDARY",59
+"152","PLAB","Haemulidae","Plectorhinchus albovittatus","SECONDARY",2
+"153","PLGI","Haemulidae","Plectorhinchus gibbosus","SECONDARY",66
+"154","PLPI","Haemulidae","Plectorhinchus picus","SECONDARY",119
+"155","PLVI","Haemulidae","Plectorhinchus vittatus","SECONDARY",14
+"156","PSFL","Balistidae","Pseudobalistes flavimarginatus","SECONDARY",205
+"157","PSFU","Balistidae","Pseudobalistes fuscus","SECONDARY",5
+"158","SASP","Holocentridae","Sargocentron spiniferum","SECONDARY",2
+"159","STFC","Stegostomatidae","Stegostoma fasciatum","SECONDARY",3
+"160","TAME","Dasyatidae","Taeniura meyeni","SECONDARY",111
+"161","TRBL","Carangidae","Trachinotus blochii","SECONDARY",84
+"162","FISH","UNKNOWN","Un-id fish sp","SECONDARY",1
+"163","URAS","Dasyatidae","Urogymnus asperrimus","SECONDARY",11
+"164","NONE","UNKNOWN","no individuals seen","UNKNOWN",0

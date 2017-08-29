@@ -1,3 +1,6 @@
+rm(list=ls())
+#setwd
+
 ## Script for data provided NOAA Ecosystem Sciences Division
 ## Stationary point count survey data collected for the NOAA Pacific Reef Assessment and Monitoring Program
 ## 2010-2016 only      
@@ -22,7 +25,7 @@ source("lib/fish_team_functions_share.R")
 
 ## LOAD THE DATA
 ## --------------------------------------------------
-load('data/NOAA_PACIFIC_RAMP_FISH_SPC_2010_2016_SCI_DATA_.Rdata')
+load('data/NOAA_PACIFIC_RAMP_FISH_SPC_2010_2016_RAW.Rdata')
 head(wd)
 
 ## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE! 
@@ -39,7 +42,7 @@ wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0 ### Instanteous and Non-instan
 FISH_SPECIES_FIELDS<-c("SPECIES","TAXONNAME", "FAMILY", "COMMON_FAMILY", "CONSUMER_GROUP", "LW_A", "LW_B", "LMAX", "LENGTH_CONVERSION_FACTOR")
 species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)
 head(species_table)
-
+write.csv(species_table, file="REA WORKUPS/Fish REA Species.csv")
 
 ## GENERATE BASE SURVEY INFORMATION
 ##--------------------------------------------------
@@ -58,7 +61,7 @@ wd$MEAN_SH<-sh_out$MEAN_SH ## mean height
 wd$SD_SH_DIFF<-sh_out$SD_SH_DIFF ## mean height variability
 
 ## SPECIFY NON-FISH SITE FIELDS TO BE CALCULATED
-SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "COMPLEXITY", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")
+SURVEY_SITE_DATA<-c("DEPTH_M", "HARD_CORAL", "MA", "CCA", "SAND", "OTHER", "MEAN_SH", "SD_SH_DIFF", "MAX_HEIGHT")
 survey_est_benthos<-Calc_Site_nSurveysArea(wd, UNIQUE_SURVEY, UNIQUE_REP, UNIQUE_COUNT, SURVEY_SITE_DATA)   #Calc_Site_nSurveysArea deals better with situations where one REP has benthic data and other doesnt. 
 surveys<-merge(survey_table, survey_est_benthos, by=UNIQUE_SURVEY)
 
@@ -69,24 +72,26 @@ wd<-subset(wd, wd$OBS_TYPE != "P") # Do not calculate biomass, abundance, or ric
 
 ## FISH BIOMASS, ABUNDANCE, RICHNESS AND Biomass by Size Class
 
-x1<-Calc_Site_Bio(wd, "CONSUMER_GROUP"); names.cols<-names(x1[3:dim(x1)[2]]) # BIOMASS BY CONS.GRP
+x1<-Calc_Site_Bio(wd, "CONSUMER_GROUP"); consumer.cols<-names(x1[3:dim(x1)[2]]) # BIOMASS BY CONS.GRP
 head(x1)
 #x2<-Calc_Site_Abund(wd, "COMMON_FAMILY") # ABUNDANCE BY COMMON FAMILY
 #x3<-Calc_Site_Bio(wd, "SPECIES") # BIOMASS BY SPECIES
 #x4<-Calc_Site_Bio_By_SizeClass(wd, c(0,20,50,Inf)) # BIOMASS BY SIZE CLASS
 #x5<-Calc_Site_Abund_By_SizeClass(wd, c(0,20,50,Inf)) # ABUNDANCE BY SIZE CLASS
 #x6<-Calc_Site_MeanLength(wd,min_size=1)  # MEAN FISH SIZE 
-#x7<-Calc_Site_Species_Rich(wd) #SPECIES RICHNESS
+x7<-Calc_Site_Species_Rich(wd) #SPECIES RICHNESS
+
 
 
 ## MERGE BASE SITE SURVEY INFO WITH FISH AND BENTHIC METRICS
 ## -------------------------------------------------------------
 wsd<-merge(surveys, x1, by=UNIQUE_SURVEY)
-wsd$TotFish<-rowSums(wsd[,names.cols])
-#wsd<-merge(wsd, x7, by=UNIQUE_SURVEY) 
+wsd$TotFish<-rowSums(wsd[,consumer.cols])
+wsd<-merge(wsd, x7, by=UNIQUE_SURVEY) 
+save(wsd, file="REA WORKUPS/FISH_REA_SITE_DATA EXAMPLE.RData")
 
-# SAVE the output
-save(wsd, file="data/NOAA_PACIFIC_RAMP_FISH_SITE_LEVEL_DATA.RData")
+data.cols<-c(SURVEY_SITE_DATA, consumer.cols, "SPECIESRICHNESS")
+save(data.cols, file="REA WORKUPS/tmp data.cols.RData")
 
 ## NOTES
 ## -------------------------------------------------------------
