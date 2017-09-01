@@ -20,3 +20,7 @@ utilities/.DS_Store
 munge/.DS_Store
 
 lib/.DS_Store
+
+*.history
+
+tmp_steve_jerry_dataview/NOAA_PACIFIC_RAMP_FISH_DATA/.Rapp.history
