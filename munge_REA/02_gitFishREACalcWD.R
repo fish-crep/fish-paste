@@ -6,36 +6,13 @@ library(reshape)           # reshape library inclues the cast() function used be
 source("lib/fish_team_functions.R")
 #source("lib/Islandwide Mean&Variance Functions.R")
 
-# THIS SHOULD BE MOVED TO fish_team_Functions .. it calculates richness only for species with count>0
-# The old Calc_Site_Species_Richness still has value for some circumstances - this should not replace that function
-Modified_Site_Species_Richness<-function(x){  
-  # Modification fos tandard Calc_Site_Species_Richness to not count species with zero counts (as they can be left in data file to ensure that the site has data records at all) 
-  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "REP", "SPECIES")], sum)	#convert to count per species per rep
-  y[y$x>1,]$x<-1																	#convert any non-zero count to 1, so we can sum those to get total number of species with count>0 
-  z<-aggregate(y$x,by=y[,c("SITEVISITID", "METHOD", "REP")], sum)  		            # count number of species with non-zero counts this REP	
-  xx<-aggregate(z$x,by=z[,c("SITEVISITID", "METHOD")], mean)				  		# count number of entries per rep	
-  dimnames(xx)[[2]]<-c("SITEVISITID", "METHOD", "SPECIESRICHNESS")
-  
-  return(xx)
-  
-}
-# end Modified_Site_Species_Richness
-
-
 #LOAD THE CLEAN wd 
 load("TMPwd.Rdata")
 
 ## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!
-## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!
-## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!
-## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!
-## FILTER BY LOCATION, YEARS, METHOD, AND OBS_TYPE HERE!
 wd[!wd$OBS_TYPE %in% c("U", "I", "N"), ]$COUNT<-0
 wd<-subset(wd, wd$METHOD %in% c("nSPC"))
 wd<-droplevels(wd)
-
-
-
 
 #base information about the survey - field names should match those in input file (obviously!)
 UNIQUE_SURVEY<-c("SITEVISITID","METHOD")
@@ -85,11 +62,7 @@ save(wsd, file="TMPwsd.Rdata")
 save(data.cols, file="TMPdata.cols.Rdata")
 
 
-# CAPPING OF DATA (e.g. for Monitoring report) # WE WILL not normally do this!
-# ACTUALLY, I THINK THIS SHUOLD BE DONE INSIDE THE MONITORING REPORT SCRIPT .. ie that script should load the uncapped wsd Rdata file, then cap it at the start
-# ACTUALLY, I THINK THIS SHUOLD BE DONE INSIDE THE MONITORING REPORT SCRIPT .. ie that script should load the uncapped wsd Rdata file, then cap it at the start
-# ACTUALLY, I THINK THIS SHUOLD BE DONE INSIDE THE MONITORING REPORT SCRIPT .. ie that script should load the uncapped wsd Rdata file, then cap it at the start
-# ACTUALLY, I THINK THIS SHUOLD BE DONE INSIDE THE MONITORING REPORT SCRIPT .. ie that script should load the uncapped wsd Rdata file, then cap it at the start
+# CAPPING OF DATA (e.g. for Monitoring report) - but I dont think this sholud necessearily be a routine step
 # ACTUALLY, I THINK THIS SHUOLD BE DONE INSIDE THE MONITORING REPORT SCRIPT .. ie that script should load the uncapped wsd Rdata file, then cap it at the start
 # ACTUALLY, I THINK THIS SHUOLD BE DONE INSIDE THE MONITORING REPORT SCRIPT .. ie that script should load the uncapped wsd Rdata file, then cap it at the start
 
@@ -108,8 +81,7 @@ wsd[wsd$PRIMARY>80,]$PRIMARY<-80 # km changed from 85
 wsd[wsd$SECONDARY>45,]$SECONDARY<-45 # KM changed from 40
 
 #cap BSR too ... can be infinte in situations where divers record TA and MA as 0 (rare, but does happen)
-#wsd[wsd$BSR>25 & !is.na(wsd$BSR),]$BSR<-25
-
+#wsd[wsd$BSR>25 & !is.na(wsd$BSR),]$BSR<-25   #IDW - 25 is super high!
 
 # OUTPUT (not in Adel's script that I can see, but I think we should include) -----------------------------------
 save(wsd, file="TMPwsdCAPPED.rdata")

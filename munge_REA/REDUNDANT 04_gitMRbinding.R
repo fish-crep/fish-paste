@@ -1,3 +1,6 @@
+### THIS CODE NOT NEEDED WITH NEW POOLING APPROACH
+
+
 rm(list=ls())
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below

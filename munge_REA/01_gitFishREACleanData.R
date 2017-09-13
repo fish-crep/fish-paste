@@ -7,9 +7,9 @@ source("lib/fish_team_functions.R")
 #source("lib/Islandwide Mean&Variance Functions.R")
 
 # get strata and sectors data data - NB - the data in the raw file should be checked and updated
-sectors<-read.csv("data/Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)
+sectors<-read.csv("data/Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
 # load site master to merge with sector names
-site_master<-read.csv("data/SITE MASTER2016.csv")
+site_master<-read.csv("data/SITE MASTER.csv")
 site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)
 
 ## LOAD AND CLEAN fish data
@@ -42,7 +42,7 @@ x<-subset(x, x$OBS_TYPE %in% c("U","I","N", "F", "T", "P"))  # note this include
 
 #add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.
 # this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet
-x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
 
 #CHECK THAT all ANALYSIS_SEC are present in the site_master file)
 idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]
@@ -103,10 +103,19 @@ x[is.na(x$FAMILY),"FAMILY"]<-"UNKNOWN"
 x[is.na(x$COMMONFAMILYALL),"COMMONFAMILYALL"]<-"UNKNOWN"
 x[is.na(x$TROPHIC_MONREP),"TROPHIC_MONREP"]<-"UNKNOWN"
 
-
 x[is.na(x$COUNT),]$COUNT<-0
 x[is.na(x$SIZE_),]$SIZE_<-0
 ###x[is.na(x$LMAX),]$LMAX<-999
+
+## separate out the north and south marianas 
+levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")
+x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"
+x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"
+
+sectors[sectors$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"
+sectors[sectors$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"
+sectors<-droplevels(sectors)
+save(sectors, file="TMPsectors.Rdata")  # save cleaned up sectors file
 
 ###NEED TO SET VISIBILITY to -9999 when its NA
 x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER
@@ -115,21 +124,10 @@ unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])
 #x[is.na(x$VISIBILITY),]$VISIBILITY<- -999
 #x[x$VISIBILITY>30,]$VISIBILITY<- 30
 
-
 #fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close
 # .. putting this in here so that we do not have NAs in the LAT and LONG .. but we do nto want to save these to the actual master data file
 x[x$SITE=="GUA-01310",]$LATITUDE<-13.24173
 x[x$SITE=="GUA-01310",]$LONGITUDE<-144.70428
-
-
-
-# change lehua to Niihau
-#x[x$ISLAND == "Lehua",]$ISLAND<-"Niihau"
-
-## separate out the north and south marianas 
-levels(x$REGION)<-c(levels(x$REGION), "S.MARIAN", "N.MARIAN")
-x[x$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"
-x[x$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"
 
 x<-droplevels(x)
 
@@ -164,18 +162,7 @@ for(i in 1:dim(round_table)[1])
 # now reset zeros to NAs for all records where there was NO benthic data at all
 x[x$countBD==0,BENTHIC_FIELDS]<-NA
 
-
-#CONSIDER INLCUDING OTHER CLEAN-UPS OR CHECKS HERE
-# such as check for NAs; CLEAN UP A and B REP VALUES
-
 wd<-droplevels(x)
 save(wd, file="TMPwd.Rdata")  #Save clean working data
 
-## CLEAN SECTORS information
-#levels(sectors$REGION)<-c(levels(sectors$REGION), "S.MARIAN", "N.MARIAN")
-sectors[sectors$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"
-sectors[sectors$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros", "Sarigan-Guguan-Alamagan"),]$REGION<-"N.MARIAN"
-sectors<-droplevels(sectors)
-
-save(sectors, file="TMPsectors.Rdata")  # save cleaned up sectors file
 
