@@ -9,13 +9,13 @@ source("Indicator_functions.R")
 
 # get strata and sectors data data - NB - the data in the raw file should be checked and updated
 setwd("E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/data/fish-paste/data")
-sectors<-read.csv("Sectors-Strata-Areas2016.csv", stringsAsFactors=FALSE)
+sectors<-read.csv("Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
 # load site master to merge with sector names
-site_master<-read.csv("SITE MASTER2016.csv")
+site_master<-read.csv("SITE MASTER.csv")
 site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)
 
 sectors[sectors$ISLAND %in% c("Guam", "Rota", "Aguijan", "Tinian", "Saipan"),]$REGION<-"S.MARIAN"
-sectors[sectors$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros", "Sarigan-Guguan-Alamagan"),]$REGION<-"N.MARIAN"
+sectors[sectors$ISLAND %in% c("Alamagan","Guguan","Sarigan","Pagan", "Agrihan", "Asuncion", "Maug", "Farallon de Pajaros"),]$REGION<-"N.MARIAN"
 
 sectors<-droplevels(sectors)
 
@@ -51,7 +51,7 @@ x<-subset(x, x$OBS_TYPE %in% c("U","I","N"))
 
 #add SEC_NAME to x  
 # this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet
-x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA")], by="SITE", all.x=TRUE)
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
 
 #CHECK THAT all ANALYSIS_SEC are present in the site_master file)
 idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]
@@ -73,19 +73,19 @@ x$MEAN_SH_DIFF<-sh_out[[2]]
 x<-x[, setdiff(names(x),c("SUBSTRATE_HEIGHT_0", "SUBSTRATE_HEIGHT_20", "SUBSTRATE_HEIGHT_50", "SUBSTRATE_HEIGHT_100", "SUBSTRATE_HEIGHT_150"))]
 ############################################################################################
 x<-droplevels(x)
-nine<-x[x$OBS_YEAR=="2009",]
-nine<-nine[nine$REGION=="MHI",]
+# nine<-x[x$OBS_YEAR=="2009",]
+# nine<-nine[nine$REGION=="MHI",]
 
-#convert COMPLEXITY to a numeric field ### 
-x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))
-x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"
-COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))
-x$ComplexityValue<-NaN
-for (i in 1:length(COMPLEXITY_VALUES)){
-	if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){
-		x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i
-	}
-}
+# #convert COMPLEXITY to a numeric field ### 
+# x$COMPLEXITY<-as.vector(toupper(x$COMPLEXITY))
+# x[is.na(x$COMPLEXITY),"COMPLEXITY"]<-"UNKNOWN"
+# COMPLEXITY_VALUES<-toupper(c("Low", "Med-Low", "Med", "Med-Hi", "Hi", "Very-Hi"))
+# x$ComplexityValue<-NaN
+# for (i in 1:length(COMPLEXITY_VALUES)){
+	# if(COMPLEXITY_VALUES[i] %in% x$COMPLEXITY){
+		# x[x$COMPLEXITY==COMPLEXITY_VALUES[i],]$ComplexityValue<-i
+	# }
+# }
 
 
 #######################
@@ -183,10 +183,9 @@ wd[wd$countBD==0,BENTHIC_FIELDS]<-NA
 SURVEY_INFO<-c("OBS_YEAR", "REGION", "REGION_NAME", "ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_STRATA", "SEC_NAME", "SITE", "DATE_", "REEF_ZONE", "DEPTH_BIN", "LATITUDE", "LONGITUDE", "SITEVISITID", "METHOD")
 survey_table<-Aggregate_InputTable(wd, SURVEY_INFO)
 island_table<-Aggregate_InputTable(wd, c("REGION","ISLAND"))
-OTHER_BENTHIC<-c("CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "TA", "OTHER")
+OTHER_BENTHIC<-c("CLAM", "CORALLIMORPH", "ZOANTHID", "TUNICATE", "SPONGE", "TA", "CYANO", "OTHER")
 wd$OTHER_BENTHIC<-rowSums(wd[,OTHER_BENTHIC],na.rm=T)
-SURVEY_SITE_DATA<-c("DEPTH", "HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "SAND", "CYANO", "OTHER_BENTHIC", "ComplexityValue", "MEAN_SH", "MEAN_SH_DIFF", "MAX_HEIGHT")
-
+SURVEY_SITE_DATA<-c("DEPTH", "HARD_CORAL", "SOFT_CORAL", "MA", "CCA", "SAND", "OTHER_BENTHIC", "MEAN_SH", "MEAN_SH_DIFF", "MAX_HEIGHT")
 
 
 # OUTPUT raw working data (used to create appendix species list) -------------------------
@@ -273,6 +272,9 @@ for(i in 1:(length(data.cols)))
 }
 
 #CAP FISH DATA VALUES TO SOMETHING CLOSE To 97.5% quantile
+#
+#   REALLY IMPORTANT THAT THESE CAPPING VALUES ARE SET APPROPRIATELY FOR EACH REPORT .. IE DO NOT JSUT USE THE SAME VALUES EACH ITERATION
+#
 wsd[wsd$TotFish>450,]$TotFish<-450
 wsd[wsd$PISCIVORE>300,]$PISCIVORE<-300
 wsd[wsd$PLANKTIVORE>100,]$PLANKTIVORE<-100 
@@ -299,66 +301,14 @@ write.csv(wsd,file="E:/CRED/fish_cruise_routine_report/monitoring_report/2016_st
 #
 ####################################################################################################################################################################
 
-# STANDARDIZING DATA ------------------------------------------------------
-
-## DOING THIS ONLY WITH nSPC data ####
-wsd<-subset(wsd, wsd$METHOD=="nSPC")
-wsd<-droplevels(wsd)
-
-## check which ISLANDS differ between sectors and working data..
-setdiff(unique(sectors$ISLAND), unique(wsd$ISLAND))
+## check wwhether we have ISLANDS that arent in the sectors file
 setdiff(unique(wsd$ISLAND),unique(sectors$ISLAND))
-        
-# IDW-SOME CLEAN UP
-#.... Make Sarigan-Guguan-Alamagan be a single 'ISLAND' 
-# there MUST already be appropraite records in the sectors table for the new 'ISLAND' name, in this case will be "AGS"
-levels(wsd$ISLAND)<-c(levels(wsd$ISLAND), "AGS")
-wsd[wsd$ISLAND %in% c("Sarigan", "Guguan", "Alamagan"),"ISLAND"]<-"AGS"
-sectors[sectors$ISLAND %in% c("Sarigan", "Guguan", "Alamagan"),"ISLAND"]<-"AGS"
 
-#set all Backreef in NWHI, Samoa, and Maraians as single DEPTH_ZONE ("All")
-wsd[wsd$REGION %in% c("NWHI", "SAMOA", "S.MARIAN", "N.MARIAN") & wsd$REEF_ZONE=="Backreef",]$ANALYSIS_STRATA<-"BackreefAll"
-wsd<-droplevels(wsd)
-
-# DO AGAIN WITH UNCAPPED DATA##############################
-## DOING THIS ONLY WITH nSPC data ####
-wsd.uncap<-subset(wsd.uncap, wsd.uncap$METHOD=="nSPC")
-wsd.uncap<-droplevels(wsd.uncap)
-
-## check which ISLANDS differ between sectors and working data..
-setdiff(unique(sectors$ISLAND), unique(wsd.uncap$ISLAND))
-setdiff(unique(wsd.uncap$ISLAND),unique(sectors$ISLAND)) # should be just Sarigan, Alamagan ad Guguan, fixed below
-
-# IDW-SOME CLEAN UP
-#.... Make Sarigan-Guguan-Alamagan be a single 'ISLAND' 
-# there MUST already be appropraite records in the sectors table for the new 'ISLAND' name, in this case will be "AGS"
-levels(wsd.uncap$ISLAND)<-c(levels(wsd.uncap$ISLAND), "AGS")
-wsd.uncap[wsd.uncap$ISLAND %in% c("Sarigan", "Guguan", "Alamagan"),"ISLAND"]<-"AGS"
-sectors[sectors$ISLAND %in% c("Sarigan", "Guguan", "Alamagan"),"ISLAND"]<-"AGS"
-
-#set all Backreef in NWHI, Samoa, and Maraians as single DEPTH_ZONE ("All")
-wsd.uncap[wsd.uncap$REGION %in% c("NWHI", "SAMOA", "S.MARIAN", "N.MARIAN") & wsd.uncap$REEF_ZONE=="Backreef",]$ANALYSIS_STRATA<-"BackreefAll"
-wsd.uncap<-droplevels(wsd.uncap)
-# OUTPUT cleaned up working site data NOT CAPPED (appendix 8 and maps) --------------------------
-# clean site level data, will do a bit more cleaning up for maps..
-save(wsd.uncap, file="clean_working_site_data_used_in_higher_pooling_for_report.Rdata")
-
-WSD_SAVED<-wsd
-SECTORS_SAVED<-sectors
-####################################################################################################################################################################
-#
-#     SET THE ANALYIS SCHEME (ie WHICH SECTORS ARE WE USING THIS TIME .. IS IT THE BASIC ONES, OR THE ONES THAT WE USED FOR GUAMM2011 SURVEYS OR WHATEVER)
-#
-#
-#     BE AWARE THAT THIS NEXT STEP REQUIRES SOME MANUAL FIDDLING.. WHEN YOU RUN THE CODE YOU MUST DECIDE ON THE APPROPRAITE STRATIFICATION SCHEME. IN SEVERAL CASES IT WILL
-#        BE NECESSARY TO RUN SEVERAL SCHEMES (eg MARIANA 2011, then MARIANA 2014, etc...) AND THEN MANUALLY PUT THE DATA TOGETHER INTO A MASTER OUTPUT (eg run all with RAMP_BASIC, 
-#        then run just Guam 2011 with MARIAN2011, then run Guam2014 with MARIAN2014, and then pool the various data files (eg by cutting and pasting from MAR2011 output into the master etc..)
-#
-#################################################################################################################################################################### COME BACK HERE TO RE RUN FOR EACH ANALYSIS SCHEME #####################
-wsd<-WSD_SAVED
-sectors<-SECTORS_SAVED
-
-# pooling rose lagoon sites
+#set all Backreef to a single DEPTH_ZONE ("All") 
+levels(wsd$DEPTH_BIN)<-c(levels(wsd$DEPTH_BIN), "All")
+wsd[wsd$REEF_ZONE=="Backreef",]$DEPTH_BIN<-"All"
+wsd[wsd$REEF_ZONE=="Backreef",]$ANALYSIS_STRATA<-"BackreefAll"
+sectors[sectors$REEF_ZONE=="Backreef",]$DEPTH_BIN<-"All"
 
 levels(wsd$ANALYSIS_STRATA)<-c(levels(wsd$ANALYSIS_STRATA), "LagoonAll")
 wsd$DEPTH_BIN<-as.character(wsd$DEPTH_BIN)# won't change value to "All" if it is a factor
@@ -367,59 +317,82 @@ wsd[wsd$ISLAND=="Rose" & wsd$REEF_ZONE=="Lagoon",]$ANALYSIS_STRATA<-"LagoonAll"
 sectors[sectors$ISLAND=="Rose" & sectors$REEF_ZONE=="Lagoon",]$DEPTH_BIN<-"All"
 wsd$DEPTH_BIN<-as.factor(wsd$DEPTH_BIN)# change back to factor
 
-wsd[wsd$REEF_ZONE=="Backreef",]$ANALYSIS_STRATA<-"BackreefAll"
-sectors[sectors$REEF_ZONE=="Backreef",]$DEPTH_BIN<-"All"
+wsd$STRATA<-paste(substring(wsd$REEF_ZONE,1,1), substring(wsd$DEPTH_BIN,1,1), sep="")
+sectors$STRATA<-paste(substring(sectors$REEF_ZONE,1,1), substring(sectors$DEPTH_BIN,1,1), sep="")
 
-# DETERMINE THE BASIC STRATIFICATION WITHIN SECTORS - DEFAULT IS REEF_ZONE AND DEPTH_BIN, BUT THIS CODE ALLOWS POSSIBILITY OF CHOOSING ANOTHER
-sectors$ANALYSIS_STRATA<-paste(sectors$REEF_ZONE, sectors$DEPTH_BIN, sep='')
-
-# THIS IS A CRITICAL STEP - SET THE ANALYSIS SCHEME HERE .. ALL STEPS BELOW WILL WORK OFF THIS SCHEME (THIS IS HOW ISLANDS ARE BROKEN DOWN INTO SECTORS #####
-# Analysis Schemes are : RAMP_BASIC", "MARI2011", "MARI2014", "TUT10_12", "AS_SANCTUARY"
-CURRENT_SCHEME<-"RAMP_BASIC"
-#CURRENT_SCHEME<-"MARI2011"
-#CURRENT_SCHEME<-"MARI2014"
-#CURRENT_SCHEME<-"TUT10_12"
-#CURRENT_SCHEME<-"AS_SANCTUARY"
-
-sectors$ANALYSIS_SEC<-sectors[,CURRENT_SCHEME]
+## TREAT GUGUAN, ALAMAGAN, SARIGAN AS ONE ISLAND  (REALLY ONE BASE REPORTING UNIT .. BUT SIMPLER TO STICK TO 'ISLAND')
+SGA<-c("Guguan", "Alamagan", "Sarigan")
+levels(wsd$ISLAND)<-c(levels(wsd$ISLAND), "AGS")
+wsd[wsd$ISLAND %in% SGA,]$ISLAND<-"AGS"
+sectors[sectors$ISLAND %in% SGA,]$ISLAND<-"AGS"
 
 
-SPATIAL_POOLING_BASE<-c("REGION","ISLAND","ANALYSIS_SEC","ANALYSIS_STRATA", "REEF_ZONE")    
-POOLING_LEVEL<-c(SPATIAL_POOLING_BASE, "ANALYSIS_YEAR")
 
-##DETERMINE WHICH SITES HAVE ANALYSIS STRATA THAT ARE NOT IN THIS 
-analysis_secs<-unique(wsd$ANALYSIS_SEC)
-missing_secs<-unique(analysis_secs[!analysis_secs %in% unique(sectors$ANALYSIS_SEC)])
-if(length(missing_secs)>0) {
-	cat("ANALYSIS SECTORS missing from this scheme:", missing_secs)
-}
-tmp<-Aggregate_InputTable(wd, c("REGION", "ISLAND", "ANALYSIS_YEAR", "ANALYSIS_SEC"))
-tmp[tmp$ANALYSIS_SEC %in% missing_secs,]
-#now deal with those missing sectors - either rename ANALYSIS_SEC OR remove
-if(CURRENT_SCHEME=="RAMP_BASIC") {
-	#in this case removing 2014 ACHANG_MPA sites (The shorebased ones) and changing ANALYSIS_SEC for all other GUAM MPA sectors to the RAMP base one "GUAM_MP", also remove SAMOA 2015 sites, they will run in AS_SANCTUARY 2015 and Tutuila 2010&012
-	wsd<-wsd[!(wsd$ANALYSIS_SEC == "ACHANG_MPA" & wsd$ANALYSIS_YEAR==2014),]
-	wsd<-wsd[!(wsd$REGION == "SAMOA" & wsd$ANALYSIS_YEAR %in% c(2015, 2016)),]
-	wsd<-wsd[!(wsd$ISLAND == "Tutuila" & wsd$ANALYSIS_YEAR %in% c(2010,2012)),]
-	wsd[wsd$ANALYSIS_SEC %in% c("PATI_PT_MPA", "ACHANG_MPA", "TUMON_BAY_MPA", "PITI_BOMB_MPA", "GUAM_MP_MINUS_ACHANG"),]$ANALYSIS_SEC<-"GUAM_MP"
-}
-if(CURRENT_SCHEME=="MARI2011") {wsd<-wsd[(wsd$REGION %in% c("N.MARIAN", "S.MARIAN") & wsd$OBS_YEAR==2011),]}	#in this case remove everything that isnt MARIANA surveyed in 2011
-if(CURRENT_SCHEME=="MARI2014") {wsd<-wsd[(wsd$REGION %in% c("N.MARIAN", "S.MARIAN") & wsd$OBS_YEAR==2014),]}	#in this case remove everything that isnt MARIANA surveyed in 2014
-if(CURRENT_SCHEME=="AS_SANCTUARY") {wsd<-wsd[(wsd$REGION == "SAMOA" & wsd$OBS_YEAR %in% c(2015,2016)),]}	#in this case remove everything that isnt SAMOA surveyed in 2015
-if(CURRENT_SCHEME=="TUT10_12") {wsd<-wsd[(wsd$ISLAND == "Tutuila" & wsd$OBS_YEAR %in% c(2010,2012)),]}  #in this case remove everything that isnt Tutuila in 2010 or 2012
 
-### LOOK AT REPLICATION WITHIN STRATA - TO EYEBALL WHETHER THERE ARE STRATA WITHOUT REPLICATION # KM drop strata with no replication? 
-tmp<-aggregate(wsd[,"METHOD"], by=wsd[,c(POOLING_LEVEL ,"SITE")], length)
-tmp<-aggregate(tmp[,"x"], by=tmp[,c(POOLING_LEVEL)], length)
-tmp<-merge(sectors, tmp[,c("ANALYSIS_YEAR", "ANALYSIS_SEC", "ANALYSIS_STRATA","x")],by=c("ANALYSIS_SEC", "ANALYSIS_STRATA"),all.y=TRUE)
-names(tmp)[names(tmp)=="x"]<-"n_sites"
-a<-cast(tmp, ANALYSIS_YEAR + REGION + ISLAND + ANALYSIS_SEC ~ ANALYSIS_STRATA, value="n_sites", sum, fill=NA)
-#b<-cast(tmp, REGION + ISLAND + SEC_NAME ~ REEF_ZONE + DEPTH_BIN, value="AREA_HA", sum, fill=NA)
-a # check for NAs in: analysis year, region, island, and analysis sec
+
+##IDW - NEED TO GENERATE THE LIST OF SITES PER SCHEME ETC.. WITH
+cast
 
 # OUTPUT sites per years (appendix 3) -------------------------------------
-save(a, file=paste(CURRENT_SCHEME, "sites_year_reef_zone_depth_bin.rdata")) ## use this for table in appendix 3 - see appendices R file
+save(a, file="sites_year_reef_zone_depth_bin.rdata") ## use this for table in appendix 3 - see appendices R file
 #save(b, file="area_region_reef_zone_depth_bin.rdata") 
+
+
+
+
+
+
+
+####################################################################################################################################################################
+#
+#     POOL WSD (WORKING SITE DATA TO STRATA THEN TO HIGHER LEVELS
+##
+###################################################################################################################################################################
+
+### CALCULATE MEAN AND VARIANCE WITHIN STRATA ###
+SPATIAL_POOLING_BASE<-c("REGION","ISLAND","ANALYSIS_SEC", "STRATA")    
+ADDITIONAL_POOLING_BY<-c("METHOD", "ANALYSIS_YEAR")                                    # additional fields that we want to break data at, but which do not relate to physical areas (eg survey year or method)
+
+#generate within strata means and vars
+POOLING_LEVEL<-c(SPATIAL_POOLING_BASE, ADDITIONAL_POOLING_BY)
+dps<-Calc_PerStrata(wsd, data.cols, c(POOLING_LEVEL, "AREA_HA"))
+save(dps,file="REA WORKUPS/tmp REA per strata.RData")
+head(dps$Mean)
+
+###### REMOVE STRATA with N=1 (cannot pool those up)
+dps$Mean<-dps$Mean[dps$Mean$N>1,]
+dps$SampleVar<-dps$SampleVar[dps$SampleVar$N>1,]
+dps$SampleSE<-dps$SampleSE[dps$SampleSE$N>1,]
+
+# e.g. SAVE BY ISLAND PER YEAR
+OUTPUT_LEVEL<-c("REGION","ISLAND", "ANALYSIS_YEAR") 
+dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")
+save(dp, file="REA WORKUPS/Fish REA Biomass By ISLAND-YEAR.rdata")
+
+# e.g. SAVE BY REGION PER YEAR
+OUTPUT_LEVEL<-c("REGION", "ANALYSIS_YEAR") 
+dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")
+save(dp, file="REA WORKUPS/Fish REA Biomass By REGION-YEAR.rdata")
+
+# e.g. SAVE BY ISLAND PER YEAR- OUTER-REEF ONLY - and drop MHI sectots that are not consistently surveys
+OUTPUT_LEVEL<-c("REGION","ISLAND", "ANALYSIS_YEAR") 
+unique(dps$Mean$STRATA)
+OUTER_REEF<-c("FD", "FS", "FM", "PD", "PM")
+M<-dps$Mean; V<-dps$SampleVar
+M<-M[M$STRATA %in% OUTER_REEF,]
+V<-V[V$STRATA %in% OUTER_REEF,]
+
+dp<-Calc_Pooled_Simple(M, V, data.cols, OUTPUT_LEVEL, "AREA_HA")
+save(dp, file="REA WORKUPS/Fish REA Biomass By ISLAND-YEAR OUTER-REEF.rdata")
+
+#e.g. Calc island sclae data for a subset of sectors - in this case the sectors that were surveyed in each round
+cast(M[M$REGION=="MHI",], ISLAND + ANALYSIS_SEC ~ ANALYSIS_YEAR, value="N", sum)
+MHI_DROP<-c("HAW_HAMAKUA", "HAW_SE", "KAH_NORTH", "KAH_SOUTH", "MAI_HANA", "MAI_KAHULUI", "MAI_NW", "MOL_NW", "OAH_KAENA", "NII_EAST", "NII_WEST", "NII_LEHUA")
+M<-M[!M$ANALYSIS_SEC %in% MHI_DROP,]
+V<-V[!V$ANALYSIS_SEC %in% MHI_DROP,]
+cast(M[M$REGION=="MHI",], ISLAND + ANALYSIS_SEC ~ ANALYSIS_YEAR, value="N", sum)
+
+dp<-Calc_Pooled_Simple(M, V, data.cols, OUTPUT_LEVEL, "AREA_HA")
 
 
 
