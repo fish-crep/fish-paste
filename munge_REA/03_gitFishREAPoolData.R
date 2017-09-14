@@ -93,7 +93,6 @@ dps$SampleSE<-dps$SampleSE[dps$SampleSE$N>1,]
 
 
 #SOME EXAMPLES OF POOLING
-
 # e.g. SAVE BY ISLAND AND REEF_ZONE PER YEAR
 OUTPUT_LEVEL<-c("REGION", "ISLAND", "REEF_ZONE", "ANALYSIS_YEAR") 
 dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")

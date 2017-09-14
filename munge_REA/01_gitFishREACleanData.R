@@ -118,10 +118,9 @@ sectors<-droplevels(sectors)
 save(sectors, file="TMPsectors.Rdata")  # save cleaned up sectors file
 
 ###NEED TO SET VISIBILITY to -9999 when its NA
-x[is.na(x$VISIBILITY) & x$SITE=="OAH-02383",]$VISIBILITY<-9   # value from other DIVER
 ### NOTE THAT NWHI 2012 has VISIBLITY OF NA
 unique(x[is.na(x$VISIBILITY),c("REGION", "OBS_YEAR")])
-#x[is.na(x$VISIBILITY),]$VISIBILITY<- -999
+x[is.na(x$VISIBILITY),]$VISIBILITY<- -999
 #x[x$VISIBILITY>30,]$VISIBILITY<- 30
 
 #fixing unknown lat/long from a sites survyeted by Val Brown in Guam in 2015. These values are probably close
