@@ -1,5 +1,5 @@
 # reshape library inclues the cast() function used below
-library(reshape)
+library(reshape2)
 library(ggplot2) ## to create the diver vs diver graphs
 
 Calc_Site_MeanLength<-function(x, min_size=1){  
