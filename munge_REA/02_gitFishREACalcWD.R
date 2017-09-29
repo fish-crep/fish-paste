@@ -53,7 +53,7 @@ data.cols<-c(trophic.cols, "TotFish", SURVEY_SITE_DATA)
 #wsd<-merge(wsd, r4b, by=UNIQUE_SURVEY)
 #data.cols<-c(data.cols, "0_20", "20_50", "50_plus")
 #names(wsd)[match(c("(0,20]", "(20,50]","(50,Inf]" ),names(wsd))] <- c("0_20", "20_50", "50_plus")
-#wsd$BSR<-(wsd$HARD_CORAL+wsd$CCA)/(wsd$MA + wsd$TA)
+#wsd$BSR<-(wsd$HARD_CORAL+wsd$CCA)/(100-wsd$HARD_CORAL+wsd$CCA)  #we dont have TA anymore!
 #data.cols<-c(data.cols, "BSR")
 
 
