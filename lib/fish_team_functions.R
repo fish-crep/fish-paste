@@ -589,7 +589,7 @@ Calc_REP_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, s
   names(y)<-c(count_fields, survey_data_fields, RETURN_FIELDS)
   
   #pool by Rep ("A","B","C" generally)
-  #	idx_first_data_field<-length(count_fields)+1#
+  idx_first_data_field<-length(count_fields)+1
   z<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], sum)
   y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], mean)
   y$nCounts<-z$nCounts
