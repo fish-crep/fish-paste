@@ -27,9 +27,6 @@ DATA_COLS<-c("SITEVISITID", "METHOD", "DATE_", "OBS_YEAR",  "SITE", "REEF_ZONE",
 head(x[,DATA_COLS])
 x<-x[,DATA_COLS]
 
-#generate a simple "Strata" field, by concatenating Stratum and Depth fields
-x$STRATA<-paste(x$REEF_ZONE, x$DEPTH_BIN, sep='')
-
 ## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)
 x$SITE<-SiteNumLeadingZeros(x$SITE)
 
