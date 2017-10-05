@@ -30,7 +30,7 @@ x<-x[,DATA_COLS]
 ## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)
 x$SITE<-SiteNumLeadingZeros(x$SITE)
 
-x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training falg of NA is equivalent to a FALSE .. as none of the odler data was 'training data'
+x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'
 x<-subset(x, x$TRAINING_YN==FALSE)
 x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)
 x<-subset(x, x$METHOD %in% c("nSPC", "nSPC-CCR"), drop=TRUE)
@@ -40,7 +40,7 @@ x<-subset(x, x$OBS_TYPE %in% c("U","I","N", "F", "T", "P"))  # note this include
 #add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.
 # this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet
 #x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
-x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)  ..  should actually pick up ANALYSIS_SEC from the sectors file.
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)  #..  should actually pick up ANALYSIS_SEC from the sectors file.
 
 #CHECK THAT all ANALYSIS_SEC are present in the site_master file)
 idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]
