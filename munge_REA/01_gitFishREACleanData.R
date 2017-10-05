@@ -45,12 +45,6 @@ x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME
 idw<-x[is.na(x$ANALYSIS_SCHEME)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]
 if(dim(idw)[1]>0) {cat("nSPC sites with MISSING ANALYSIS_SCHEME")}   # should be 0
 
-#for ones that are missing, set it to ISLAND
-no_secs<-is.na(x$ANALYSIS_SEC)
-tmp<-as.character(x$ANALYSIS_SEC)
-tmp[no_secs]<-as.character(x[no_secs,]$ISLAND)
-x$ANALYSIS_SEC<-tmp
-
 ############################################################################################
 ###### new section .. where there is substrate_height data, work out average height && ave_height_variability so that we get standardized complexity metrics (mean hieght, mean height variability, max-height) 
 sh_out<-CalcMeanSHMeanSHDiff(x)
