@@ -39,7 +39,8 @@ x<-subset(x, x$OBS_TYPE %in% c("U","I","N", "F", "T", "P"))  # note this include
 
 #add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.
 # this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet
-x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
+#x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
+x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)  ..  should actually pick up ANALYSIS_SEC from the sectors file.
 
 #CHECK THAT all ANALYSIS_SEC are present in the site_master file)
 idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]

@@ -49,15 +49,26 @@ wsd[wsd$REGION %in% c("MHI", "NWHI") & wsd$OBS_YEAR %in% seq(2013,2015),]$ANALYS
 ## generate a complete list of all ANALYSIS STRATA and their size
 SCHEMES<-c("RAMP_BASIC", "MARI2011", "MARI2014", "TUT10_12", "AS_SANCTUARY")
 for(i in 1:length(SCHEMES)){
+	tmp2<-sectors[,c("SEC_NAME", SCHEMES[i])]
+	tmp2$SCHEME<-SCHEMES[i]
+	names(tmp2)<- c("SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_SCHEME")
+	
 	tmp<-aggregate(sectors$AREA_HA, sectors[,c(SCHEMES[i], "STRATA")], sum)
 	tmp$SCHEME<-SCHEMES[i]
 	names(tmp)<-c("ANALYSIS_SEC", "STRATA", "AREA_HA", "ANALYSIS_SCHEME")
 	if(i==1){
 		st<-tmp
+		as<-tmp2
 	} else {
 		st<-rbind(st, tmp)
+		as<-rbind(as, tmp2)
 	}	
 }
+
+as
+wsd<-merge(wsd, as, by=c("SEC_NAME", "ANALYSIS_SCHEME"), all.x=T)  # add ANALYSISS_SCHEME for tthis sector and sceheme combination
+unique(wsd[is.na(wsd$ANALYSIS_SCHEME), c("ISLAND", "ANALYSIS_SEC", "SEC_NAME", "OBS_YEAR", "ANALYSIS_YEAR", "ANALYSIS_SCHEME", "STRATA")])
+
 cast(st, ANALYSIS_SEC ~ ANALYSIS_SCHEME, value="AREA_HA", sum)
 wsd<-merge(wsd, st, by=c("ANALYSIS_SCHEME", "ANALYSIS_SEC", "STRATA"), all.x=T)
 #check if some are missing an AREA_HA .. which means that they didnt get into the stratification scheme properly
