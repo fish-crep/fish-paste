@@ -875,6 +875,20 @@ Modified_Site_Species_Richness<-function(x){
 }
 # end Modified_Site_Species_Richness
 
+Calc_RepDiversity<-function(x){
+#Returns H (SW Diversity), R (Species Richness) and R (Jaccard Evenness) per REPLICATEID
+#requires package vegan
+	a<-cast(x, REPLICATEID ~ SPECIES, value="COUNT", length)
+	ncols<-dim(a)[2]
+	H<-diversity(a[,2:ncols])
+	R<-specnumber(a[,2:ncols], MARGIN = 1)
+	E<-H/log(R)
+	
+	return(data.frame(REPLICATEID=a$REPLICATEID, H=H, R=R, E=E))
+} #end CalcRepDiversity
+
+
+
 
 
 
