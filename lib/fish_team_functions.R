@@ -61,20 +61,6 @@ Calc_Site_MeanLengthByGroup<-function(x, grouping_field, min_size=10){
 } # end Calc_Site_MeanLengthByGroup
 
 
-Calc_Site_Species_Richness<-function(x){  
-  # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
-  # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
-  
-  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "REP", "SPECIES")], sum)	#convert to count per species per rep
-  z<-aggregate(y$SPECIES,by=y[,c("SITEVISITID", "METHOD", "REP")], length)  		# count number of entries per rep	
-  xx<-aggregate(z$x,by=z[,c("SITEVISITID", "METHOD")], mean)				  		# count number of entries per rep	
-  dimnames(xx)[[2]]<-c("SITEVISITID", "METHOD", "SPECIESRICHNESS")
-  
-  return(xx)
-  
-}
-# end Calc_Site_Species_Richness
-
 
 Aggregate_InputTable<-function(x, field_list){  
 	# function assumes that x is a data frame looking like our standard input
@@ -88,28 +74,28 @@ Aggregate_InputTable<-function(x, field_list){
 	
 } # end Aggregate_InputTables
 
-#calc values which are means of sub-replicates per site (generally will be depth, coral cover, complexity etc...)
-Calc_Site_Means<-function(x, survey_id_fields, rep_fields, count_fields, survey_data_fields){  
-	# function assumes that x is a data frame with at least the fields mentioned in parameters survey_fields to survey_data_fields
-	# survey_id_fields are fields that identify unique site-survey (now .. SiteVisitId and Method)
-	# rep_fields are fields that identify the replicate BLT transect or nSPC pair (generally survey_id_fields plus "A","B","C")
-	# count_fields are fields needed to sum/mean by the specific count (e.g. nSPC cont as part of a SPC-pair, or one side of a single transect)
-	# survey_data_fields are the fields that we want to get mean oer survey eventually (after pooling up in this function)
-	# function returns a data frame with survey_id_fields, and means of all the data columns
+# #calc values which are means of sub-replicates per site (generally will be depth, coral cover, complexity etc...)
+# Calc_Site_Means<-function(x, survey_id_fields, rep_fields, count_fields, survey_data_fields){  
+	# # function assumes that x is a data frame with at least the fields mentioned in parameters survey_fields to survey_data_fields
+	# # survey_id_fields are fields that identify unique site-survey (now .. SiteVisitId and Method)
+	# # rep_fields are fields that identify the replicate BLT transect or nSPC pair (generally survey_id_fields plus "A","B","C")
+	# # count_fields are fields needed to sum/mean by the specific count (e.g. nSPC cont as part of a SPC-pair, or one side of a single transect)
+	# # survey_data_fields are the fields that we want to get mean oer survey eventually (after pooling up in this function)
+	# # function returns a data frame with survey_id_fields, and means of all the data columns
 
-	#first average survey_data_fields for all replicates
-	y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
-	names(y)<-c(count_fields, survey_data_fields)
+	# #first average survey_data_fields for all replicates
+	# y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
+	# names(y)<-c(count_fields, survey_data_fields)
 	
-	#pool by Rep ("A","B","C" generally), then by survey (i.e. by SiteVisitID and Method)
-	idx_first_data_field<-length(count_fields)+1
-	y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], mean)
-	idx_first_data_field<-length(rep_fields)+1
-	y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,survey_id_fields], mean)
+	# #pool by Rep ("A","B","C" generally), then by survey (i.e. by SiteVisitID and Method)
+	# idx_first_data_field<-length(count_fields)+1
+	# y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], mean)
+	# idx_first_data_field<-length(rep_fields)+1
+	# y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,survey_id_fields], mean)
 	
-	return(y)
+	# return(y)
 	
-} # end Calc_SiteMeans
+# } # end Calc_SiteMeans
 
 
 ##calculate the biomass per m2 per record
@@ -199,41 +185,41 @@ Calc_Site_Abund_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50,Inf)
 } # end Calc_Site_Abund_By_SizeClass
 
 
-##### IDW - this function superceeded by Aggregate_InputTable function - there is nothing in it that is specific to survey info (its a general function will summarize results for whatever set of fields is used as input)
-Get_SurveyInfo<-function(x, field_list){  
-	# function assumes that x is a data frame looking like our standard input
-	# field_list is the list of fields to include (generally will be stratum, depth_zone, data, etc...)
-	# function returns a data frame with base information per survey 
+# # ##### IDW - this function superceeded by Aggregate_InputTable function - there is nothing in it that is specific to survey info (its a general function will summarize results for whatever set of fields is used as input)
+# Get_SurveyInfo<-function(x, field_list){  
+	# # function assumes that x is a data frame looking like our standard input
+	# # field_list is the list of fields to include (generally will be stratum, depth_zone, data, etc...)
+	# # function returns a data frame with base information per survey 
 	
-	y<-aggregate(x$Count,by=x[,field_list], sum)  # aggregate sums total count of all fishes per record, using field_list 
-	y<-y[,field_list]                             # drop the count - was just using that to generate a summary table
+	# y<-aggregate(x$Count,by=x[,field_list], sum)  # aggregate sums total count of all fishes per record, using field_list 
+	# y<-y[,field_list]                             # drop the count - was just using that to generate a summary table
 	
-	return(y)
+	# return(y)
 	
-} # end function
+# } # end function
 
-##### IDW - this function superceeded by Calc_SiteMeans function - a general function that does takes a list of fields as input, and generates site means for all of them
-Calc_Site_MeanDepth<-function(x){  
-	# function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the "Depth" field
-	# function returns a data frame with Site_VisitID, Method, and mean depth 
+# ##### IDW - this function superceeded by Calc_SiteMeans function - a general function that does takes a list of fields as input, and generates site means for all of them
+# Calc_Site_MeanDepth<-function(x){  
+	# # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the "Depth" field
+	# # function returns a data frame with Site_VisitID, Method, and mean depth 
 	
-	#Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-	pool_cols=c("SiteVisitID","Method","Rep", "ReplicateID") # minimum set of fields to build up from
-	first_data_col=length(pool_cols)+1
+	# #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
+	# pool_cols=c("SiteVisitID","Method","Rep", "ReplicateID") # minimum set of fields to build up from
+	# first_data_col=length(pool_cols)+1
 	
-	#first extract depth for all replicates
-	y<-aggregate(x$Depth,by=x[,pool_cols], mean)
-	names(y)<-c(pool_cols, "Depth")
-	#pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
-	pool_cols<-c("SiteVisitID","Method","Rep")
-	y<-aggregate(y[,first_data_col],by=y[,pool_cols], mean)
-	num_row_cols=length(pool_cols) #working data now has fewer columns
-	pool_cols<-c("SiteVisitID", "Method")
-	y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
+	# #first extract depth for all replicates
+	# y<-aggregate(x$Depth,by=x[,pool_cols], mean)
+	# names(y)<-c(pool_cols, "Depth")
+	# #pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)
+	# pool_cols<-c("SiteVisitID","Method","Rep")
+	# y<-aggregate(y[,first_data_col],by=y[,pool_cols], mean)
+	# num_row_cols=length(pool_cols) #working data now has fewer columns
+	# pool_cols<-c("SiteVisitID", "Method")
+	# y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
 	
-	return(y)
+	# return(y)
 	
-} # end function
+# } # end function
 
 #********************
 Mode<- function(x) {
@@ -868,6 +854,21 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     }
   }
 }
+
+
+Calc_Site_Species_Richness<-function(x){  
+  # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
+  # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
+  
+  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "REP", "SPECIES")], sum)	#convert to count per species per rep
+  z<-aggregate(y$SPECIES,by=y[,c("SITEVISITID", "METHOD", "REP")], length)  		# count number of entries per rep	
+  xx<-aggregate(z$x,by=z[,c("SITEVISITID", "METHOD")], mean)				  		# count number of entries per rep	
+  dimnames(xx)[[2]]<-c("SITEVISITID", "METHOD", "SPECIESRICHNESS")
+  
+  return(xx)
+  
+}
+# end Calc_Site_Species_Richness
 
 Modified_Site_Species_Richness<-function(x){  
   # Modification fos tandard Calc_Site_Species_Richness to not count species with zero counts (as they can be left in data file to ensure that the site has data records at all) 
