@@ -2,30 +2,37 @@
 library(reshape2)
 library(ggplot2) ## to create the diver vs diver graphs
 
-Calc_Site_MeanLength<-function(x, min_size=1){  
-	# function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
-	# function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)
-		
-	#Base unit will be the entire survey
-	base_cols=c("SITEVISITID", "METHOD") 
-	pool_cols<-c(base_cols, "SIZE_")                          
-	
-	#set count to zero for all sizes smaller than min size
-	#x[is.na(x$SIZE_),]$SIZE_<-0
-	x[x$SIZE_< (min_size),]$COUNT<-0
-	
-	#sum total number offishes per SIZE_
-	y<-aggregate(x$COUNT,by=x[,pool_cols], sum)
-	names(y)<-c(pool_cols, "COUNT")
-	y$CS<-y$COUNT*y$SIZE_
-	
-	#now format this more or less as a crosstab, with field of interest as column variable
-	y<-aggregate(y[,c("COUNT", "CS")],by=y[,base_cols], sum)
-	y$MEAN_SIZE<-y$CS/y$COUNT
-		
-	return(y[,c(base_cols, "MEAN_SIZE")])
-	
+## Calculate mean length of entire assemblage
+
+
+Calc_Site_MeanLength<-function(x, prop_size=0.3,min_size=10){  
+  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
+  # prop_size is proportion of max size, min_size is minimum size included in mean size calculation, set at 10 cm
+  
+  #Base unit will be the entire survey
+  base_cols=c("SITEVISITID", "METHOD") 
+  pool_cols<-c(base_cols, "SIZE_")                          
+  
+  #set count to zero for all sizes smaller than min size to exclude recruits
+  x[x$SIZE_< (prop_size*x$LMAX),]$COUNT<-0
+  
+  
+  # set count to zero for all sizes smaller than 15 cm
+  x[x$SIZE_< min_size,]$COUNT<-0
+  
+  #sum total number offishes per SIZE_
+  y<-aggregate(x$COUNT,by=x[,pool_cols], sum)
+  names(y)<-c(pool_cols, "COUNT")
+  y$CS<-y$COUNT*y$SIZE_
+  
+  #now format this more or less as a crosstab, with field of interest as column variable
+  y<-aggregate(y[,c("COUNT", "CS")],by=y[,base_cols], sum)
+  y$MEAN_SIZE<-y$CS/y$COUNT
+  
+  return(y[,c(base_cols, "MEAN_SIZE")])
+  
 } # end Calc_Site_MeanLength
+
 
 
 Calc_Site_MeanLengthByGroup<-function(x, grouping_field, min_size=10){  
