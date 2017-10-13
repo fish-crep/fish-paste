@@ -73,20 +73,20 @@ od[od$SPECIES=="CHUL" ,]$COMMONFAMILYALL<-"Wrasse"
 od[od$SPECIES=="CHUL" ,]$COMMONNAME<-"Humphead wrasse"
 od[od$SPECIES=="CHUL" ,]$SPECIES<-"CHUD"
 
-head(od[od$SPECIES=="SCRU",])
-od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"
-od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus rubroviolaceus"
-od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"
-od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Ember parrotfish"
-od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCRU"
-
-head(od[od$SPECIES=="SPHE",])
+head(od[od$SPECIES=="SPQE",])
 od[od$SPECIES=="SPJE" ,]$FAMILY<-"Sphyraenidae"
-od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena helleri"
+od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena qenie"
 od[od$SPECIES=="SPJE" ,]$COMMONFAMILYALL<-"Barracuda"
-od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Heller's barracuda"
-od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPHE"
+od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Blackfin barracuda"
+od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPQE"
 head(od)
+
+head(od[od$SPECIES=="SCSP",])
+od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"
+od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus sp"
+od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"
+od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Scarus genus species"
+od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCSP"
 
 #filling in fields that are missing from one or other query (but which are still useful to include in merged data)
 wd$COMMENT_<-"fill"
