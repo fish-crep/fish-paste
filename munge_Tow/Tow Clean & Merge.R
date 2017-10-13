@@ -33,7 +33,8 @@ wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50
 
 #all remainder should become PRES data
 wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]
-wd[wd$SIZE_<50,]$OBS_TYPE<-"PRES" 
+wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" 
+wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size
 
 #wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES
 LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")
@@ -159,5 +160,9 @@ wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Tutuila"),]$REEF_ZONE<-"Forer
 wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Jarvis"),]$REEF_ZONE<-"Forereef"
 wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Palmyra"),]$REEF_ZONE<-"Forereef"
 
-wtd<-wd
+
+wd[wd$SEGMENT>10,]
+wd<-subset(wd, wd$SEGMENT %in% seq(1,10))
+wtd<-droplevels(wd)
+
 save(wtd, file="ALL_TOW_FISH_CLEANED.RData")
