@@ -147,7 +147,7 @@ tmd<-tmd[,c("DIVEID", "Average")]
 
 wd[wd$DEPTH==0,"DEPTH"]<-NaN
 
-#Using twd to assign depths ib cases where that information is missing
+#Using twd to assign depths io cases where that information is missing
 dim(wd)
 wd<-merge(wd, tmd, by="DIVEID", all.x=T)
 wd[is.na(wd$DEPTH),]$DEPTH<-wd[is.na(wd$DEPTH),]$Average
@@ -156,10 +156,22 @@ wd$Average<-NULL
 summary(wd)
 
 unique(wd[wd$REEF_ZONE=="Unspecified", c("ISLAND")])
+
+load("PRIA Tow RZ.RData")  #rz
+rz$RZ<-rz$REEF_ZONE  
+rz[is.na(rz$RZ),]				#Only one egment in Johnston is missing .. and it seems from examination of the data to be Protected slope
+
+wd<-merge(wd, rz[,c("DIVEID", "SEGMENT", "RZ")], by=c("DIVEID", "SEGMENT"), all.x=T)
+unique(rz$ISLAND)
+wd[wd$ISLAND =="Kingman", c("ISLAND", "OBS_YEAR", "DIVEID", "SEGMENT", "DEPTH", "REEF_ZONE", "RZ")]
+
+levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "Protected Slope")
+wd[wd$ISLAND %in% unique(rz$ISLAND), ]$REEF_ZONE<-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$RZ
+wd$RZ<-NULL
+
 wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Tutuila"),]$REEF_ZONE<-"Forereef"
 wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Jarvis"),]$REEF_ZONE<-"Forereef"
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Palmyra"),]$REEF_ZONE<-"Forereef"
-
+wd[wd$REEF_ZONE=="Unspecified" ,]
 
 wd[wd$SEGMENT>10,]
 wd<-subset(wd, wd$SEGMENT %in% seq(1,10))
