@@ -1,5 +1,5 @@
 # reshape library inclues the cast() function used below
-library(reshape2)
+library(reshape)
 library(ggplot2) ## to create the diver vs diver graphs
 
 ## Calculate mean length of entire assemblage
