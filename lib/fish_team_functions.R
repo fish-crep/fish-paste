@@ -268,6 +268,11 @@ Calc_Site_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, 
 	# function returns a data frame with survey_id_fields, and means of all the data columns
  
 	RETURN_FIELDS<-c("nCounts", "nReps")
+	
+	#add dummy field to ensure that we dont aggregate on only one data columns ever - as that leads to problems with column names
+	x$xDUMMYx<-0
+	survey_data_fields<-c(survey_data_fields, "xDUMMYx")
+	
 
 	#first average survey_data_fields for all replicate-counts
 	y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
@@ -291,6 +296,8 @@ Calc_Site_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, 
 
 	y$nReps<-z$nReps
 	y$nCounts<-z$nCounts
+
+	y$xDUMMYx<-NULL		#gettign rid of this filler column
 	
 	return(y)
 	
