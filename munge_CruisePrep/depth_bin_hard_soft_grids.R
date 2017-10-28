@@ -23,9 +23,17 @@ wd[which(wd$Hard_Per > 50),]$HS_50<-"HARD"
 wd[which(wd$Unk_Per == 100),]$HS_50<-"UNKNOWN"
 
 # save grid as samplable areas: filter out soft bottom and meso depths, and land
-wd<-wd[wd$DEPTH_BIN != "Land",]
-wd<-wd[wd$DEPTH_BIN != "Meso",]
+wd<-wd[wd$DEPTH_BIN != "LAND",]
+wd<-wd[wd$DEPTH_BIN != "MESO",]
 wd<-wd[wd$HS_50 != "SOFT",]
+wd<-droplevels(wd)
+
+# add reef zone field
+wd$REEF_ZONE<-"FOREREEF"
+wd[which(wd$RZ_FRF_Per >50),]$REEF_ZONE<-"FR"
+wd[which(wd$RZ_BRF_Per >50),]$REEF_ZONE<-"BR" # NOT ALL ISLANDS HAVE THIS REEF ZONE
+wd[which(wd$RZ_LAG_Per >50),]$REEF_ZONE<-"LG" # NOT ALL ISLANDS HAVE THIS REEF ZONE
+wd[which(wd$RZ_PRS_Per >50),]$REEF_ZONE<-"PS" # NOT ALL ISLANDS HAVE THIS REEF ZONE
 
 # save file 
 write.csv(wd,file="T:/Fish/Cruise Prep/ISLAND_GRIDS/pal_grids_50m_table_FISH.csv")
