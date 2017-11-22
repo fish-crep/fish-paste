@@ -835,6 +835,188 @@ divervsdiver3<-function(data, year, region, x_range){
   
 }        ## divervsdiver3   
 
+# divervsdiver4 ------------------------------------------------------------
+###################################to compare the biomass estimates of one diver versus their buddy 
+# required: from working data in fishbase run Calc_Rep_Cover, Calc_Rep_Bio and Calc_Rep_Richness then merge region and years together with this
+# currently this is set up for the status specify data, year and region e.g. divervsdiver(working.data, 2012, "MHI")
+# it saves one png containing 3 graphs in the working directory - currently the one anonymous version
+
+# note: best to come in and tweak the margins of graphs manually, same for anon vs diver named versions
+###################################
+divervsdiver4<-function(data, year, region, x_range){
+  #data<-compdata
+  #year<-"2014"
+  #region<-"N.MARIAN"
+  #x_range<-250
+  data$OBS_YEAR<-as.factor(data$OBS_YEAR)
+  size_comp<-data[data$OBS_YEAR == year,] ## select year
+  size_comp<-size_comp[size_comp$REGION == region,] ## select region
+  size_comp<-droplevels(size_comp)
+  
+  divers<-levels(size_comp$DIVER)
+  
+  scr<-size_comp[,c("SITE", "DIVER", "TotFish")] ### stripped down
+  msd<-data.frame(with(scr, tapply(TotFish, list(SITE, DIVER), mean))) ## mean biomass estimate per diver per site
+  
+  thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset
+  
+  
+  toplot<-list()
+  
+  for(i in 1:length(divers)){
+    ##i<-(divers)[7]
+    diver<-which(thenas[,i] == FALSE)
+    
+    ##select out the sites for diver from the dataframe
+    diverdata<-msd[diver,i]
+    
+    ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
+    otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+    
+    ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
+    x<-as.vector(diverdata - otherdiver)
+    toplot[[i]]<-x
+    
+  }
+  
+  toplot<-(melt(toplot))
+  
+  names(toplot)<-c("biomass_ratio", "diver")
+  toplot$diver<-as.factor(toplot$diver)
+  
+  bio_anon <- ggplot(toplot, aes(factor(diver), biomass_ratio))
+  bio_anon <- bio_anon + 
+    geom_boxplot() + 
+    coord_flip() + 
+    geom_jitter(colour = "red", size =1, alpha = 0.4) + 
+    theme_bw() +
+    scale_y_continuous(limits=c(-x_range,x_range))+
+    labs(y = expression(paste("Difference in biomass estimate (g ", m^-2,") relative to buddy")), x = "Diver")# + scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
+  suppressMessages(ggsave(filename = paste("divervsdiver_biomass",region,"_",year, "_anon.png", sep = ""), width=13, height = 14.0, units = c("cm")))
+  
+  bio <- ggplot(toplot, aes(factor(diver), biomass_ratio))
+  bio <- bio + 
+    geom_boxplot() + 
+    coord_flip() + 
+    geom_jitter(colour = "red", size =1, alpha = 0.4) + 
+    theme_bw() +
+    scale_y_continuous(limits=c(-x_range,x_range))+
+    labs(y = expression(paste("Difference in biomass estimate (g ", m^-2,") relative to buddy")), x = "Diver") + 
+    scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
+  suppressMessages(ggsave(filename =paste("divervsdiver_biomass",region,"_",year, "_.png", sep = ""), width=13, height = 14.0, units = c("cm")))     
+  
+  ######## diver vs diver for species richness (here number of species)
+  
+  scr<-size_comp[,c("SITE", "DIVER", "SPECIESRICHNESS")] ### stripped down
+  msd<-data.frame(with(scr, tapply(SPECIESRICHNESS, list(SITE, DIVER), mean))) ## total number of species per diver at each site
+  
+  thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset
+  
+  
+  toplot<-list()
+  
+  for(i in 1:length(divers)){
+    ##i<-(divers)[7]
+    diver<-which(thenas[,i] == FALSE)
+    
+    ##select out the sites for diver from the dataframe
+    diverdata<-msd[diver,i]
+    
+    ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
+    otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+    
+    ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
+    x<-as.vector(diverdata - otherdiver)
+    toplot[[i]]<-x
+    
+  }
+  
+  toplot<-(melt(toplot))
+  
+  names(toplot)<-c("species", "diver")
+  toplot$diver<-as.factor(toplot$diver)
+  
+  species_anon <- ggplot(toplot, aes(factor(diver), species))
+  species_anon <- species_anon + 
+    geom_boxplot() + 
+    coord_flip() + 
+    geom_jitter(colour = "red", size =1, alpha = 0.4) + 
+    theme_bw() +
+    labs(y = "Difference in species richness relative to buddy", x = "Diver")# + scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
+  suppressMessages(ggsave(filename = paste("divervsdiver_species",region,"_",year, "_anon.png", sep = ""), width=13, height = 14.0, units = c("cm")))
+  
+  species <- ggplot(toplot, aes(factor(diver), species))
+  species <- species + 
+    geom_boxplot() + 
+    coord_flip() + 
+    geom_jitter(colour = "red", size =1, alpha = 0.4) + 
+    theme_bw() +
+    labs(y = "Difference in species richness relative to buddy", x = "Diver") + 
+    scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
+  
+  
+  ######## diver vs diver for coral estimates
+  
+  scr<-size_comp[,c("SITE", "DIVER", "HARD_CORAL")] ### stripped down
+  msd<-data.frame(with(scr, tapply(HARD_CORAL, list(SITE, DIVER), mean))) ## mean biomass estimate per diver per site
+  
+  thenas<-data.frame(is.na(msd)) ## id all the locations of nas in dataset
+  
+  
+  toplot<-list()
+  
+  for(i in 1:length(divers)){
+    ##i<-(divers)[7]
+    diver<-which(thenas[,i] == FALSE)
+    
+    ##select out the sites for diver from the dataframe
+    diverdata<-msd[diver,i]
+    
+    ## get the other diver estimates per site (take mean because at some sites there are more than 2 divers)
+    otherdiver<-rowMeans(msd[diver, !(colnames(msd) %in% c(paste(i))), drop=FALSE], na.rm = TRUE)
+    
+    ## for diver 1 create a site level biomass ratio, the biomass of diver 1 / the biomass of the other divers
+    x<-as.vector(diverdata - otherdiver)
+    toplot[[i]]<-x
+    
+  }
+  
+  toplot<-(melt(toplot))
+  
+  names(toplot)<-c("hard_coral", "diver")
+  toplot$diver<-as.factor(toplot$diver)
+  
+  coral_anon <- ggplot(toplot, aes(factor(diver), hard_coral))
+  coral_anon <- coral_anon + 
+    geom_boxplot() + 
+    coord_flip() + 
+    geom_jitter(colour = "red", size =1, alpha = 0.4) + 
+    theme_bw() +
+    labs(y = "Difference in coral cover estimate (%) relative to buddy", x = "Diver")# + scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
+  suppressMessages(ggsave(filename = paste("divervsdiver_coral",region,"_",year, "_anon.png", sep = ""), width=13, height = 14.0, units = c("cm")))
+  
+  coral <- ggplot(toplot, aes(factor(diver), hard_coral))
+  coral <- coral + 
+    geom_boxplot() + 
+    coord_flip() + 
+    geom_jitter(colour = "red", size =1, alpha = 0.4) + 
+    theme_bw() +
+    labs(y = "Difference in coral cover estimate (%) relative to buddy", x = "Diver") + 
+    scale_x_discrete(breaks = 1:length(levels(size_comp$DIVER)), labels = levels(size_comp$DIVER))
+  suppressMessages(ggsave(filename =paste("divervsdiver_coral",region,"_",year, "_.png", sep = ""), width=13, height = 12.0, units = c("cm")))
+  
+  png(filename = paste("QC_",region,"_",year,"_.png", sep = ""), width = 5, height = 9, units = "in",  bg = "white", res = 600, restoreConsole = TRUE)
+  multiplot(bio, species, coral)
+  dev.off()
+  
+  png(filename = paste("QC_anon_",region,"_",year,"_.png", sep = ""), width = 5, height = 9, units = "in",  bg = "white", res = 600, restoreConsole = TRUE)
+  multiplot(bio_anon, species_anon, coral_anon)
+  dev.off()
+  
+  
+}        ## divervsdiver4 
+
+
 
 ### ## # Multiple plot function -------------------------------------------------------------
 
