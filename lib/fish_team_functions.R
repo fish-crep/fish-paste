@@ -574,30 +574,52 @@ Site_BIA<-function (bia_data, tier="TIER_1")
 
 
 #calc values which are means of sub-replicates per site (generally will be depth, coral cover, complexity etc...)
+# Calc_REP_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, survey_data_fields){  
+  
+  # RETURN_FIELDS<-c("nCounts", "nReps")
+  
+  # #first average survey_data_fields for all replicate-counts
+  # y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
+  
+  # #	#idw if a rep has NAs in the data fields, then try to set them to the average of other counts in that rep
+  # #	y<-fill.NA.count(y, rep_fields, survey_data_fields)
+  
+  # y$nCounts<-1
+  # y$nReps<-1
+  # names(y)<-c(count_fields, survey_data_fields, RETURN_FIELDS)
+  
+  # #pool by Rep ("A","B","C" generally)
+  # idx_first_data_field<-length(count_fields)+1
+  # z<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], sum)
+  # y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], mean)
+  # y$nCounts<-z$nCounts
+  
+  # return(y)
+  
+# } # end Calc_REP_nSurveysArea
+#################
 Calc_REP_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, survey_data_fields){  
-  
-  RETURN_FIELDS<-c("nCounts", "nReps")
-  
-  #first average survey_data_fields for all replicate-counts
-  y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
-  
-  #	#idw if a rep has NAs in the data fields, then try to set them to the average of other counts in that rep
-  #	y<-fill.NA.count(y, rep_fields, survey_data_fields)
-  
-  y$nCounts<-1
-  y$nReps<-1
-  names(y)<-c(count_fields, survey_data_fields, RETURN_FIELDS)
-  
-  #pool by Rep ("A","B","C" generally)
-  idx_first_data_field<-length(count_fields)+1
-  z<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], sum)
-  y<-aggregate(y[,idx_first_data_field:dim(y)[2]],by=y[,rep_fields], mean)
-  y$nCounts<-z$nCounts
-  
-  return(y)
-  
+ 
+	RETURN_FIELDS<-c("nCounts", "nReps")
+
+	#first average survey_data_fields for all replicate-counts
+	y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
+	
+#	#idw if a rep has NAs in the data fields, then try to set them to the average of other counts in that rep
+#	y<-fill.NA.count(y, rep_fields, survey_data_fields)
+
+	y$nCounts<-1
+	y$nReps<-1
+	names(y)<-c(count_fields, survey_data_fields, RETURN_FIELDS)
+	
+	return(y)
+	
 } # end Calc_REP_nSurveysArea
 #################
+
+
+
+
 
 Calc_REP_Species_Richness<-function(x){  
   # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
