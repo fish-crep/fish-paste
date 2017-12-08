@@ -63,49 +63,49 @@ wd$protected_slope<-(wd$PD+wd$PM+wd$PS)
 wd$all_sites<-(wd$Forereef+wd$Lagoon+wd$LA+wd$protected_slope)
 write.csv(wd,file="sites_year_reef_zone_depth_bin.csv")
 
-################old code 
-load("working_site_data.Rdata")
-secs<-wsd
-head(secs)
-# @#$^^$% SOUTH BANK!!
-secs<-secs[secs$ISLAND !="South Bank",]
-secs<-droplevels(secs)
-head(secs)
-names(secs)
-secs<-secs[,c("REGION","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR", "ANALYSIS_STRATA","SITE")]# ANALYSIS_YEAR, REGION, ISLAND, ANALYSIS_SEC, ANALYSIS_STRATA 
-secs$N<-1 # to sum number of sites in each sector/depth bin
-# select only sites from 2017
-test<-secs[secs$ANALYSIS_YEAR=="2017",]
-summary(test)
-test<-droplevels(test)
-# example code below for cast function
-#a<-cast(tmp, OBS_YEAR + REGION + ISLAND + SEC_NAME ~ REEF_ZONE + DEPTH_BIN, value="n_sites", sum, fill=NA)
-temp<-as.data.frame(cast(test, REGION+ISLAND+ANALYSIS_SEC+ANALYSIS_YEAR~ANALYSIS_STRATA,value="N",sum, fill=NA))
-summary(temp)
-names(temp)
-# use only relevant strata 
-df<-temp[,c("ANALYSIS_YEAR","REGION" ,"ISLAND","ANALYSIS_SEC" , "ForereefDeep" ,"ForereefMid" , "ForereefShallow", "LagoonMid" , "LagoonShallow","Protected SlopeDeep","Protected SlopeMid")]
-
-names(df) # change to match relevant strata
-names(df) <- c("Year", "Region", "Island", "Sector", "Forereef-D", "Forereef-M", "Forereef-S", "Lagoon-M", "Lagoon-S","Protected Slope-D","Protected Slope-M")
-# # sum lagoon and protected slope 
-# str(df)
-# df[is.na(df)] <- 0
-# df$lagoonall<-rowSums(df[,c("Lagoon-M","Lagoon-S")])
-# #df$psall<-rowSums(df[,c("Protected Slope-D","Protected Slope-M")])
-# # get rid of lagoon and backreef shal,mid,deep, just keep totals
-# names(df)
-# df2<-df[,c("Year","Region","Island","Sector","Forereef-D","Forereef-M","Forereef-S","lagoonall", "psall")]
-# #change names
-# names(df2)
-# names(df2)<-c("Year", "Region", "Island", "Sector", "Forereef-D", "Forereef-M", "Forereef-S","Lagoon-All","Protected Slope-All")
-# # change zeros to blank entries
-# df2[df2 == 0]<-NA
-
-# DROP sectors that only have 1 rep, change NAs to blank entries
-df[df == 1]<-NA
-df[is.na(df)]<-" " 
-write.csv(df, file="D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/appendix_sector_year_data_table.csv")
+# ################old code 
+# load("working_site_data.Rdata")
+# secs<-wsd
+# head(secs)
+# # @#$^^$% SOUTH BANK!!
+# secs<-secs[secs$ISLAND !="South Bank",]
+# secs<-droplevels(secs)
+# head(secs)
+# names(secs)
+# secs<-secs[,c("REGION","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR", "ANALYSIS_STRATA","SITE")]# ANALYSIS_YEAR, REGION, ISLAND, ANALYSIS_SEC, ANALYSIS_STRATA 
+# secs$N<-1 # to sum number of sites in each sector/depth bin
+# # select only sites from 2017
+# test<-secs[secs$ANALYSIS_YEAR=="2017",]
+# summary(test)
+# test<-droplevels(test)
+# # example code below for cast function
+# #a<-cast(tmp, OBS_YEAR + REGION + ISLAND + SEC_NAME ~ REEF_ZONE + DEPTH_BIN, value="n_sites", sum, fill=NA)
+# temp<-as.data.frame(cast(test, REGION+ISLAND+ANALYSIS_SEC+ANALYSIS_YEAR~ANALYSIS_STRATA,value="N",sum, fill=NA))
+# summary(temp)
+# names(temp)
+# # use only relevant strata 
+# df<-temp[,c("ANALYSIS_YEAR","REGION" ,"ISLAND","ANALYSIS_SEC" , "ForereefDeep" ,"ForereefMid" , "ForereefShallow", "LagoonMid" , "LagoonShallow","Protected SlopeDeep","Protected SlopeMid")]
+# 
+# names(df) # change to match relevant strata
+# names(df) <- c("Year", "Region", "Island", "Sector", "Forereef-D", "Forereef-M", "Forereef-S", "Lagoon-M", "Lagoon-S","Protected Slope-D","Protected Slope-M")
+# # # sum lagoon and protected slope 
+# # str(df)
+# # df[is.na(df)] <- 0
+# # df$lagoonall<-rowSums(df[,c("Lagoon-M","Lagoon-S")])
+# # #df$psall<-rowSums(df[,c("Protected Slope-D","Protected Slope-M")])
+# # # get rid of lagoon and backreef shal,mid,deep, just keep totals
+# # names(df)
+# # df2<-df[,c("Year","Region","Island","Sector","Forereef-D","Forereef-M","Forereef-S","lagoonall", "psall")]
+# # #change names
+# # names(df2)
+# # names(df2)<-c("Year", "Region", "Island", "Sector", "Forereef-D", "Forereef-M", "Forereef-S","Lagoon-All","Protected Slope-All")
+# # # change zeros to blank entries
+# # df2[df2 == 0]<-NA
+# 
+# # DROP sectors that only have 1 rep, change NAs to blank entries
+# df[df == 1]<-NA
+# df[is.na(df)]<-" " 
+# write.csv(df, file="D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/appendix_sector_year_data_table.csv")
 
 # appendix 5: diver vs diver comparisons ----------------------------------
 getwd()
@@ -122,7 +122,7 @@ species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)
 ## using Calc_REP functions (from fish_team_functions) to get richness and biomass estimates per replicate....
 r1<-Calc_REP_Bio(wd, "FAMILY"); family.cols<-names(r1)[7:dim(r1)[2]]
 # naming difference for unknown.. quick temp fix
-family.cols # where is UNKNOWN?
+#family.cols # where is UNKNOWN?
 #family.cols<-family.cols[-67] ## drop level UNKNOWN
 r1$TotFish<-rowSums(r1[,family.cols])
 
@@ -153,17 +153,20 @@ names(compdata)<-c("REPLICATEID","SITEVISITID","SITE","REP","TotFish","SPECIESRI
 
 # set wd
 setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/figures/appndx")
-## divervsdiver3 - creates an anonymous and named version of diver comparisons for totfish, richness and coral estimates 
+## divervsdiver4 - creates an anonymous and named version of diver comparisons for totfish, richness and coral estimates 
+# get list of regions surveyed this year
+unique(compdata$REGION)
+
 ##- need to look at the range of the data per year region to tweak the x axis range
 dataNWHI<-compdata[compdata$REGION=="NWHI"&compdata$ANALYSIS_YEAR==2017,]
-summary(dataNWHI)# look at max value for tot fish and adjust x_range below
-dataPRIA<-compdata[compdata$REGION=="PRIA"&compdata$ANALYSIS_YEAR==2017,]
+summary(dataNWHI)# look at max value for tot fish and adjust x_range below - same scale for each region, just find largest number. Ok if you get warnings and it cuts some values out. 
+dataPRIA<-compdata[compdata$REGION=="PRIAs"&compdata$ANALYSIS_YEAR==2017,]
 summary(dataPRIA)
 ## to create a multigraph with total fish, richness and coral estimates run divervsdiver3
-divervsdiver3(data=compdata, year = "2017", region="NWHI", x_range= 100)
-divervsdiver3(data=compdata, year = "2017", region="N. MARIANA", x_range= 100)
-divervsdiver3(data=compdata, year = "2017", region="PRIAs", x_range= 100)
-divervsdiver3(data=compdata, year = "2017", region="S. MARIANA", x_range= 100)
+divervsdiver4(data=compdata, year = "2017", region="NWHI", x_range= 100)
+divervsdiver4(data=compdata, year = "2017", region="N.MARIAN", x_range= 100) # 75
+divervsdiver4(data=compdata, year = "2017", region="PRIAs", x_range= 100) # 50
+divervsdiver4(data=compdata, year = "2017", region="S.MARIAN", x_range= 100) # 25
 
 # trying to make graphs taller to see graphs with lots of divers
 setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/figures/appndx/diver_v_diver")
@@ -174,7 +177,8 @@ divervsdiver4(data=compdata, year = "2016", region="SAMOA", x_range= 100)
 
  
 #------------- appendix 6: random stratified sites surveyed per region / island -------------
-load("clean_working_site_data_used_in_higher_pooling_for_report.Rdata")
+
+load("D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/data/Data Outputs/clean_working_site_data_used_in_higher_pooling_for_report.Rdata")
 site.data.nspc<-wsd.uncap
 # @#$^^$% SOUTH BANK!!
 site.data.nspc<-site.data.nspc[site.data.nspc$ISLAND !="South Bank",]
@@ -192,12 +196,12 @@ levels(site.data.nspc$ISLAND)
 #match island to factor number(16, 23,32,19,18,7,20,6,25,26,27,14,28,24,17,22,13,9,5,21,3,1,30,42,35,39,2,34,8,41,12,15,31,10,4,11,37,29,38,40,33,36)
 #df$ISLAND<-factor(df$ISLAND, levels(df$ISLAND)[c("Kure","Midway","Pearl & Hermes","Lisianski","Laysan","Gardner","Maro", "French Frigate","Necker", "Nihoa","Niihau","Kauai","Oahu","Molokai","Lanai","Maui","Kahoolawe","Hawaii","Farallon de Pajaros","Maug","Asuncion","Agrihan","Pagan","AGS","Saipan","Tinian","Aguijan","Rota","Guam","Wake","Johnston","Kingman","Palmyra","Howland","Baker", "Jarvis", "Swains","Ofu & Olosega", "Tau","Tutuila","Rose", "South Bank")])
 
-site.data.nspc$ISLAND<-factor(site.data.nspc$ISLAND, levels(site.data.nspc$ISLAND)[c(16, 23,32,19,18,7,20,6,25,26,27,14,28,24,17,22,13,9,5,21,3,1,30,42,35,39,2,34,8,41,12,15,31,10,4,11,37,29,38,40,33,36)])
+#site.data.nspc$ISLAND<-factor(site.data.nspc$ISLAND, levels(site.data.nspc$ISLAND)[c(16, 23,32,19,18,7,20,6,25,26,27,14,28,24,17,22,13,9,5,21,3,1,30,42,35,39,2,34,8,41,12,15,31,10,4,11,37,29,38,40,33,36)])
 
 
 
 a<-tapply(site.data.nspc$N, list(site.data.nspc$ISLAND, site.data.nspc$OBS_YEAR), sum)
-a<-data.frame(a)
+a<-as.data.frame(a)
 a$Total<-rowSums(a, na.rm = TRUE)
 a[is.na(a)]<-" "
 
