@@ -4,11 +4,11 @@ setwd("/Users/ivor.williams/Documents/CRED/Fish Team/TMP")
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
 
-source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/fish_team_functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")
 #source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")
 
 
-load("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/data/ALL_REA_FISH_RAW.rdata")
+load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_REA_FISH_RAW.rdata")
 x<-df
 
 # HOUSEKEEPING ------------------------------------------------------------

@@ -113,22 +113,22 @@ dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_H
 save(dp, file="data_pooled_is_yr_RZ.Rdata")
 
 # e.g. SAVE BY ISLAND PER YEAR
-OUTPUT_LEVEL<-c("REGION","ISLAND", "ANALYSIS_YEAR")
+OUTPUT_LEVEL<-c("REGION","ISLAND", "ANALYSIS_YEAR", "METHOD")
 dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")
 save(dp, file="data_pooled_is_yr.Rdata")
 
 # e.g. SAVE BY ISLAND POOLING ALL YEARS' DATA
-OUTPUT_LEVEL<-c("REGION","ISLAND")
+OUTPUT_LEVEL<-c("REGION","ISLAND", "METHOD")
 dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")
 save(dp, file="data_pooled_is.Rdata")
 
 # e.g. SAVE BY ISLAND AND SECTOR PER YEAR
-OUTPUT_LEVEL<-c("REGION","ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR")
+OUTPUT_LEVEL<-c("REGION","ISLAND", "ANALYSIS_SEC", "ANALYSIS_YEAR", "METHOD")
 dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")
 save(dp, file="data_pooled_SEC_yr.Rdata")
 
 # e.g. SAVE BY REGION PER YEAR
-OUTPUT_LEVEL<-c("REGION", "ANALYSIS_YEAR") 
+OUTPUT_LEVEL<-c("REGION", "ANALYSIS_YEAR", "METHOD") 
 dp<-Calc_Pooled_Simple(dps$Mean, dps$SampleVar, data.cols, OUTPUT_LEVEL, "AREA_HA")
 save(dp, file="MONREPdata_pooled_reg.rdata")
 

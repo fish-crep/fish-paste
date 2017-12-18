@@ -8,38 +8,38 @@ library(scales)
 source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/fish_team_functions.R")
 source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")
 
-#calc values which are means of sub-replicates per site (generally will be depth, coral cover, complexity etc...)
-Calc_REP_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, survey_data_fields){  
+# #calc values which are means of sub-replicates per site (generally will be depth, coral cover, complexity etc...)
+# Calc_REP_nSurveysArea<-function(x, survey_id_fields, rep_fields, count_fields, survey_data_fields){  
  
-	RETURN_FIELDS<-c("nCounts", "nReps")
+	# RETURN_FIELDS<-c("nCounts", "nReps")
 
-	#first average survey_data_fields for all replicate-counts
-	y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
+	# #first average survey_data_fields for all replicate-counts
+	# y<-aggregate(x[,survey_data_fields],by=x[,count_fields], mean)
 	
-#	#idw if a rep has NAs in the data fields, then try to set them to the average of other counts in that rep
-#	y<-fill.NA.count(y, rep_fields, survey_data_fields)
+# #	#idw if a rep has NAs in the data fields, then try to set them to the average of other counts in that rep
+# #	y<-fill.NA.count(y, rep_fields, survey_data_fields)
 
-	y$nCounts<-1
-	y$nReps<-1
-	names(y)<-c(count_fields, survey_data_fields, RETURN_FIELDS)
+	# y$nCounts<-1
+	# y$nReps<-1
+	# names(y)<-c(count_fields, survey_data_fields, RETURN_FIELDS)
 	
-	return(y)
+	# return(y)
 	
-} # end Calc_REP_nSurveysArea
-#################
+# } # end Calc_REP_nSurveysArea
+# #################
 
-Calc_REP_Species_Richness<-function(x){  
-  # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
-  # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
+# Calc_REP_Species_Richness<-function(x){  
+  # # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
+  # # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
   
-  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID", "SPECIES")], sum)	#convert to count per species per rep
-  z<-aggregate(y$SPECIES,by=y[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID")], length)  		# count number of entries per rep	
-  dimnames(z)[[2]]<-c("SITEVISITID", "METHOD", "SITE", "REP","DIVER", "REPLICATEID", "SPECIESRICHNESS")
+  # y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID", "SPECIES")], sum)	#convert to count per species per rep
+  # z<-aggregate(y$SPECIES,by=y[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID")], length)  		# count number of entries per rep	
+  # dimnames(z)[[2]]<-c("SITEVISITID", "METHOD", "SITE", "REP","DIVER", "REPLICATEID", "SPECIESRICHNESS")
   
-  return(z)
+  # return(z)
   
-}
-# end Calc_REP_Species_Richness
+# }
+# # end Calc_REP_Species_Richness
 
 Calc_REP_Bio<-function(x, grouping_field){  
 	# function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
