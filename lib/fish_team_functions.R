@@ -67,7 +67,7 @@ Aggregate_InputTable<-function(x, field_list){
 	# field_list is the list of fields to include (could be verything relating to each survey, or everything relating to a fish species)
 	# function returns a data frame 
 	
-	y<-aggregate(x$COUNT,by=x[,field_list], sum)  # aggregate sums total count of all fishes per record, using field_list 
+	y<-aggregate(x$SITEVISITID,by=x[,field_list], sum)  # aggregate sums total count of all fishes per record, using field_list 
 	y<-y[,field_list]                             # drop the count - was just using that to generate a summary table
 	
 	return(y)
