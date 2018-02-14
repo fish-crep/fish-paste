@@ -3,6 +3,7 @@ library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
 
 #LOAD LIBRARY FUNCTIONS ... 
+source("lib/core_functions.R")
 source("lib/fish_team_functions.R")
 #source("lib/Islandwide Mean&Variance Functions.R")
 

@@ -4,8 +4,10 @@ setwd("/Users/ivor.williams/Documents/CRED/CRCP/NCRMP/Report Card Workshop/Fish 
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
 
-source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/fish_team_functions.R")
-source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")
+
 
 Modified_Site_Species_Richness<-function(x){  
   # Modification fos tandard Calc_Site_Species_Richness to not count species with zero counts (as they can be left in data file to ensure that the site has data records at all) 

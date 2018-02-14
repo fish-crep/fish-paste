@@ -6,8 +6,10 @@ library(reshape)           # reshape library inclues the cast() function used be
 
 #bs<-read.csv("island baselines.csv")
 
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")
+
 
 sm<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/SITE MASTER.csv")
 sm$SITE<-SiteNumLeadingZeros(sm$SITE)

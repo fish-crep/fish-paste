@@ -6,6 +6,7 @@ setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")
 #setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
 library(gdata)             # needed for drop_levels()
 library(reshape2)           # reshape library inclues the cast() function used below
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")
 #source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")
 

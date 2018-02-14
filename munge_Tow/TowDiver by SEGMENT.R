@@ -5,6 +5,7 @@ rm(list=ls())
 
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
+source("lib/core_functions.R")
 source("lib/fish_team_functions.R")
 source("lib/Islandwide Mean&Variance Functions.R")
 

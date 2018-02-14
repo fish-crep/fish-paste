@@ -3,6 +3,7 @@ rm(list=ls())
 #setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
+source("E:/CRED/Base_R/Base_R_Functions/core_functions.r")
 source("E:/CRED/Base_R/Base_R_Functions/fish_team_functions.r")
 source("E:/CRED/Base_R/Base_R_Functions/Islandwide Mean&Variance Functions.R")
 
