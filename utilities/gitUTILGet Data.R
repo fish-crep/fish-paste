@@ -1,3 +1,11 @@
+#### For NOAA computers: in order to use this script you will need to contact ITS to set up the ODBC drivers on your computer. You will not have adminstrative rights
+# You will also need to set up an oracle account if you haven't already
+##Once everything it set up you can download the individual datasets. If you experience errors that datasets can't be found double check your oracle account to make sure you have access
+#if you don't have access you will need to ask someone in ESD Data Management to have you access to whatever views you are interested in.
+
+#ITS will be providing the steps to set up your ODBC drivers, which will be included here soon.
+
+
 rm(list=ls())
 library(RODBC)            # to connect to oracle
 setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
@@ -18,6 +26,15 @@ rawtables<-c(a,b,c)
 rawtables
 df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V0_FISH_REA")); head(df)
 save(df, file="ALL_REA_FISH_RAW.rdata")
+
+#Raw adult coral colony data from REA surveys using method e
+df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V0_CORAL_OBS_E")); head(df)
+save(df, file="ALL_REA_ADULTCORAL_RAW.rdata")
+
+#Raw juvenile coral colony data from REA surveys using method f
+df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V0_CORAL_OBS_F")); head(df)
+save(df, file="ALL_REA_JUVCORAL_RAW.rdata")
+
 ##
 ##
 
