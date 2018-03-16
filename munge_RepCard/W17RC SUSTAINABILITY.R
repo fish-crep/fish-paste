@@ -6,10 +6,8 @@ library(reshape)           # reshape library inclues the cast() function used be
 
 #bs<-read.csv("island baselines.csv")
 
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")
-
 
 sm<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/SITE MASTER.csv")
 sm$SITE<-SiteNumLeadingZeros(sm$SITE)
@@ -17,8 +15,8 @@ sectors<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/
 
 
 # FISH REA WORKINGS ----------------------------------------------------------------
-#load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_REA_FISH_RAW.rdata")
-load("/Users/ivor.williams/Documents/CRED/Fish Team/MARAMP17/ALL_REA_FISH_RAW_inclM17.rdata")
+load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_REA_FISH_RAW.rdata")
+#load("/Users/ivor.williams/Documents/CRED/Fish Team/MARAMP17/ALL_REA_FISH_RAW.rdata")
 # #FIXING GLITCH FOR SITE TIN-474
 # unique(df[df$SITE=="TIN-00474", c("REP", "SITEVISITID", "DIVER")])
 # df[df$SITE=="TIN-00474" & df$DIVER=="VAB",]$REP<-"B"
