@@ -306,7 +306,7 @@ for(1 in 1:length(CURRENT_SCHEMES)){
 	
 	#now deal with those missing sectors - either rename ANALYSIS_SEC OR remove
 	if(CURRENT_SCHEME=="RAMP_BASIC") {
-#		wsd[wsd$ANALYSIS_SEC %in% c("PATI_PT_MPA", "ACHANG_MPA", "TUMON_BAY_MPA", "PITI_BOMB_MPA", "GUAM_MP_MINUS_ACHANG"),]$ANALYSIS_SEC<-"GUAM_MP"
+#		wsd[wsd$ANALYSIS_SEC %in% c("TUT_PATI_PT", "TUT_ACHANG", "TUT_TUMON_BAY", "TUT_PITI_BOMB", "GUAM_MP_MINUS_ACHANG"),]$ANALYSIS_SEC<-"GUAM_MP"
 #		#in this case removing 2014 ACHANG_MPA sites (The shorebased ones) and changing ANALYSIS_SEC for all other GUAM MPA sectors to the RAMP base one "GUAM_MP", also remove SAMOA 2015 sites, they will run in AS_SANCTUARY 2015 and Tutuila 2010&012
 #		wsd<-wsd[!(wsd$ANALYSIS_SEC == "ACHANG_MPA" & wsd$ANALYSIS_YEAR==2014),]
 		wsd<-wsd[wsd$ISLAND != "Guam",]

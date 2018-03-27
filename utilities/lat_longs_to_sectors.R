@@ -114,7 +114,7 @@ names(GUA_MPA)[[6]]<-"ANALYSIS_SEC_MPA"
 
 test<-cbind(GUA_MPA$ANALYSIS_SEC_MPA, datr)
 names(test)[1]<-"GUA_MPA"
-levels(test$GUA_MPA)<-c("ACHANG_MPA", "GUAM_EAST_OPEN", "GUAM_WEST_OPEN", "PATI_PT_MPA", "PITI_BOMB_MPA", "TUMON_BAY_MPA")
+levels(test$GUA_MPA)<-c("TUT_ACHANG", "GUA_EAST_OPEN", "GUA_WEST_OPEN", "TUT_PATI_PT", "TUT_PITI_BOMB", "TUT_TUMON_BAY")
 test$ANALYSIS_SECS<-test$GUA_MPA
 
 levels(test$ANALYSIS_SECS)<-c(levels(test$ANALYSIS_SECS), "Open East", "Open West")
@@ -156,7 +156,7 @@ mhi<-test
 
 #######################################################################
 ### SAMOA
-levels(shp$LABEL)<-c("AUNUU_SANCTUARY_B", "FAGATELE_SANCTUARY", "TUT_NE", "TUT_NW", "TUT_SE", "TUT_SW")
+levels(shp$LABEL)<-c("TUT_AUNUU_B", "TUT_FAGATELE", "TUT_NE_OPEN", "TUT_NW_OPEN", "TUT_SE_OPEN", "TUT_SW_OPEN")
 summary(datr)
 datr<-datr[datr$ISLAND == "Tutuila",]
 datr<-droplevels(datr)
@@ -170,7 +170,7 @@ tut<-datr@data
 
 #######################################################################
 ### SAMOA SANCT
-levels(shp$LABEL)<-c("AUNUU_SANCTUARY_B", "FAGATELE_SANCTUARY", "TUT_NE", "TUT_NW", "TUT_SE", "TUT_SW")
+levels(shp$LABEL)<-c("TUT_AUNUU_B", "TUT_FAGATELE", "TUT_NE_OPEN", "TUT_NW_OPEN", "TUT_SE_OPEN", "TUT_SW_OPEN")
 summary(datr)
 datr<-datr[!datr$ISLAND == "Tutuila",]
 datr<-droplevels(datr)

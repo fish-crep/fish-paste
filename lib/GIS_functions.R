@@ -65,7 +65,7 @@ get_SECNAME<-function(x, shp, LOCATION="MHI"){
 
 		### GUAM has MPAs that overlap the sectors so do it again for mpas and create separate col
 		##create a shape file of non open sectors
-		mpa.data<-shp[shp$SEC_NAME %in% c("PATI_PT_MPA", "PITI_BOMB_MPA", "SASA_BAY_MPA", "TUMON_BAY_MPA", "ACHANG_MPA"),]
+		mpa.data<-shp[shp$SEC_NAME %in% c("TUT_PATI_PT", "TUT_PITI_BOMB", "TUT_SASA_BAY", "TUT_TUMON_BAY", "TUT_ACHANG"),]
 		tmp<-over(datr, mpa.data)
 		MP<-tmp$SEC_NAME
 		
