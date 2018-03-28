@@ -559,7 +559,7 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 		md$wt<-md[,weighting_field] / tot.wt
 		vd$wt<-md$wt
 				
-		vd$pctSampled<-(vd$N*GRID_CELL_SIZE)/(vd$AREA_HA*AREA_UNITS)
+		vd$pctSampled<-(vd$N*GRID_CELL_SIZE)/(vd[,weighting_field]*AREA_UNITS)
 
     	#TMP FIDDLE, SHOULD NEVER HAPPEN, BUT pctSampled should not be above 1
     	if(max(vd$pctSampled, na.rm=T)>1)
