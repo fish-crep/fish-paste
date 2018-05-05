@@ -216,9 +216,9 @@ NWHI,NWHI,French Frigate,French Frigate,Forereef,Mid,FFS,FFS,NOT,PMNM,4498.01,47
 NWHI,NWHI,French Frigate,French Frigate,Forereef,Shallow,FFS,FFS,NOT,PMNM,652.92,849,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
 NWHI,NWHI,French Frigate,French Frigate,Lagoon,Mid,FFS,FFS,NOT,PMNM,7827.37,11060,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
 NWHI,NWHI,French Frigate,French Frigate,Lagoon,Shallow,FFS,FFS,NOT,PMNM,1900.78,2139,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Deep,FFS,FFS,NOT,PMNM,8082.28,NA,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Mid,FFS,FFS,NOT,PMNM,3420.42,NA,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Shallow,FFS,FFS,NOT,PMNM,1,NA,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,We have 2 sites now called Protected Slope Shallow. They possibly should be Lagoon or something else.. But we do need a sector value for now
+NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Deep,FFS,FFS,NOT,PMNM,8082.28,32329.12,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
+NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Mid,FFS,FFS,NOT,PMNM,3420.42,13681.68,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
+NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Shallow,FFS,FFS,NOT,PMNM,1,4,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,We have 2 sites now called Protected Slope Shallow. They possibly should be Lagoon or something else.. But we do need a sector value for now
 NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Deep,GAR,GAR,NOT,PMNM,28559.86045,28560,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
 NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Mid,GAR,GAR,NOT,PMNM,1586.658914,1587,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
 NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Shallow,GAR,GAR,NOT,PMNM,1586.658914,1587,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
@@ -276,9 +276,9 @@ PRIAs,Johnston,Johnston,Johnston,Forereef,Shallow,JOH,JOH,NOT,PRIMNM,283.22,1133
 PRIAs,Johnston,Johnston,Johnston,Lagoon,Deep,JOH,JOH,NOT,PRIMNM,7.76,31,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 45% hardbottom - should definitely pool lagoon deep with lagoon moderate
 PRIAs,Johnston,Johnston,Johnston,Lagoon,Mid,JOH,JOH,NOT,PRIMNM,1630.99,6524,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 45% hardbottom
 PRIAs,Johnston,Johnston,Johnston,Lagoon,Shallow,JOH,JOH,NOT,PRIMNM,1273.9,5096,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 45% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Protected Slope,Deep,JOH,JOH,NA,NA,3223.37,NA,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Protected Slope,Mid,JOH,JOH,NA,NA,2711.37,NA,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Protected Slope,Shallow,JOH,JOH,NA,NA,6.88,NA,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom - should pool shallow protected with mid
+PRIAs,Johnston,Johnston,Johnston,Protected Slope,Deep,JOH,JOH,NA,NA,3223.37,12893.48,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Protected Slope,Mid,JOH,JOH,NA,NA,2711.37,10845.48,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Protected Slope,Shallow,JOH,JOH,NA,NA,6.88,27.52,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom - should pool shallow protected with mid
 PRIAs,King_Pal,Kingman,Kingman,Backreef,Deep,KIN,KIN,NOT,PRIMNM,50.25,163,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
 PRIAs,King_Pal,Kingman,Kingman,Backreef,Mid,KIN,KIN,NOT,PRIMNM,203.25,739,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
 PRIAs,King_Pal,Kingman,Kingman,Backreef,Shallow,KIN,KIN,NOT,PRIMNM,380.75,989,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
@@ -290,7 +290,7 @@ PRIAs,King_Pal,Kingman,Kingman,Lagoon,Mid,KIN,KIN,NOT,PRIMNM,74.75,304,Kingman,K
 PRIAs,King_Pal,Kingman,Kingman,Lagoon,Shallow,KIN,KIN,NOT,PRIMNM,0.25,2,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids Assumes 60% hard bottom
 PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Deep,KIN,KIN,NA,PRIMNM,229,756,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
 PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Mid,KIN,KIN,NA,PRIMNM,1328.25,4786,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Shallow,KIN,KIN,NA,PRIMNM,19.25,NA,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Shallow,KIN,KIN,NA,PRIMNM,19.25,77,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
 PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Deep,PAL,PAL,NOT,PRIMNM,11.58568484,46,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
 PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Mid,PAL,PAL,NOT,PRIMNM,67.99264287,272,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
 PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Shallow,PAL,PAL,NOT,PRIMNM,1246.94781,4988,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
