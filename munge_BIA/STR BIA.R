@@ -2,20 +2,20 @@ rm(list=ls())
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
 library(RODBC)            # to connect to oracle
-source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/fish_team_functions.R")
-source("/Users/ivor.williams/Documents/CRED/Fish Team/FishPaste/fish-paste/lib/Islandwide Mean&Variance Functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")
+source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")
 
 
 setwd("/Users/ivor.williams/Documents/CRED/Fish Team/All BIA")
 
 #BIA data - this is from CPCE
-load("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files/ALL_BIA_STR_RAW_NEW.rdata")   #bia
+load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_BIA_STR_RAW_NEW.rdata")   #bia
 bia$SITE<-SiteNumLeadingZeros(bia$SITE)
 
 #CNET data - from CoralNet
-load("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files/ALL_BIA_STR_CNET.rdata")	#cnet
+load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_BIA_STR_CNET.rdata")	#cnet
 cnet$SITE<-SiteNumLeadingZeros(cnet$SITE)
-
 
 ##Generate Table of all the bia categories
 head(bia)
