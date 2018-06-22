@@ -1,0 +1,15 @@
+REGION,ISLAND,SEC_NAME,REEF_ZONE,DEPTH_BIN,AREA_HA,NH,SAMOA_CLIMATE
+SAMOA,Tutuila,FAGAM,Forereef,Bank,52,208,FAGAM
+SAMOA,Tutuila,FAGAM,Forereef,Deep,7.75,31,FAGAM
+SAMOA,Tutuila,FAGAM,Forereef,Mid,9.5,38,FAGAM
+SAMOA,Tutuila,FAGAM,Forereef,Shallow,7.25,29,FAGAM
+SAMOA,Tutuila,FAGAA_NO,Backreef,Shallow,3.25,13,FAGAA
+SAMOA,Tutuila,FAGAA_NO,Forereef,Mid,1.25,5,FAGAA
+SAMOA,Tutuila,FAGAA_NO,Forereef,Shallow,2,8,FAGAA
+SAMOA,Tutuila,FAGAA_SO,Backreef,Shallow,5.5,22,FAGAA
+SAMOA,Tutuila,FAGAA_SO,Forereef,Mid,6,24,FAGAA
+SAMOA,Tutuila,FAGAA_SO,Forereef,Shallow,5,20,FAGAA
+SAMOA,Tutuila,VATIA_NO,Forereef,Mid,7.5,30,VATIA
+SAMOA,Tutuila,VATIA_NO,Forereef,Shallow,11.75,47,VATIA
+SAMOA,Tutuila,VATIA_SO,Forereef,Mid,7.75,31,VATIA
+SAMOA,Tutuila,VATIA_SO,Forereef,Shallow,11.75,47,VATIA

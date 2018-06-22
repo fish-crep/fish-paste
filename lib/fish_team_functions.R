@@ -146,10 +146,10 @@ Calc_Site_Abund_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50,Inf)
 
 
 # #********************
-# Mode<- function(x) {
-	# ux<- unique(x)
-	# ux[which.max(tabulate(match(x, ux)))]
-# }
+ Mode<- function(x) {
+	ux<- unique(x)
+	ux[which.max(tabulate(match(x, ux)))]
+}
 
 # #********************
 

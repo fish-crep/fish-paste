@@ -12,6 +12,7 @@ sectors<-read.csv("data/Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
 # load site master to merge with sector names
 site_master<-read.csv("data/SITE MASTER.csv")
 site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)
+site_master<-subset(site_master$METHOD %in% c("nSPC", "nSPC-CCR"))  # Just pull the fish surveys (as there can now be benthic survey records at same sitse, but with different SITEIVISTIID values - and this removes scope for confusion
 
 ## LOAD AND CLEAN fish data
 load("data/ALL_REA_FISH_RAW.rdata")
