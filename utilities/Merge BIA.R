@@ -3,7 +3,7 @@ rm(list=ls())
 #### 2017 Howland, Baker, Wake, Jarvis, 2016 Jarvis)
 #### Strata scale BIA  ... coral 
 
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Data Requests/Scripps BIA")
+setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
 
 library(gdata)             # needed for drop_levels()
 library(reshape)           # reshape library inclues the cast() function used below
@@ -85,6 +85,23 @@ ab[ab$GENERA_NAME %in% c("Peyssonnelia sp", "Encrusting macroalga"),]$TIER_1<-"E
 ab[ab$GENERA_NAME %in% c("Peyssonnelia sp", "Encrusting macroalga"),]$TIER_2<-"EMA"
 ab[ab$GENERA_NAME %in% c("Peyssonnelia sp", "Encrusting macroalga"),]$SUBCATEGORY_NAME<-"Encrusting macroalga"
 ab[ab$GENERA_NAME %in% c("Peyssonnelia sp", "Encrusting macroalga"),]$CATEGORY_NAME<-"Encrusting macroalga"
+
+
+#Some other Clean UP
+unique(ab[ab$GENERA_NAME %in% c("Blue-green macroalga"), c("TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME")])
+ab[ab$GENERA_NAME %in% c("Blue-green macroalga"),]$SUBCATEGORY_NAME <-"Blue-green macroalga"
+ab[ab$GENERA_NAME %in% c("Blue-green macroalga"),]$TIER_2 <-"BGMA"
+
+unique(ab[ab$GENERA_NAME %in% c("Halimeda sp"),c("TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME")])
+ab[ab$GENERA_NAME %in% c("Halimeda sp"),]$SUBCATEGORY_NAME<-"Upright macroalga"
+ab[ab$GENERA_NAME %in% c("Halimeda sp"),]$TIER_2<-"HAL"
+ab[ab$GENERA_NAME %in% c("Halimeda sp"),]$TIER_3<-"HALI"
+
+unique(ab[ab$GENERA_NAME %in% c("Lobophora sp"), c("TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME")]) # This is msot disturbing one as it can be either!
+ab[ab$GENERA_NAME %in% c("Lobophora sp"),]$SUBCATEGORY_NAME<-"Upright macroalga"
+ab[ab$GENERA_NAME %in% c("Lobophora sp"),]$TIER_2<-"UPMA"
+
+
 
 all.tab<-aggregate(ab$POINTS, by=ab[,c("METHOD", "TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME", "SHORT_CODE")], FUN=length)
 write.csv(all.tab, file="All CATEGORIES BOTH METHODS CLEANED.csv")
