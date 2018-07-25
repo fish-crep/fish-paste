@@ -98,15 +98,15 @@ ab[ab$GENERA_NAME %in% c("Halimeda sp"),]$TIER_2<-"HAL"
 ab[ab$GENERA_NAME %in% c("Halimeda sp"),]$TIER_3<-"HALI"
 
 unique(ab[ab$GENERA_NAME %in% c("Lobophora sp"), c("TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME")]) # This is msot disturbing one as it can be either!
-ab[ab$GENERA_NAME %in% c("Lobophora sp"),]$SUBCATEGORY_NAME<-"Upright macroalga"
-ab[ab$GENERA_NAME %in% c("Lobophora sp"),]$TIER_2<-"UPMA"
+ab[ab$GENERA_NAME %in% c("Lobophora sp"),]$SUBCATEGORY_NAME<-"Encrusting macroalga"
+ab[ab$GENERA_NAME %in% c("Lobophora sp"),]$TIER_2<-"EMA"
 
 
 
 all.tab<-aggregate(ab$POINTS, by=ab[,c("METHOD", "TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME", "SHORT_CODE")], FUN=length)
 write.csv(all.tab, file="All CATEGORIES BOTH METHODS CLEANED.csv")
 
-save(ab, file="All BIA BOTH METHODS cleanUPD.RData")
+save(ab, file="All BIA BOTH METHODS clean.RData")
 
 
 #Generate a SITE table
