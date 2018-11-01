@@ -16,6 +16,7 @@ tmd<-tmd[,c("DIVEID", "Average")]
 load(file="data/ALL_TOW_FISH_RAW.rdata")
 wd<-df
 
+
 nosc<-which(wd$SPECIES == "NOSC")
 wd<-wd[-nosc,]
 miss<-which(wd$SPECIES == "MISS")

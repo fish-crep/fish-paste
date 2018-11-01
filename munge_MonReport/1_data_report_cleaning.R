@@ -42,7 +42,7 @@ x<-subset(x, x$OBS_TYPE %in% c("U","I","N"))
 
 #add SEC_NAME to x  
 # this would be better if SECTOR field in database was up to date properly .. rather than merge with the site_Sectors spreadsheet
-x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
+x<-merge(x, site_master[,c("SITE", "METHOD", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by=c("SITE", "METHOD"), all.x=TRUE)
 
 #CHECK THAT all ANALYSIS_SEC are present in the site_master file)
 idw<-x[is.na(x$ANALYSIS_SEC)  & x$METHOD=="nSPC", c("REGION", "SITE","OBS_YEAR", "METHOD"),]
