@@ -1,9 +1,10 @@
 # reshape library inclues the cast() function used below
 library(reshape2)
+library(plyr)
 #library(ggplot2) ## to create the diver vs diver graphs
 
 
-
+#Old Input table function- the aggregate function is an older function that can't handle NAs.
 Aggregate_InputTable<-function(x, field_list){  
 	# function assumes that x is a data frame looking like our standard input
 	# field_list is the list of fields to include (could be verything relating to each survey, or everything relating to a fish species)
@@ -14,6 +15,18 @@ Aggregate_InputTable<-function(x, field_list){
 	
 	return(y)
 	
+} # end Aggregate_InputTables
+
+
+
+#New Input table function- this new function uses ddply to summary data and can handle NAs.
+new_Aggregate_InputTable<-function(data, field_list) {
+  # function assumes that x is a data frame looking like our standard input
+  # field_list is the list of fields to include (could be verything relating to each survey, or everything relating to a fish species)
+  # function returns a data frame 
+    y <- ddply(data, field_list, summarize,sum(SITEVISITID,na.rm = T))
+    y<-y[,field_list] # drop the count - was just using that to generate a summary table
+    return(y)
 } # end Aggregate_InputTables
 
 
