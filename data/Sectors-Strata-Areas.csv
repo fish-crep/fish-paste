@@ -1,355 +1,355 @@
-REGION,REP_CARD,ISLAND,SEC_NAME,REEF_ZONE,DEPTH_BIN,bA_BENTHIC_REP_CARD,bBENTHIC_SEC_CODE,bGEN_MHI_STRUCTURE,bPROTECTION_DS,AREA_HA,NH,RAMP_BASIC,MARI2011,MARI2014,TUT10_12,AS_SANCTUARY,BENTHIC_BASIC,SAMOA_CLIMATE,NOTES
-CT,NOT,Timor Leste,ATA,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,ATA,ATA,ATA,ATA,ATA,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,ATA,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,ATA,ATA,ATA,ATA,ATA,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,BAU,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,BAU,BAU,BAU,BAU,BAU,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,BAU,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,BAU,BAU,BAU,BAU,BAU,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,BOB,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,BOB,BOB,BOB,BOB,BOB,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,BOB,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,BOB,BOB,BOB,BOB,BOB,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,DIL,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,DIL,DIL,DIL,DIL,DIL,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,DIL,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,DIL,DIL,DIL,DIL,DIL,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,LAU,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,LAU,LAU,LAU,LAU,LAU,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,LAU,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,LAU,LAU,LAU,LAU,LAU,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,LIQ,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,LIQ,LIQ,LIQ,LIQ,LIQ,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,LIQ,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,LIQ,LIQ,LIQ,LIQ,LIQ,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,MAN,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,MAN,MAN,MAN,MAN,MAN,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,MAN,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,MAN,MAN,MAN,MAN,MAN,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,OEC,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,OEC,OEC,OEC,OEC,OEC,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,OEC,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,OEC,OEC,OEC,OEC,OEC,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,VIL,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,VIL,VIL,VIL,VIL,VIL,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-CT,NOT,Timor Leste,VIL,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,VIL,VIL,VIL,VIL,VIL,Timor Leste,NOT,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
-MARIAN,NOT,11-mile bank,11-mile bank,Forereef,Deep,11-mile bank,11-mile bank,NA,NA,2.642415605,NA,11-mile bank,11-mile bank,11-mile bank,11-mile bank,11-mile bank,11-mile bank,NOT,
-MARIAN,CNMI_UNPOP,Agrihan,Agrihan,Forereef,Deep,AGR,AGR,NOT,OPEN,455.6356862,1823,Agrihan,Agrihan,Agrihan,Agrihan,Agrihan,AGR_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Agrihan,Agrihan,Forereef,Mid,AGR,AGR,NOT,OPEN,51.8014133,207,Agrihan,Agrihan,Agrihan,Agrihan,Agrihan,AGR_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Agrihan,Agrihan,Forereef,Shallow,AGR,AGR,NOT,OPEN,343.1901754,1373,Agrihan,Agrihan,Agrihan,Agrihan,Agrihan,AGR_OPEN,NOT,
-MARIAN,SaTiAg,Aguijan,Aguijan,Forereef,Deep,AGU,AGU,NOT,OPEN,119.2887963,477,Aguijan,Aguijan,Aguijan,Aguijan,Aguijan,AGU_OPEN,NOT,
-MARIAN,SaTiAg,Aguijan,Aguijan,Forereef,Mid,AGU,AGU,NOT,OPEN,129.0007981,516,Aguijan,Aguijan,Aguijan,Aguijan,Aguijan,AGU_OPEN,NOT,
-MARIAN,SaTiAg,Aguijan,Aguijan,Forereef,Shallow,AGU,AGU,NOT,OPEN,157.3007294,629,Aguijan,Aguijan,Aguijan,Aguijan,Aguijan,AGU_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Alamagan,Alamagan,Forereef,Deep,ALA,ALA,NOT,OPEN,112.8532954,451,Alamagan,Alamagan,Alamagan,Alamagan,Alamagan,ALA_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Alamagan,Alamagan,Forereef,Mid,ALA,ALA,NOT,OPEN,162.4144779,650,Alamagan,Alamagan,Alamagan,Alamagan,Alamagan,ALA_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Alamagan,Alamagan,Forereef,Shallow,ALA,ALA,NOT,OPEN,71.071876,284,Alamagan,Alamagan,Alamagan,Alamagan,Alamagan,ALA_OPEN,NOT,
-MARIAN,NOT,Anatahan,Anatahan,Forereef,Deep,Ana,Ana,NA,NA,393.9252048,NA,Anatahan,Anatahan,Anatahan,Anatahan,Anatahan,Ana,NOT,"Assume average size island, assume dms each 1/3"
-MARIAN,NOT,Anatahan,Anatahan,Forereef,Mid,Ana,Ana,NA,NA,393.9252048,NA,Anatahan,Anatahan,Anatahan,Anatahan,Anatahan,Ana,NOT,"Assume average size island, assume dms each 1/3"
-MARIAN,NOT,Anatahan,Anatahan,Forereef,Shallow,Ana,Ana,NA,NA,393.9252048,NA,Anatahan,Anatahan,Anatahan,Anatahan,Anatahan,Ana,NOT,"Assume average size island, assume dms each 1/3"
-MARIAN,NOT,Arakane,Arakane,Forereef,Deep,Arakane,Arakane,NA,NA,24.5959461,NA,Arakane,Arakane,Arakane,Arakane,Arakane,Arakane,NOT,
-MARIAN,NOT,Arakane,Arakane,Forereef,Mid,Arakane,Arakane,NA,NA,23.2565184,NA,Arakane,Arakane,Arakane,Arakane,Arakane,Arakane,NOT,
-MARIAN,MTMNM,Asuncion,Asuncion,Forereef,Deep,ASC,ASC,NOT,MTMM,64.03633046,256,Asuncion,Asuncion,Asuncion,Asuncion,Asuncion,ASC_MTMM,NOT,
-MARIAN,MTMNM,Asuncion,Asuncion,Forereef,Mid,ASC,ASC,NOT,MTMM,130.7967187,523,Asuncion,Asuncion,Asuncion,Asuncion,Asuncion,ASC_MTMM,NOT,
-MARIAN,MTMNM,Asuncion,Asuncion,Forereef,Shallow,ASC,ASC,NOT,MTMM,53.77229254,215,Asuncion,Asuncion,Asuncion,Asuncion,Asuncion,ASC_MTMM,NOT,
-MARIAN,NOT,Farallon de Medenilla,Farallon de Medenilla,Forereef,Deep,Farallon de Medenilla,Farallon de Medenilla,NA,NA,78.47331358,NA,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla_NA,NOT,
-MARIAN,NOT,Farallon de Medenilla,Farallon de Medenilla,Forereef,Mid,Farallon de Medenilla,Farallon de Medenilla,NA,NA,52.80542635,NA,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla_NA,NOT,
-MARIAN,NOT,Farallon de Medenilla,Farallon de Medenilla,Forereef,Shallow,Farallon de Medenilla,Farallon de Medenilla,NA,NA,20.23990304,NA,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla_NA,NOT,
-MARIAN,MTMNM,Farallon de Pajaros,Farallon de Pajaros,Forereef,Deep,FDP,FDP,NOT,MTMM,36.860822,147,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,FDP_MTMM,NOT,
-MARIAN,MTMNM,Farallon de Pajaros,Farallon de Pajaros,Forereef,Mid,FDP,FDP,NOT,MTMM,68.68271,275,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,FDP_MTMM,NOT,
-MARIAN,MTMNM,Farallon de Pajaros,Farallon de Pajaros,Forereef,Shallow,FDP,FDP,NOT,MTMM,32.916547,132,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,FDP_MTMM,NOT,
-MARIAN,NOT,Galvez,Galvez,Forereef,Deep,Galvez,Galvez,NA,NA,15.29549096,NA,Galvez,Galvez,Galvez,Galvez,Galvez,Galvez,NOT,
-MARIAN,GUAM_MP,Guam,GUA_ACHANG,Forereef,Deep,GUA_EAST_MPA,GUA_EAST,NOT,ACHG,13.75,55,Guam,GUA_MP,GUA_ACHANG,GUA_ACHANG,GUA_ACHANG,GUA_EAST_ACHG,NOT,
-MARIAN,GUAM_MP,Guam,GUA_ACHANG,Forereef,Mid,GUA_EAST_MPA,GUA_EAST,NOT,ACHG,59.25,237,Guam,GUA_MP,GUA_ACHANG,GUA_ACHANG,GUA_ACHANG,GUA_EAST_ACHG,NOT,
-MARIAN,GUAM_MP,Guam,GUA_ACHANG,Forereef,Shallow,GUA_EAST_MPA,GUA_EAST,NOT,ACHG,33.25,133,Guam,GUA_MP,GUA_ACHANG,GUA_ACHANG,GUA_ACHANG,GUA_EAST_ACHG,NOT,
-MARIAN,GUAM_EAST_OPEN,Guam,GUA_EAST_OPEN,Forereef,Deep,GUA_EAST_OPEN,GUA_EAST,NOT,OPEN,664.5,2658,Guam,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,NOT,
-MARIAN,GUAM_EAST_OPEN,Guam,GUA_EAST_OPEN,Forereef,Mid,GUA_EAST_OPEN,GUA_EAST,NOT,OPEN,1027.25,4109,Guam,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,NOT,
-MARIAN,GUAM_EAST_OPEN,Guam,GUA_EAST_OPEN,Forereef,Shallow,GUA_EAST_OPEN,GUA_EAST,NOT,OPEN,421.5,1686,Guam,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,NOT,
-MARIAN,NOT,Guam,GUA_HARBOR,Forereef,Deep,GUA_WEST_OPEN,GUA_HAR_WEST,NOT,OPEN,3.81,15,Guam,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HAR_WEST_OPEN,NOT,
-MARIAN,NOT,Guam,GUA_HARBOR,Forereef,Mid,GUA_WEST_OPEN,GUA_HAR_WEST,NOT,OPEN,38.29,153,Guam,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HAR_WEST_OPEN,NOT,
-MARIAN,NOT,Guam,GUA_HARBOR,Forereef,Shallow,GUA_WEST_OPEN,GUA_HAR_WEST,NOT,OPEN,95.17,381,Guam,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HAR_WEST_OPEN,NOT,
-MARIAN,GUAM_WEST_OPEN,Guam,GUA_WEST_OPEN,Forereef,Deep,GUA_WEST_OPEN,GUA_WEST,NOT,OPEN,438.75,1755,Guam,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,NOT,
-MARIAN,GUAM_WEST_OPEN,Guam,GUA_WEST_OPEN,Forereef,Mid,GUA_WEST_OPEN,GUA_WEST,NOT,OPEN,1035,4140,Guam,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,NOT,
-MARIAN,GUAM_WEST_OPEN,Guam,GUA_WEST_OPEN,Forereef,Shallow,GUA_WEST_OPEN,GUA_WEST,NOT,OPEN,756.5,3026,Guam,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,NOT,
-MARIAN,GUAM_MP,Guam,GUA_PATI_POINT,Forereef,Deep,GUA_EAST_MPA,GUA_EAST,NOT,PATI,155.25,621,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PATI_POINT,GUA_PATI_POINT,GUA_EAST_PATI,NOT,
-MARIAN,GUAM_MP,Guam,GUA_PATI_POINT,Forereef,Mid,GUA_EAST_MPA,GUA_EAST,NOT,PATI,159,636,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PATI_POINT,GUA_PATI_POINT,GUA_EAST_PATI,NOT,
-MARIAN,GUAM_MP,Guam,GUA_PATI_POINT,Forereef,Shallow,GUA_EAST_MPA,GUA_EAST,NOT,PATI,36.25,145,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PATI_POINT,GUA_PATI_POINT,GUA_EAST_PATI,NOT,
-MARIAN,GUAM_MP,Guam,GUA_PITI_BOMB,Forereef,Deep,GUA_WEST_MPA,GUA_WEST,NOT,PITI,18.5,74,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PITI_BOMB,GUA_PITI_BOMB,GUA_WEST_PITI,NOT,
-MARIAN,GUAM_MP,Guam,GUA_PITI_BOMB,Forereef,Mid,GUA_WEST_MPA,GUA_WEST,NOT,PITI,40.25,161,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PITI_BOMB,GUA_PITI_BOMB,GUA_WEST_PITI,NOT,
-MARIAN,GUAM_MP,Guam,GUA_PITI_BOMB,Forereef,Shallow,GUA_WEST_MPA,GUA_WEST,NOT,PITI,23.5,94,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PITI_BOMB,GUA_PITI_BOMB,GUA_WEST_PITI,NOT,
-MARIAN,NOT,Guam,GUA_SASA_BAY,Forereef,Mid,GUA_WEST_MPA,GUA_HAR_WEST,NOT,SASA,2.54,10,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_SASA_BAY,GUA_SASA_BAY,GUA_HAR_WEST_SASA,NOT,
-MARIAN,NOT,Guam,GUA_SASA_BAY,Forereef,Shallow,GUA_WEST_MPA,GUA_HAR_WEST,NOT,SASA,61.82,247,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_SASA_BAY,GUA_SASA_BAY,GUA_HAR_WEST_SASA,NOT,
-MARIAN,GUAM_MP,Guam,GUA_TUMON,Forereef,Deep,GUA_WEST_MPA,GUA_WEST,NOT,TUMB,27.75,111,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_TUMON,GUA_TUMON,GUA_WEST_TUMB,NOT,
-MARIAN,GUAM_MP,Guam,GUA_TUMON,Forereef,Mid,GUA_WEST_MPA,GUA_WEST,NOT,TUMB,71.75,287,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_TUMON,GUA_TUMON,GUA_WEST_TUMB,NOT,
-MARIAN,GUAM_MP,Guam,GUA_TUMON,Forereef,Shallow,GUA_WEST_MPA,GUA_WEST,NOT,TUMB,131,524,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_TUMON,GUA_TUMON,GUA_WEST_TUMB,NOT,
-MARIAN,CNMI_UNPOP,Guguan,Guguan,Forereef,Deep,GUG,GUG,NOT,OPEN,69.60776909,278,Guguan,Guguan,Guguan,Guguan,Guguan,GUG_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Guguan,Guguan,Forereef,Mid,GUG,GUG,NOT,OPEN,73.0388079,292,Guguan,Guguan,Guguan,Guguan,Guguan,GUG_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Guguan,Guguan,Forereef,Shallow,GUG,GUG,NOT,OPEN,57.31867709,229,Guguan,Guguan,Guguan,Guguan,Guguan,GUG_OPEN,NOT,
-MARIAN,MTMNM,Maug,Maug,Forereef,Deep,MAU,MAU,NOT,MTMM,87.73461767,351,Maug,Maug,Maug,Maug,Maug,MAU_MTMM,NOT,
-MARIAN,MTMNM,Maug,Maug,Forereef,Mid,MAU,MAU,NOT,MTMM,190.6950207,763,Maug,Maug,Maug,Maug,Maug,MAU_MTMM,NOT,
-MARIAN,MTMNM,Maug,Maug,Forereef,Shallow,MAU,MAU,NOT,MTMM,35.44106339,142,Maug,Maug,Maug,Maug,Maug,MAU_MTMM,NOT,
-MARIAN,CNMI_UNPOP,Pagan,Pagan,Forereef,Deep,PAG,PAG,NOT,OPEN,571.3645349,2285,Pagan,Pagan,Pagan,Pagan,Pagan,PAG_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Pagan,Pagan,Forereef,Mid,PAG,PAG,NOT,OPEN,492.5006185,1970,Pagan,Pagan,Pagan,Pagan,Pagan,PAG_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Pagan,Pagan,Forereef,Shallow,PAG,PAG,NOT,OPEN,449.0588004,1796,Pagan,Pagan,Pagan,Pagan,Pagan,PAG_OPEN,NOT,
-MARIAN,NOT,Pathfinder,Pathfinder,Forereef,Deep,Pathfinder,Pathfinder,NA,NA,33.67386448,NA,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,NOT,
-MARIAN,NOT,Pathfinder,Pathfinder,Forereef,Mid,Pathfinder,Pathfinder,NA,NA,46.89481662,NA,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,NOT,
-MARIAN,Rota,Rota,Rota,Forereef,Deep,ROT,ROT,NOT,OPEN,187.5332091,750,Rota,Rota,Rota,Rota,Rota,ROT_OPEN,NOT,
-MARIAN,Rota,Rota,Rota,Forereef,Mid,ROT,ROT,NOT,OPEN,254.5438529,1018,Rota,Rota,Rota,Rota,Rota,ROT_OPEN,NOT,
-MARIAN,Rota,Rota,Rota,Forereef,Shallow,ROT,ROT,NOT,OPEN,889.2950898,3557,Rota,Rota,Rota,Rota,Rota,ROT_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Backreef,Deep,SAI,SAI,NOT,OPEN,0.102749263,2391,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Backreef,Mid,SAI,SAI,NOT,OPEN,0.838950538,2391,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Backreef,Shallow,SAI,SAI,NOT,OPEN,596.76696,2391,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Forereef,Deep,SAI,SAI,NOT,OPEN,1985.586578,7942,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Forereef,Mid,SAI,SAI,NOT,OPEN,1132.596536,4530,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Forereef,Shallow,SAI,SAI,NOT,OPEN,420.8277658,1683,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Lagoon,Mid,SAI,SAI,NOT,OPEN,170.5443267,682,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,Lagoon,Shallow,SAI,SAI,NOT,OPEN,412.3027837,1649,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,SaTiAg,Saipan,Saipan,OTHER,OTHER,SAI,SAI,NOT,OPEN,126.9930931,NA,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,
-MARIAN,NOT,Santa Rosa,Santa Rosa,Forereef,Deep,Santa Rosa,Santa Rosa,NA,NA,2262.645102,NA,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,NOT,
-MARIAN,NOT,Santa Rosa,Santa Rosa,Forereef,Mid,Santa Rosa,Santa Rosa,NA,NA,1288.462096,NA,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,NOT,
-MARIAN,CNMI_UNPOP,Sarigan,Sarigan,Forereef,Deep,SAR,SAR,NOT,OPEN,88.30851333,353,Sarigan,Sarigan,Sarigan,Sarigan,Sarigan,SAR_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Sarigan,Sarigan,Forereef,Mid,SAR,SAR,NOT,OPEN,29.81657193,119,Sarigan,Sarigan,Sarigan,Sarigan,Sarigan,SAR_OPEN,NOT,
-MARIAN,CNMI_UNPOP,Sarigan,Sarigan,Forereef,Shallow,SAR,SAR,NOT,OPEN,79.43434663,318,Sarigan,Sarigan,Sarigan,Sarigan,Sarigan,SAR_OPEN,NOT,
-MARIAN,NOT,Supply Reef,Supply Reef,Forereef,Deep,Supply Reef,Supply Reef,NA,NA,8.705859815,NA,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,NOT,
-MARIAN,NOT,Supply Reef,Supply Reef,Forereef,Mid,Supply Reef,Supply Reef,NA,NA,1.192725779,NA,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,NOT,
-MARIAN,NOT,Tatsumi,Tatsumi,Forereef,Deep,Tatsumi,Tatsumi,NA,NA,88.09014362,NA,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,NOT,
-MARIAN,NOT,Tatsumi,Tatsumi,Forereef,Mid,Tatsumi,Tatsumi,NA,NA,136.1279988,NA,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,NOT,
-MARIAN,SaTiAg,Tinian,Tinian,Forereef,Deep,TIN,TIN,NOT,OPEN,557.103082,2228,Tinian,Tinian,Tinian,Tinian,Tinian,TIN_OPEN,NOT,
-MARIAN,SaTiAg,Tinian,Tinian,Forereef,Mid,TIN,TIN,NOT,OPEN,534.0549959,2136,Tinian,Tinian,Tinian,Tinian,Tinian,TIN_OPEN,NOT,
-MARIAN,SaTiAg,Tinian,Tinian,Forereef,Shallow,TIN,TIN,NOT,OPEN,323.0482252,1292,Tinian,Tinian,Tinian,Tinian,Tinian,TIN_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_HAMAKUA,Forereef,Deep,HAW_CM,HAW_HA,CM,OPEN,1479.311358,5917,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_CMHA_CM_OPEN,NOT,Not much hard/soft information
-MHI,Hawaii,Hawaii,HAW_HAMAKUA,Forereef,Mid,HAW_CM,HAW_HA,CM,OPEN,2334.19033,9337,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_CMHA_CM_OPEN,NOT,Not much hard/soft information
-MHI,Hawaii,Hawaii,HAW_HAMAKUA,Forereef,Shallow,HAW_CM,HAW_HA,CM,OPEN,1117.329716,4469,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_CMHA_CM_OPEN,NOT,Not much hard/soft information
-MHI,Hawaii,Hawaii,HAW_KONA,Forereef,Deep,HAW_CR,HAW_KO,CR,OPEN,1546.877064,6188,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_CRKO_CR_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_KONA,Forereef,Mid,HAW_CR,HAW_KO,CR,OPEN,2362.718917,9451,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_CRKO_CR_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_KONA,Forereef,Shallow,HAW_CR,HAW_KO,CR,OPEN,1817.863584,7271,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_CRKO_CR_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_PUNA,Forereef,Deep,HAW_CM,HAW_PU,CM,OPEN,1446.862405,5787,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_CMPU_CM_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_PUNA,Forereef,Mid,HAW_CM,HAW_PU,CM,OPEN,1603.885128,6416,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_CMPU_CM_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_PUNA,Forereef,Shallow,HAW_CM,HAW_PU,CM,OPEN,1012.92738,4052,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_CMPU_CM_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_SE,Forereef,Deep,HAW_CM,HAW_SE,CM,OPEN,593.4841055,2374,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_CMSE_CM_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_SE,Forereef,Mid,HAW_CM,HAW_SE,CM,OPEN,857.7582457,3431,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_CMSE_CM_OPEN,NOT,
-MHI,Hawaii,Hawaii,HAW_SE,Forereef,Shallow,HAW_CM,HAW_SE,CM,OPEN,666.5433106,2666,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_CMSE_CM_OPEN,NOT,
-MHI,Maui-nui,Kahoolawe,KAH_NORTH,Forereef,Deep,KAH_CR,KAH_NO,CR,OPEN,200,811,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_CRNO_CR_OPEN,NOT,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
-MHI,Maui-nui,Kahoolawe,KAH_NORTH,Forereef,Mid,KAH_CR,KAH_NO,CR,OPEN,200,811,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_CRNO_CR_OPEN,NOT,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
-MHI,Maui-nui,Kahoolawe,KAH_NORTH,Forereef,Shallow,KAH_CR,KAH_NO,CR,OPEN,200,811,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_CRNO_CR_OPEN,NOT,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
-MHI,Maui-nui,Kahoolawe,KAH_SOUTH,Forereef,Deep,KAH_CR,KAH_SO,CR,OPEN,200,944,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_CRSO_CR_OPEN,NOT,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
-MHI,Maui-nui,Kahoolawe,KAH_SOUTH,Forereef,Mid,KAH_CR,KAH_SO,CR,OPEN,200,944,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_CRSO_CR_OPEN,NOT,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
-MHI,Maui-nui,Kahoolawe,KAH_SOUTH,Forereef,Shallow,KAH_CR,KAH_SO,CR,OPEN,200,944,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_CRSO_CR_OPEN,NOT,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
-MHI,Kaa-Nii,Kauai,KAU_EAST,Forereef,Deep,KAU_SI,KAU_EA,SI,OPEN,2891.111917,11564,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_SIEA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kauai,KAU_EAST,Forereef,Mid,KAU_SI,KAU_EA,SI,OPEN,5602.631417,22411,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_SIEA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kauai,KAU_EAST,Forereef,Shallow,KAU_SI,KAU_EA,SI,OPEN,3051.65048,12207,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_SIEA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kauai,KAU_NAPALI,Forereef,Deep,KAU_SI,KAU_NA,SI,OPEN,4307.948554,17232,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_SINA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kauai,KAU_NAPALI,Forereef,Mid,KAU_SI,KAU_NA,SI,OPEN,1876.001023,7504,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_SINA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kauai,KAU_NAPALI,Forereef,Shallow,KAU_SI,KAU_NA,SI,OPEN,397.7237848,1591,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_SINA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kaula,KAL_KAULA,Forereef,Deep,KAL_SI,KAL_AL,SI,OPEN,277.0347708,1108,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_SIAL_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kaula,KAL_KAULA,Forereef,Mid,KAL_SI,KAL_AL,SI,OPEN,50.28867577,201,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_SIAL_SI_OPEN,NOT,
-MHI,Kaa-Nii,Kaula,KAL_KAULA,Forereef,Shallow,KAL_SI,KAL_AL,SI,OPEN,18.50064904,74,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_SIAL_SI_OPEN,NOT,
-MHI,Maui-nui,Lanai,LAN_NORTH,Forereef,Deep,LAN_CR,LAN_NO,CR,OPEN,291.3020737,1165,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_CRNO_CR_OPEN,NOT,
-MHI,Maui-nui,Lanai,LAN_NORTH,Forereef,Mid,LAN_CR,LAN_NO,CR,OPEN,599.9003844,2400,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_CRNO_CR_OPEN,NOT,
-MHI,Maui-nui,Lanai,LAN_NORTH,Forereef,Shallow,LAN_CR,LAN_NO,CR,OPEN,631.8075072,2527,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_CRNO_CR_OPEN,NOT,
-MHI,Maui-nui,Lanai,LAN_SOUTH,Forereef,Deep,LAN_CM,LAN_SO,CM,OPEN,246.6043512,986,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_CMSO_CM_OPEN,NOT,
-MHI,Maui-nui,Lanai,LAN_SOUTH,Forereef,Mid,LAN_CM,LAN_SO,CM,OPEN,487.9877445,1952,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_CMSO_CM_OPEN,NOT,
-MHI,Maui-nui,Lanai,LAN_SOUTH,Forereef,Shallow,LAN_CM,LAN_SO,CM,OPEN,746.0718328,2984,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_CMSO_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_HANA,Forereef,Deep,MAI_CM,MAI_HA,CM,OPEN,225.5929875,902,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_CMHA_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_HANA,Forereef,Mid,MAI_CM,MAI_HA,CM,OPEN,258.3916816,1034,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_CMHA_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_HANA,Forereef,Shallow,MAI_CM,MAI_HA,CM,OPEN,190.0864145,760,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_CMHA_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_KAHULUI,Forereef,Deep,MAI_CM,MAI_KA,CM,OPEN,438.345922,1753,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_CMKA_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_KAHULUI,Forereef,Mid,MAI_CM,MAI_KA,CM,OPEN,850.0936376,3400,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_CMKA_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_KAHULUI,Forereef,Shallow,MAI_CM,MAI_KA,CM,OPEN,1099.201993,4397,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_CMKA_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_KIHEI,Forereef,Deep,MAI_CM,MAI_KI,CM,OPEN,537.9614588,2152,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_CMKI_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_KIHEI,Forereef,Mid,MAI_CM,MAI_KI,CM,OPEN,682.5282166,2730,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_CMKI_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_KIHEI,Forereef,Shallow,MAI_CM,MAI_KI,CM,OPEN,650.0680159,2600,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_CMKI_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_LAHAINA,Forereef,Deep,MAI_SI,MAI_LA,SI,OPEN,287.1615845,1149,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_SILA_SI_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_LAHAINA,Forereef,Mid,MAI_SI,MAI_LA,SI,OPEN,483.9295632,1936,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_SILA_SI_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_LAHAINA,Forereef,Shallow,MAI_SI,MAI_LA,SI,OPEN,439.3470347,1757,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_SILA_SI_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_MOLOKINI,Forereef,Deep,MAI_CR,MAI_MO,CR,OPEN,6.25,NA,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_CRMO_CR_OPEN,NOT,"Assume is 25ha, assume 50% is mid, split rest equally"
-MHI,Maui-nui,Maui,MAI_MOLOKINI,Forereef,Mid,MAI_CR,MAI_MO,CR,OPEN,12.5,NA,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_CRMO_CR_OPEN,NOT,"Assume is 25ha, assume 50% is mid, split rest equally"
-MHI,Maui-nui,Maui,MAI_MOLOKINI,Forereef,Shallow,MAI_CR,MAI_MO,CR,OPEN,6.25,NA,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_CRMO_CR_OPEN,NOT,"Assume is 25ha, assume 50% is mid, split rest equally"
-MHI,Maui-nui,Maui,MAI_NE,Forereef,Deep,MAI_CM,MAI_NE,CM,OPEN,883.3579854,3533,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_CMNE_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_NE,Forereef,Mid,MAI_CM,MAI_NE,CM,OPEN,926.711758,3707,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_CMNE_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_NE,Forereef,Shallow,MAI_CM,MAI_NE,CM,OPEN,481.2408332,1925,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_CMNE_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_NW,Forereef,Deep,MAI_CM,MAI_NW,CM,OPEN,315.7175228,1263,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_CMNW_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_NW,Forereef,Mid,MAI_CM,MAI_NW,CM,OPEN,287.74445,1151,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_CMNW_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_NW,Forereef,Shallow,MAI_CM,MAI_NW,CM,OPEN,176.1167662,704,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_CMNW_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_SE,Forereef,Deep,MAI_CM,MAI_SE,CM,OPEN,788.37286,3153,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_CMSE_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_SE,Forereef,Mid,MAI_CM,MAI_SE,CM,OPEN,690.2023226,2761,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_CMSE_CM_OPEN,NOT,
-MHI,Maui-nui,Maui,MAI_SE,Forereef,Shallow,MAI_CM,MAI_SE,CM,OPEN,405.0121276,1620,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_CMSE_CM_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_NW,Forereef,Deep,MOL_SI,MOL_NW,SI,OPEN,733.1293957,2933,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_SINW_SI_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_NW,Forereef,Mid,MOL_SI,MOL_NW,SI,OPEN,601.1779629,2405,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_SINW_SI_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_NW,Forereef,Shallow,MOL_SI,MOL_NW,SI,OPEN,501.1542337,2005,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_SINW_SI_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_PALI,Forereef,Deep,MOL_CM,MOL_PA,CM,OPEN,634.0842128,2536,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_CMPA_CM_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_PALI,Forereef,Mid,MOL_CM,MOL_PA,CM,OPEN,467.9624676,1872,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_CMPA_CM_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_PALI,Forereef,Shallow,MOL_CM,MOL_PA,CM,OPEN,516.2585992,2065,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_CMPA_CM_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_SOUTH,Forereef,Deep,MOL_CR,MOL_SO,CR,OPEN,603.9775235,2416,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_CRSO_CR_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_SOUTH,Forereef,Mid,MOL_CR,MOL_SO,CR,OPEN,1293.344283,5173,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_CRSO_CR_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_SOUTH,Forereef,Shallow,MOL_CR,MOL_SO,CR,OPEN,4232.003508,16928,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_CRSO_CR_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_WEST,Forereef,Deep,MOL_SI,MOL_WE,SI,OPEN,1384.213479,5537,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_SIWE_SI_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_WEST,Forereef,Mid,MOL_SI,MOL_WE,SI,OPEN,1250.749123,5003,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_SIWE_SI_OPEN,NOT,
-MHI,Maui-nui,Molokai,MOL_WEST,Forereef,Shallow,MOL_SI,MOL_WE,SI,OPEN,512.2388267,2049,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_SIWE_SI_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_EAST,Forereef,Deep,NII_SI,NII_EA,SI,OPEN,1027.496786,4110,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_SIEA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_EAST,Forereef,Mid,NII_SI,NII_EA,SI,OPEN,1137.990268,4552,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_SIEA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_EAST,Forereef,Shallow,NII_SI,NII_EA,SI,OPEN,613.9646175,2456,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_SIEA_SI_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_LEHUA,Forereef,Deep,NII_CM,NII_LE,CM,OPEN,263,1052,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_CMLE_CM_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_LEHUA,Forereef,Mid,NII_CM,NII_LE,CM,OPEN,487.75,1951,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_CMLE_CM_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_LEHUA,Forereef,Shallow,NII_CM,NII_LE,CM,OPEN,354.75,1419,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_CMLE_CM_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_WEST,Forereef,Deep,NII_SI,NII_WE,SI,OPEN,1468.465202,5874,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_SIWE_SI_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_WEST,Forereef,Mid,NII_SI,NII_WE,SI,OPEN,2992.988492,11972,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_SIWE_SI_OPEN,NOT,
-MHI,Kaa-Nii,Niihau,NII_WEST,Forereef,Shallow,NII_SI,NII_WE,SI,OPEN,919.395945,3678,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_SIWE_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_EAST,Forereef,Deep,OAH_CM,OAH_EA,SI,OPEN,978.9371021,3916,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_CMEA_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_EAST,Forereef,Mid,OAH_CM,OAH_EA,SI,OPEN,1848.277607,7393,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_CMEA_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_EAST,Forereef,Shallow,OAH_CM,OAH_EA,SI,OPEN,1541.871579,6167,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_CMEA_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_KAENA,Forereef,Deep,OAH_CM,OAH_KA,SI,OPEN,673.0399306,2692,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_CMKA_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_KAENA,Forereef,Mid,OAH_CM,OAH_KA,SI,OPEN,632.1302084,2529,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_CMKA_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_KAENA,Forereef,Shallow,OAH_CM,OAH_KA,SI,OPEN,343.0090114,1372,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_CMKA_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_NE,Forereef,Deep,OAH_SI,OAH_NE,SI,OPEN,605.4764457,2422,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_SINE_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_NE,Forereef,Mid,OAH_SI,OAH_NE,SI,OPEN,3213.604407,12854,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_SINE_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_NE,Forereef,Shallow,OAH_SI,OAH_NE,SI,OPEN,3680.967178,14724,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_SINE_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_NORTH,Forereef,Deep,OAH_SI,OAH_NO,SI,OPEN,556.2921428,2225,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_SINO_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_NORTH,Forereef,Mid,OAH_SI,OAH_NO,SI,OPEN,1146.80066,4587,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_SINO_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_NORTH,Forereef,Shallow,OAH_SI,OAH_NO,SI,OPEN,856.7078885,3427,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_SINO_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_SOUTH,Forereef,Deep,OAH_SI,OAH_SO,SI,OPEN,1457.29677,5829,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SISO_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_SOUTH,Forereef,Mid,OAH_SI,OAH_SO,SI,OPEN,3926.206706,15705,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SISO_SI_OPEN,NOT,
-MHI,Oahu,Oahu,OAH_SOUTH,Forereef,Shallow,OAH_SI,OAH_SO,SI,OPEN,3658.205214,14633,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SISO_SI_OPEN,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Backreef,Mid,FFS,FFS,NOT,PMNM,56.00798857,35,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Backreef,Shallow,FFS,FFS,NOT,PMNM,1079.678505,635,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,Kure,Kure,Backreef,Mid,KUR,KUR,NOT,PMNM,0.694431419,1,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Kure,Kure,Backreef,Shallow,KUR,KUR,NOT,PMNM,312.5339812,313,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Maro,Maro,Backreef,Deep,MAR,MAR,NOT,PMNM,4466.87792,4467,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Maro,Maro,Backreef,Mid,MAR,MAR,NOT,PMNM,3728.607834,3729,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Midway,Midway,Backreef,Deep,MID,MID,NOT,PMNM,0.009372889,0,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Backreef,Mid,MID,MID,NOT,PMNM,4.95344021,5,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Backreef,Shallow,MID,MID,NOT,PMNM,409.997152,410,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Backreef,Mid,PHR,PHR,NOT,PMNM,48.85735714,49,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Backreef,Shallow,PHR,PHR,NOT,PMNM,1422.620999,1423,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_A,Forereef,Deep,TUT_NE,TUT_NE,NOT,AUNA,79.25,317,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_NE_AUNA,TUT_AUNUU,
-SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_A,Forereef,Mid,TUT_NE,TUT_NE,NOT,AUNA,151.55944,606,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_NE_AUNA,TUT_AUNUU,
-SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_A,Forereef,Shallow,TUT_NE,TUT_NE,NOT,AUNA,22.626828,91,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_NE_AUNA,TUT_AUNUU,
-SAMOA,TUT_STH,Tutuila,TUT_FAGALUA,Forereef,Deep,TUT_SW,TUT_SW,NOT,FAGL,7.729803,31,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_SW_FAGL,TUT_FAGALUA_FAGATELE,
-SAMOA,TUT_STH,Tutuila,TUT_FAGALUA,Forereef,Mid,TUT_SW,TUT_SW,NOT,FAGL,27.717142,111,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_SW_FAGL,TUT_FAGALUA_FAGATELE,
-SAMOA,TUT_STH,Tutuila,TUT_FAGALUA,Forereef,Shallow,TUT_SW,TUT_SW,NOT,FAGL,6.628024,27,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_SW_FAGL,TUT_FAGALUA_FAGATELE,
-NWHI,NWHI_NOT_NCRMP,Brooks,Brooks,Forereef,Deep,Brooks,Brooks,NOT,BANK,66.21195617,66,Brooks,Brooks,Brooks,Brooks,Brooks,Brooks_BANK,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Forereef,Deep,FFS,FFS,NOT,PMNM,247.22,3237,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Forereef,Mid,FFS,FFS,NOT,PMNM,4498.01,4787,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Forereef,Shallow,FFS,FFS,NOT,PMNM,652.92,849,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Lagoon,Mid,FFS,FFS,NOT,PMNM,7827.37,11060,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Lagoon,Shallow,FFS,FFS,NOT,PMNM,1900.78,2139,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Deep,FFS,FFS,NOT,PMNM,8082.28,32329.12,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Mid,FFS,FFS,NOT,PMNM,3420.42,13681.68,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,
-NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Shallow,FFS,FFS,NOT,PMNM,1,4,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,We have 2 sites now called Protected Slope Shallow. They possibly should be Lagoon or something else.. But we do need a sector value for now
-NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Deep,GAR,GAR,NOT,PMNM,28559.86045,28560,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
-NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Mid,GAR,GAR,NOT,PMNM,1586.658914,1587,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
-NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Shallow,GAR,GAR,NOT,PMNM,1586.658914,1587,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
-NWHI,NWHI,Kure,Kure,Forereef,Deep,KUR,KUR,NOT,PMNM,1122.511521,1123,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Kure,Kure,Forereef,Mid,KUR,KUR,NOT,PMNM,1096.142722,1096,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Kure,Kure,Forereef,Shallow,KUR,KUR,NOT,PMNM,219.8318451,220,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Kure,Kure,Lagoon,Mid,KUR,KUR,NOT,PMNM,146.065072,146,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Kure,Kure,Lagoon,Shallow,KUR,KUR,NOT,PMNM,801.5929159,802,Kure,Kure,Kure,Kure,Kure,KUR,NOT,
-NWHI,NWHI,Laysan,Laysan,Forereef,Deep,LAY,LAY,NOT,PMNM,1763.688407,1764,Laysan,Laysan,Laysan,Laysan,Laysan,LAY,NOT,"Very rough guess, many many estimations"
-NWHI,NWHI,Laysan,Laysan,Forereef,Mid,LAY,LAY,NOT,PMNM,1435.923054,1436,Laysan,Laysan,Laysan,Laysan,Laysan,LAY,NOT,"Very rough guess, many many estimations"
-NWHI,NWHI,Laysan,Laysan,Forereef,Shallow,LAY,LAY,NOT,PMNM,200,200,Laysan,Laysan,Laysan,Laysan,Laysan,LAY,NOT,"Very rough guess, many many estimations"
-NWHI,NWHI,Lisianski,Lisianski,Forereef,Deep,LIS,LIS,NOT,PMNM,14059.07869,14059,Lisianski,Lisianski,Lisianski,Lisianski,Lisianski,LIS,NOT,Major unknowns in maps - habitat and bathymetry ..lots of guesstimation .. Potential to be VERY wrong
-NWHI,NWHI,Lisianski,Lisianski,Forereef,Mid,LIS,LIS,NOT,PMNM,11054.46672,11054,Lisianski,Lisianski,Lisianski,Lisianski,Lisianski,LIS,NOT,Major unknowns in maps - habitat and bathymetry ..lots of guesstimation .. Potential to be VERY wrong
-NWHI,NWHI,Lisianski,Lisianski,Forereef,Shallow,LIS,LIS,NOT,PMNM,5841.383859,5841,Lisianski,Lisianski,Lisianski,Lisianski,Lisianski,LIS,NOT,Major unknowns in maps - habitat and bathymetry ..lots of guesstimation .. Potential to be VERY wrong
-NWHI,NWHI,Maro,Maro,Forereef,Deep,MAR,MAR,NOT,PMNM,5403.476117,5403,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Maro,Maro,Forereef,Mid,MAR,MAR,NOT,PMNM,14308.88263,14309,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Maro,Maro,Forereef,Shallow,MAR,MAR,NOT,PMNM,5894.320658,5894,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Maro,Maro,Lagoon,Mid,MAR,MAR,NOT,PMNM,207.821398,208,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Maro,Maro,Lagoon,Shallow,MAR,MAR,NOT,PMNM,182.6414462,183,Maro,Maro,Maro,Maro,Maro,MAR,NOT,
-NWHI,NWHI,Midway,Midway,Forereef,Deep,MID,MID,NOT,PMNM,1566.839533,1567,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Forereef,Mid,MID,MID,NOT,PMNM,1472.589454,1473,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Forereef,Shallow,MID,MID,NOT,PMNM,254.2145327,254,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Lagoon,Deep,MID,MID,NOT,PMNM,0.005735694,0,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Lagoon,Mid,MID,MID,NOT,PMNM,396.1011223,396,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI,Midway,Midway,Lagoon,Shallow,MID,MID,NOT,PMNM,890.879595,891,Midway,Midway,Midway,Midway,Midway,MID,NOT,
-NWHI,NWHI_NOT_NCRMP,Necker,Necker,Forereef,Deep,NEC,NEC,NOT,PMNM,491.2692997,491,Necker,Necker,Necker,Necker,Necker,NEC,NOT,
-NWHI,NWHI_NOT_NCRMP,Necker,Necker,Forereef,Mid,NEC,NEC,NOT,PMNM,136.8155079,137,Necker,Necker,Necker,Necker,Necker,NEC,NOT,
-NWHI,NWHI_NOT_NCRMP,Necker,Necker,Forereef,Shallow,NEC,NEC,NOT,PMNM,8.536971662,9,Necker,Necker,Necker,Necker,Necker,NEC,NOT,
-NWHI,NWHI_NOT_NCRMP,Nihoa,Nihoa,Forereef,Deep,NIH,NIH,NOT,PMNM,351.5016844,352,Nihoa,Nihoa,Nihoa,Nihoa,Nihoa,NIH,NOT,Gaps in bathymetry
-NWHI,NWHI_NOT_NCRMP,Nihoa,Nihoa,Forereef,Mid,NIH,NIH,NOT,PMNM,52.68378472,53,Nihoa,Nihoa,Nihoa,Nihoa,Nihoa,NIH,NOT,Gaps in bathymetry
-NWHI,NWHI_NOT_NCRMP,Nihoa,Nihoa,Forereef,Shallow,NIH,NIH,NOT,PMNM,5.680626717,6,Nihoa,Nihoa,Nihoa,Nihoa,Nihoa,NIH,NOT,Gaps in bathymetry
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Forereef,Deep,PHR,PHR,NOT,PMNM,2427.794421,2428,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Forereef,Mid,PHR,PHR,NOT,PMNM,5454.131479,5454,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Forereef,Shallow,PHR,PHR,NOT,PMNM,615.6033439,616,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Lagoon,Mid,PHR,PHR,NOT,PMNM,2681.950925,2682,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Lagoon,Shallow,PHR,PHR,NOT,PMNM,5161.106161,5161,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,
-NWHI,NWHI_NOT_NCRMP,Pioneer,Pioneer,Forereef,Deep,Pioneer,Pioneer,NOT,BANK,5.320384168,5,Pioneer,Pioneer,Pioneer,Pioneer,Pioneer,Pioneer,NOT,
-NWHI,NWHI_NOT_NCRMP,Raita,Raita,Forereef,Deep,Raita,Raita,NOT,BANK,3118.12,3118,Raita,Raita,Raita,Raita,Raita,Raita,NOT,
-NWHI,NWHI_NOT_NCRMP,Raita,Raita,Forereef,Mid,Raita,Raita,NOT,BANK,335.75,336,Raita,Raita,Raita,Raita,Raita,Raita,NOT,
-NWHI,NWHI_NOT_NCRMP,StRogatine,StRogatine,Forereef,Deep,StRogatine,StRogatine,NOT,BANK,1726.935,1727,StRogatine,StRogatine,StRogatine,StRogatine,StRogatine,StRogatine,NOT,
-PRIAs,How_Bak,Baker,Baker,Forereef,Deep,BAK,BAK,NOT,PRIMNM,60.02154356,240,Baker,Baker,Baker,Baker,Baker,BAK,NOT,
-PRIAs,How_Bak,Baker,Baker,Forereef,Mid,BAK,BAK,NOT,PRIMNM,118.6325616,475,Baker,Baker,Baker,Baker,Baker,BAK,NOT,
-PRIAs,How_Bak,Baker,Baker,Forereef,Shallow,BAK,BAK,NOT,PRIMNM,211.6216964,846,Baker,Baker,Baker,Baker,Baker,BAK,NOT,
-PRIAs,How_Bak,Howland,Howland,Forereef,Deep,HOW,HOW,NOT,PRIMNM,18.78664183,75,Howland,Howland,Howland,Howland,Howland,HOW,NOT,
-PRIAs,How_Bak,Howland,Howland,Forereef,Mid,HOW,HOW,NOT,PRIMNM,40.21083959,161,Howland,Howland,Howland,Howland,Howland,HOW,NOT,
-PRIAs,How_Bak,Howland,Howland,Forereef,Shallow,HOW,HOW,NOT,PRIMNM,113.8553854,455,Howland,Howland,Howland,Howland,Howland,HOW,NOT,
-PRIAs,Jarvis,Jarvis,Jarvis,Forereef,Deep,JAR,JAR,NOT,PRIMNM,19.64306398,79,Jarvis,Jarvis,Jarvis,Jarvis,Jarvis,JAR,NOT,
-PRIAs,Jarvis,Jarvis,Jarvis,Forereef,Mid,JAR,JAR,NOT,PRIMNM,191.1130626,764,Jarvis,Jarvis,Jarvis,Jarvis,Jarvis,JAR,NOT,
-PRIAs,Jarvis,Jarvis,Jarvis,Forereef,Shallow,JAR,JAR,NOT,PRIMNM,155.1495257,621,Jarvis,Jarvis,Jarvis,Jarvis,Jarvis,JAR,NOT,
-PRIAs,Johnston,Johnston,Johnston,Backreef,Mid,JOH,JOH,NOT,PRIMNM,24.08,96,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 80% hard - should pool this very small amout of mid with shallow
-PRIAs,Johnston,Johnston,Johnston,Backreef,Shallow,JOH,JOH,NOT,PRIMNM,333.2,1333,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 80% hard
-PRIAs,Johnston,Johnston,Johnston,Forereef,Deep,JOH,JOH,NOT,PRIMNM,107.38,430,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 98% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Forereef,Mid,JOH,JOH,NOT,PRIMNM,242.05,968,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 98% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Forereef,Shallow,JOH,JOH,NOT,PRIMNM,283.22,1133,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 98% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Lagoon,Deep,JOH,JOH,NOT,PRIMNM,7.76,31,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 45% hardbottom - should definitely pool lagoon deep with lagoon moderate
-PRIAs,Johnston,Johnston,Johnston,Lagoon,Mid,JOH,JOH,NOT,PRIMNM,1630.99,6524,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 45% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Lagoon,Shallow,JOH,JOH,NOT,PRIMNM,1273.9,5096,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 45% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Protected Slope,Deep,JOH,JOH,NA,NA,3223.37,12893.48,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Protected Slope,Mid,JOH,JOH,NA,NA,2711.37,10845.48,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom
-PRIAs,Johnston,Johnston,Johnston,Protected Slope,Shallow,JOH,JOH,NA,NA,6.88,27.52,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Assumes 50% hardbottom - should pool shallow protected with mid
-PRIAs,King_Pal,Kingman,Kingman,Backreef,Deep,KIN,KIN,NOT,PRIMNM,50.25,163,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Kingman,Kingman,Backreef,Mid,KIN,KIN,NOT,PRIMNM,203.25,739,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Kingman,Kingman,Backreef,Shallow,KIN,KIN,NOT,PRIMNM,380.75,989,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Kingman,Kingman,Forereef,Deep,KIN,KIN,NOT,PRIMNM,46.75,285,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 99% Hard
-PRIAs,King_Pal,Kingman,Kingman,Forereef,Mid,KIN,KIN,NOT,PRIMNM,282.5,2236,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 99% Hard
-PRIAs,King_Pal,Kingman,Kingman,Forereef,Shallow,KIN,KIN,NOT,PRIMNM,279,1140,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 99% Hard
-PRIAs,King_Pal,Kingman,Kingman,Lagoon,Deep,KIN,KIN,NOT,PRIMNM,876.75,4052,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids Assumes 60% hard bottom
-PRIAs,King_Pal,Kingman,Kingman,Lagoon,Mid,KIN,KIN,NOT,PRIMNM,74.75,304,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids Assumes 60% hard bottom
-PRIAs,King_Pal,Kingman,Kingman,Lagoon,Shallow,KIN,KIN,NOT,PRIMNM,0.25,2,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids Assumes 60% hard bottom
-PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Deep,KIN,KIN,NA,PRIMNM,229,756,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Mid,KIN,KIN,NA,PRIMNM,1328.25,4786,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Shallow,KIN,KIN,NA,PRIMNM,19.25,77,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,From Grids ASSUMES 90% Hard
-PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Deep,PAL,PAL,NOT,PRIMNM,11.58568484,46,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Mid,PAL,PAL,NOT,PRIMNM,67.99264287,272,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Shallow,PAL,PAL,NOT,PRIMNM,1246.94781,4988,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Forereef,Deep,PAL,PAL,NOT,PRIMNM,623.950261,2496,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Forereef,Mid,PAL,PAL,NOT,PRIMNM,1527.372655,6109,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Forereef,Shallow,PAL,PAL,NOT,PRIMNM,642.028097,2568,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Lagoon,Mid,PAL,PAL,NOT,PRIMNM,54.8903582,220,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,Lagoon,Shallow,PAL,PAL,NOT,PRIMNM,18.69397438,75,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,King_Pal,Palmyra,Palmyra,OTHER,OTHER,PAL,PAL,NA,NA,19.27986332,NA,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,
-PRIAs,Wake,Wake,Wake,Backreef,Deep,WAK,WAK,NOT,PRIMNM,0.008197859,0,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-PRIAs,Wake,Wake,Wake,Backreef,Mid,WAK,WAK,NOT,PRIMNM,5.530948577,22,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-PRIAs,Wake,Wake,Wake,Backreef,Shallow,WAK,WAK,NOT,PRIMNM,689.5000228,2758,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-PRIAs,Wake,Wake,Wake,Forereef,Deep,WAK,WAK,NOT,PRIMNM,59.48386537,238,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-PRIAs,Wake,Wake,Wake,Forereef,Mid,WAK,WAK,NOT,PRIMNM,102.2772869,409,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-PRIAs,Wake,Wake,Wake,Forereef,Shallow,WAK,WAK,NOT,PRIMNM,117.9897305,472,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-PRIAs,Wake,Wake,Wake,Lagoon,Shallow,WAK,WAK,NOT,PRIMNM,307.2366532,1229,Wake,Wake,Wake,Wake,Wake,WAK,NOT,
-SAMOA,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Forereef,Deep,OFU,OFU,NOT,OPEN,303.685,1215,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,OFU_OPEN,NOT,Area calculated from 50*50 grids
-SAMOA,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Forereef,Mid,OFU,OFU,NOT,OPEN,369.0125,1476,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,OFU_OPEN,NOT,Area calculated from 50*50 grids
-SAMOA,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Forereef,Shallow,OFU,OFU,NOT,OPEN,120.675,483,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,OFU_OPEN,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_INNER,Backreef,Mid,ROS,ROS,NA,MPA,11.5,46,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_INNER,Backreef,Shallow,ROS,ROS,NA,MPA,159.8562,639,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_INNER,Lagoon,Deep,ROS,ROS,NA,MPA,74.5,298,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_INNER,Lagoon,Mid,ROS,ROS,NA,MPA,27.5,110,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_INNER,Lagoon,Shallow,ROS,ROS,NA,MPA,2.25,9,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_SANCTUARY,Forereef,Deep,ROS,ROS,NA,MPA,16.5025,66,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_SANCTUARY,Forereef,Mid,ROS,ROS,NA,MPA,85.3,341,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_SANCTUARY,Forereef,Shallow,ROS,ROS,NA,MPA,18.4925,74,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Rose,Rose,ROS_UNSAMPLED,OTHER,OTHER,ROS,ROS,NA,MPA,46.345,NA,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,NOT,South Bank,South Bank,Forereef,Deep,South Bank,South Bank,NA,NA,25,NA,South Bank,South Bank,South Bank,South Bank,South Bank,South Bank,NOT,"Arbitrarily setting to 25ha, assuming also that it is all deep .. CRED found it hard to find any bottom < 30m"
-SAMOA,Swains,Swains,SWA_OPEN,Forereef,Deep,SWA,SWA,NA,OPEN,2.930460683,12,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,NOT,
-SAMOA,Swains,Swains,SWA_OPEN,Forereef,Mid,SWA,SWA,NA,OPEN,15.6128307,62,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,NOT,
-SAMOA,Swains,Swains,SWA_OPEN,Forereef,Shallow,SWA,SWA,NA,OPEN,92.22740392,369,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,NOT,
-SAMOA,Swains,Swains,SWA_SANCTUARY,Forereef,Deep,SWA,SWA,NA,MPA,9.371844797,37,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_MPA,NOT,
-SAMOA,Swains,Swains,SWA_SANCTUARY,Forereef,Mid,SWA,SWA,NA,MPA,41.80811022,167,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_MPA,NOT,
-SAMOA,Swains,Swains,SWA_SANCTUARY,Forereef,Shallow,SWA,SWA,NA,MPA,118.5523679,474,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_MPA,NOT,
-SAMOA,Tau,Tau,TAU_OPEN,Forereef,Deep,TAU,TAU,NOT,OPEN,179.335,717,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,NOT,Area calculated from 50*50 grids
-SAMOA,Tau,Tau,TAU_OPEN,Forereef,Mid,TAU,TAU,NOT,OPEN,494.905,1980,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,NOT,Area calculated from 50*50 grids
-SAMOA,Tau,Tau,TAU_OPEN,Forereef,Shallow,TAU,TAU,NOT,OPEN,119.3825,478,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,NOT,Area calculated from 50*50 grids
-SAMOA,Tau,Tau,TAU_SANCTUARY,Forereef,Deep,TAU,TAU,NA,MPA,24.1775,97,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Tau,Tau,TAU_SANCTUARY,Forereef,Mid,TAU,TAU,NA,MPA,71.735,287,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,Tau,Tau,TAU_SANCTUARY,Forereef,Shallow,TAU,TAU,NA,MPA,14.335,57,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_MPA,NOT,Area calculated from 50*50 grids
-SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_B,Forereef,Deep,TUT,TUT,NA,AUNB,202.8,811,Tutuila,Tutuila,Tutuila,TUT_AUNUU_B,TUT_AUNUU_B,TUT_AUNB,TUT_AUNUU,
-SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_B,Forereef,Mid,TUT,TUT,NA,AUNB,40.8,163,Tutuila,Tutuila,Tutuila,TUT_AUNUU_B,TUT_AUNUU_B,TUT_AUNB,TUT_AUNUU,
-SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_B,Forereef,Shallow,TUT,TUT,NA,AUNB,0.2,1,Tutuila,Tutuila,Tutuila,TUT_AUNUU_B,TUT_AUNUU_B,TUT_AUNB,TUT_AUNUU,
-SAMOA,TUT_STH,Tutuila,TUT_FAGATELE,Forereef,Deep,TUT,TUT,NA,FAGA,4.5,18,Tutuila,Tutuila,Tutuila,TUT_FAGATELE,TUT_FAGATELE,TUT_FAGA,TUT_FAGALUA_FAGATELE,
-SAMOA,TUT_STH,Tutuila,TUT_FAGATELE,Forereef,Mid,TUT,TUT,NA,FAGA,20.2,81,Tutuila,Tutuila,Tutuila,TUT_FAGATELE,TUT_FAGATELE,TUT_FAGA,TUT_FAGALUA_FAGATELE,
-SAMOA,TUT_STH,Tutuila,TUT_FAGATELE,Forereef,Shallow,TUT,TUT,NA,FAGA,9.4,38,Tutuila,Tutuila,Tutuila,TUT_FAGATELE,TUT_FAGATELE,TUT_FAGA,TUT_FAGALUA_FAGATELE,
-SAMOA,TUT_NTH,Tutuila,TUT_NE_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,372.8,1174,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_OPEN,TUT_NE,
-SAMOA,TUT_NTH,Tutuila,TUT_NE_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,425,1094,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_OPEN,TUT_NE,
-SAMOA,TUT_NTH,Tutuila,TUT_NE_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,272.9,1001,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_OPEN,TUT_NE,
-SAMOA,TUT_NTH,Tutuila,TUT_NW_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,257.7,1031,Tutuila,Tutuila,Tutuila,TUT_NW,TUT_NW_OPEN,TUT_OPEN,TUT_NW,
-SAMOA,TUT_NTH,Tutuila,TUT_NW_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,220.3,881,Tutuila,Tutuila,Tutuila,TUT_NW,TUT_NW_OPEN,TUT_OPEN,TUT_NW,
-SAMOA,TUT_NTH,Tutuila,TUT_NW_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,130.4,522,Tutuila,Tutuila,Tutuila,TUT_NW,TUT_NW_OPEN,TUT_OPEN,TUT_NW,
-SAMOA,NOT,Tutuila,TUT_PAGOPAGO,Forereef,Deep,TUT,TUT,NA,OPEN,9.7,NA,Tutuila,Tutuila,Tutuila,TUT_PAGOPAGO,TUT_PAGOPAGO,TUT_OPEN,TUT_PAGOPAGO,
-SAMOA,NOT,Tutuila,TUT_PAGOPAGO,Forereef,Mid,TUT,TUT,NA,OPEN,29.4,NA,Tutuila,Tutuila,Tutuila,TUT_PAGOPAGO,TUT_PAGOPAGO,TUT_OPEN,TUT_PAGOPAGO,
-SAMOA,NOT,Tutuila,TUT_PAGOPAGO,Forereef,Shallow,TUT,TUT,NA,OPEN,59.7,NA,Tutuila,Tutuila,Tutuila,TUT_PAGOPAGO,TUT_PAGOPAGO,TUT_OPEN,TUT_PAGOPAGO,
-SAMOA,TUT_STH,Tutuila,TUT_SE_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,291.8,1167,Tutuila,Tutuila,Tutuila,TUT_SE,TUT_SE_OPEN,TUT_OPEN,TUT_SE,
-SAMOA,TUT_STH,Tutuila,TUT_SE_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,659.5,2638,Tutuila,Tutuila,Tutuila,TUT_SE,TUT_SE_OPEN,TUT_OPEN,TUT_SE,
-SAMOA,TUT_STH,Tutuila,TUT_SE_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,472.9,1891,Tutuila,Tutuila,Tutuila,TUT_SE,TUT_SE_OPEN,TUT_OPEN,TUT_SE,
-SAMOA,TUT_STH,Tutuila,TUT_SW_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,266.2,1034,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_OPEN,TUT_SW,
-SAMOA,TUT_STH,Tutuila,TUT_SW_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,227.5,799,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_OPEN,TUT_SW,
-SAMOA,TUT_STH,Tutuila,TUT_SW_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,208.8,809,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_OPEN,TUT_SW,
+REGION,REP_CARD,ISLAND,SEC_NAME,REEF_ZONE,DEPTH_BIN,bA_BENTHIC_REP_CARD,bBENTHIC_SEC_CODE,bGEN_MHI_STRUCTURE,bPROTECTION_DS,AREA_HA,NH,RAMP_BASIC,MARI2011,MARI2014,TUT10_12,AS_SANCTUARY,BENTHIC_BASIC,SAMOA_CLIMATE,BENTHIC_2018,NOTES
+CT,NOT,Timor Leste,ATA,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,ATA,ATA,ATA,ATA,ATA,Timor Leste,NOT,ATA,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,ATA,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,ATA,ATA,ATA,ATA,ATA,Timor Leste,NOT,ATA,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,BAU,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,BAU,BAU,BAU,BAU,BAU,Timor Leste,NOT,BAU,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,BAU,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,BAU,BAU,BAU,BAU,BAU,Timor Leste,NOT,BAU,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,BOB,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,BOB,BOB,BOB,BOB,BOB,Timor Leste,NOT,BOB,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,BOB,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,BOB,BOB,BOB,BOB,BOB,Timor Leste,NOT,BOB,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,DIL,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,DIL,DIL,DIL,DIL,DIL,Timor Leste,NOT,DIL,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,DIL,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,DIL,DIL,DIL,DIL,DIL,Timor Leste,NOT,DIL,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,LAU,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,LAU,LAU,LAU,LAU,LAU,Timor Leste,NOT,LAU,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,LAU,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,LAU,LAU,LAU,LAU,LAU,Timor Leste,NOT,LAU,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,LIQ,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,LIQ,LIQ,LIQ,LIQ,LIQ,Timor Leste,NOT,LIQ,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,LIQ,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,LIQ,LIQ,LIQ,LIQ,LIQ,Timor Leste,NOT,LIQ,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,MAN,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,MAN,MAN,MAN,MAN,MAN,Timor Leste,NOT,MAN,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,MAN,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,MAN,MAN,MAN,MAN,MAN,Timor Leste,NOT,MAN,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,OEC,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,OEC,OEC,OEC,OEC,OEC,Timor Leste,NOT,OEC,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,OEC,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,OEC,OEC,OEC,OEC,OEC,Timor Leste,NOT,OEC,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,VIL,Forereef,Mid,Timor Leste,Timor Leste,NA,NA,1,NA,VIL,VIL,VIL,VIL,VIL,Timor Leste,NOT,VIL,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+CT,NOT,Timor Leste,VIL,Forereef,Shallow,Timor Leste,Timor Leste,NA,NA,1,NA,VIL,VIL,VIL,VIL,VIL,Timor Leste,NOT,VIL,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
+MARIAN,NOT,11-mile bank,11-mile bank,Forereef,Deep,11-mile bank,11-mile bank,NA,NA,2.642415605,NA,11-mile bank,11-mile bank,11-mile bank,11-mile bank,11-mile bank,11-mile bank,NOT,11-mile bank,
+MARIAN,CNMI_UNPOP,Agrihan,Agrihan,Forereef,Deep,AGR,AGR,NOT,OPEN,455.6356862,1823,Agrihan,Agrihan,Agrihan,Agrihan,Agrihan,AGR_OPEN,NOT,Agrihan,
+MARIAN,CNMI_UNPOP,Agrihan,Agrihan,Forereef,Mid,AGR,AGR,NOT,OPEN,51.8014133,207,Agrihan,Agrihan,Agrihan,Agrihan,Agrihan,AGR_OPEN,NOT,Agrihan,
+MARIAN,CNMI_UNPOP,Agrihan,Agrihan,Forereef,Shallow,AGR,AGR,NOT,OPEN,343.1901754,1373,Agrihan,Agrihan,Agrihan,Agrihan,Agrihan,AGR_OPEN,NOT,Agrihan,
+MARIAN,SaTiAg,Aguijan,Aguijan,Forereef,Deep,AGU,AGU,NOT,OPEN,119.2887963,477,Aguijan,Aguijan,Aguijan,Aguijan,Aguijan,AGU_OPEN,NOT,Aguijan,
+MARIAN,SaTiAg,Aguijan,Aguijan,Forereef,Mid,AGU,AGU,NOT,OPEN,129.0007981,516,Aguijan,Aguijan,Aguijan,Aguijan,Aguijan,AGU_OPEN,NOT,Aguijan,
+MARIAN,SaTiAg,Aguijan,Aguijan,Forereef,Shallow,AGU,AGU,NOT,OPEN,157.3007294,629,Aguijan,Aguijan,Aguijan,Aguijan,Aguijan,AGU_OPEN,NOT,Aguijan,
+MARIAN,CNMI_UNPOP,Alamagan,Alamagan,Forereef,Deep,ALA,ALA,NOT,OPEN,112.8532954,451,Alamagan,Alamagan,Alamagan,Alamagan,Alamagan,ALA_OPEN,NOT,Alamagan,
+MARIAN,CNMI_UNPOP,Alamagan,Alamagan,Forereef,Mid,ALA,ALA,NOT,OPEN,162.4144779,650,Alamagan,Alamagan,Alamagan,Alamagan,Alamagan,ALA_OPEN,NOT,Alamagan,
+MARIAN,CNMI_UNPOP,Alamagan,Alamagan,Forereef,Shallow,ALA,ALA,NOT,OPEN,71.071876,284,Alamagan,Alamagan,Alamagan,Alamagan,Alamagan,ALA_OPEN,NOT,Alamagan,
+MARIAN,NOT,Anatahan,Anatahan,Forereef,Deep,Ana,Ana,NA,NA,393.9252048,NA,Anatahan,Anatahan,Anatahan,Anatahan,Anatahan,Ana,NOT,Anatahan,"Assume average size island, assume dms each 1/3"
+MARIAN,NOT,Anatahan,Anatahan,Forereef,Mid,Ana,Ana,NA,NA,393.9252048,NA,Anatahan,Anatahan,Anatahan,Anatahan,Anatahan,Ana,NOT,Anatahan,"Assume average size island, assume dms each 1/3"
+MARIAN,NOT,Anatahan,Anatahan,Forereef,Shallow,Ana,Ana,NA,NA,393.9252048,NA,Anatahan,Anatahan,Anatahan,Anatahan,Anatahan,Ana,NOT,Anatahan,"Assume average size island, assume dms each 1/3"
+MARIAN,NOT,Arakane,Arakane,Forereef,Deep,Arakane,Arakane,NA,NA,24.5959461,NA,Arakane,Arakane,Arakane,Arakane,Arakane,Arakane,NOT,Arakane,
+MARIAN,NOT,Arakane,Arakane,Forereef,Mid,Arakane,Arakane,NA,NA,23.2565184,NA,Arakane,Arakane,Arakane,Arakane,Arakane,Arakane,NOT,Arakane,
+MARIAN,MTMNM,Asuncion,Asuncion,Forereef,Deep,ASC,ASC,NOT,MTMM,64.03633046,256,Asuncion,Asuncion,Asuncion,Asuncion,Asuncion,ASC_MTMM,NOT,Asuncion,
+MARIAN,MTMNM,Asuncion,Asuncion,Forereef,Mid,ASC,ASC,NOT,MTMM,130.7967187,523,Asuncion,Asuncion,Asuncion,Asuncion,Asuncion,ASC_MTMM,NOT,Asuncion,
+MARIAN,MTMNM,Asuncion,Asuncion,Forereef,Shallow,ASC,ASC,NOT,MTMM,53.77229254,215,Asuncion,Asuncion,Asuncion,Asuncion,Asuncion,ASC_MTMM,NOT,Asuncion,
+MARIAN,NOT,Farallon de Medenilla,Farallon de Medenilla,Forereef,Deep,Farallon de Medenilla,Farallon de Medenilla,NA,NA,78.47331358,NA,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla_NA,NOT,Farallon de Medenilla,
+MARIAN,NOT,Farallon de Medenilla,Farallon de Medenilla,Forereef,Mid,Farallon de Medenilla,Farallon de Medenilla,NA,NA,52.80542635,NA,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla_NA,NOT,Farallon de Medenilla,
+MARIAN,NOT,Farallon de Medenilla,Farallon de Medenilla,Forereef,Shallow,Farallon de Medenilla,Farallon de Medenilla,NA,NA,20.23990304,NA,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla,Farallon de Medenilla_NA,NOT,Farallon de Medenilla,
+MARIAN,MTMNM,Farallon de Pajaros,Farallon de Pajaros,Forereef,Deep,FDP,FDP,NOT,MTMM,36.860822,147,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,FDP_MTMM,NOT,Farallon de Pajaros,
+MARIAN,MTMNM,Farallon de Pajaros,Farallon de Pajaros,Forereef,Mid,FDP,FDP,NOT,MTMM,68.68271,275,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,FDP_MTMM,NOT,Farallon de Pajaros,
+MARIAN,MTMNM,Farallon de Pajaros,Farallon de Pajaros,Forereef,Shallow,FDP,FDP,NOT,MTMM,32.916547,132,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,Farallon de Pajaros,FDP_MTMM,NOT,Farallon de Pajaros,
+MARIAN,NOT,Galvez,Galvez,Forereef,Deep,Galvez,Galvez,NA,NA,15.29549096,NA,Galvez,Galvez,Galvez,Galvez,Galvez,Galvez,NOT,Galvez,
+MARIAN,GUAM_MP,Guam,GUA_ACHANG,Forereef,Deep,GUA_EAST_MPA,GUA_EAST,NOT,ACHG,13.75,55,Guam,GUA_MP,GUA_ACHANG,GUA_ACHANG,GUA_ACHANG,GUA_EAST_ACHG,NOT,GUA_ACHANG,
+MARIAN,GUAM_MP,Guam,GUA_ACHANG,Forereef,Mid,GUA_EAST_MPA,GUA_EAST,NOT,ACHG,59.25,237,Guam,GUA_MP,GUA_ACHANG,GUA_ACHANG,GUA_ACHANG,GUA_EAST_ACHG,NOT,GUA_ACHANG,
+MARIAN,GUAM_MP,Guam,GUA_ACHANG,Forereef,Shallow,GUA_EAST_MPA,GUA_EAST,NOT,ACHG,33.25,133,Guam,GUA_MP,GUA_ACHANG,GUA_ACHANG,GUA_ACHANG,GUA_EAST_ACHG,NOT,GUA_ACHANG,
+MARIAN,GUAM_EAST_OPEN,Guam,GUA_EAST_OPEN,Forereef,Deep,GUA_EAST_OPEN,GUA_EAST,NOT,OPEN,664.5,2658,Guam,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,NOT,GUA_EAST_OPEN,
+MARIAN,GUAM_EAST_OPEN,Guam,GUA_EAST_OPEN,Forereef,Mid,GUA_EAST_OPEN,GUA_EAST,NOT,OPEN,1027.25,4109,Guam,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,NOT,GUA_EAST_OPEN,
+MARIAN,GUAM_EAST_OPEN,Guam,GUA_EAST_OPEN,Forereef,Shallow,GUA_EAST_OPEN,GUA_EAST,NOT,OPEN,421.5,1686,Guam,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,GUA_EAST_OPEN,NOT,GUA_EAST_OPEN,
+MARIAN,NOT,Guam,GUA_HARBOR,Forereef,Deep,GUA_WEST_OPEN,GUA_HAR_WEST,NOT,OPEN,3.81,15,Guam,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HAR_WEST_OPEN,NOT,GUA_HARBOR,
+MARIAN,NOT,Guam,GUA_HARBOR,Forereef,Mid,GUA_WEST_OPEN,GUA_HAR_WEST,NOT,OPEN,38.29,153,Guam,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HAR_WEST_OPEN,NOT,GUA_HARBOR,
+MARIAN,NOT,Guam,GUA_HARBOR,Forereef,Shallow,GUA_WEST_OPEN,GUA_HAR_WEST,NOT,OPEN,95.17,381,Guam,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HARBOR,GUA_HAR_WEST_OPEN,NOT,GUA_HARBOR,
+MARIAN,GUAM_WEST_OPEN,Guam,GUA_WEST_OPEN,Forereef,Deep,GUA_WEST_OPEN,GUA_WEST,NOT,OPEN,438.75,1755,Guam,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,NOT,GUA_WEST_OPEN,
+MARIAN,GUAM_WEST_OPEN,Guam,GUA_WEST_OPEN,Forereef,Mid,GUA_WEST_OPEN,GUA_WEST,NOT,OPEN,1035,4140,Guam,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,NOT,GUA_WEST_OPEN,
+MARIAN,GUAM_WEST_OPEN,Guam,GUA_WEST_OPEN,Forereef,Shallow,GUA_WEST_OPEN,GUA_WEST,NOT,OPEN,756.5,3026,Guam,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,GUA_WEST_OPEN,NOT,GUA_WEST_OPEN,
+MARIAN,GUAM_MP,Guam,GUA_PATI_POINT,Forereef,Deep,GUA_EAST_MPA,GUA_EAST,NOT,PATI,155.25,621,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PATI_POINT,GUA_PATI_POINT,GUA_EAST_PATI,NOT,GUA_PATI_POINT,
+MARIAN,GUAM_MP,Guam,GUA_PATI_POINT,Forereef,Mid,GUA_EAST_MPA,GUA_EAST,NOT,PATI,159,636,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PATI_POINT,GUA_PATI_POINT,GUA_EAST_PATI,NOT,GUA_PATI_POINT,
+MARIAN,GUAM_MP,Guam,GUA_PATI_POINT,Forereef,Shallow,GUA_EAST_MPA,GUA_EAST,NOT,PATI,36.25,145,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PATI_POINT,GUA_PATI_POINT,GUA_EAST_PATI,NOT,GUA_PATI_POINT,
+MARIAN,GUAM_MP,Guam,GUA_PITI_BOMB,Forereef,Deep,GUA_WEST_MPA,GUA_WEST,NOT,PITI,18.5,74,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PITI_BOMB,GUA_PITI_BOMB,GUA_WEST_PITI,NOT,GUA_PITI_BOMB,
+MARIAN,GUAM_MP,Guam,GUA_PITI_BOMB,Forereef,Mid,GUA_WEST_MPA,GUA_WEST,NOT,PITI,40.25,161,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PITI_BOMB,GUA_PITI_BOMB,GUA_WEST_PITI,NOT,GUA_PITI_BOMB,
+MARIAN,GUAM_MP,Guam,GUA_PITI_BOMB,Forereef,Shallow,GUA_WEST_MPA,GUA_WEST,NOT,PITI,23.5,94,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_PITI_BOMB,GUA_PITI_BOMB,GUA_WEST_PITI,NOT,GUA_PITI_BOMB,
+MARIAN,NOT,Guam,GUA_SASA_BAY,Forereef,Mid,GUA_WEST_MPA,GUA_HAR_WEST,NOT,SASA,2.54,10,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_SASA_BAY,GUA_SASA_BAY,GUA_HAR_WEST_SASA,NOT,GUA_SASA_BAY,
+MARIAN,NOT,Guam,GUA_SASA_BAY,Forereef,Shallow,GUA_WEST_MPA,GUA_HAR_WEST,NOT,SASA,61.82,247,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_SASA_BAY,GUA_SASA_BAY,GUA_HAR_WEST_SASA,NOT,GUA_SASA_BAY,
+MARIAN,GUAM_MP,Guam,GUA_TUMON,Forereef,Deep,GUA_WEST_MPA,GUA_WEST,NOT,TUMB,27.75,111,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_TUMON,GUA_TUMON,GUA_WEST_TUMB,NOT,GUA_TUMON,
+MARIAN,GUAM_MP,Guam,GUA_TUMON,Forereef,Mid,GUA_WEST_MPA,GUA_WEST,NOT,TUMB,71.75,287,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_TUMON,GUA_TUMON,GUA_WEST_TUMB,NOT,GUA_TUMON,
+MARIAN,GUAM_MP,Guam,GUA_TUMON,Forereef,Shallow,GUA_WEST_MPA,GUA_WEST,NOT,TUMB,131,524,Guam,GUA_MP,GUA_MP_MINUS_ACHANG,GUA_TUMON,GUA_TUMON,GUA_WEST_TUMB,NOT,GUA_TUMON,
+MARIAN,CNMI_UNPOP,Guguan,Guguan,Forereef,Deep,GUG,GUG,NOT,OPEN,69.60776909,278,Guguan,Guguan,Guguan,Guguan,Guguan,GUG_OPEN,NOT,Guguan,
+MARIAN,CNMI_UNPOP,Guguan,Guguan,Forereef,Mid,GUG,GUG,NOT,OPEN,73.0388079,292,Guguan,Guguan,Guguan,Guguan,Guguan,GUG_OPEN,NOT,Guguan,
+MARIAN,CNMI_UNPOP,Guguan,Guguan,Forereef,Shallow,GUG,GUG,NOT,OPEN,57.31867709,229,Guguan,Guguan,Guguan,Guguan,Guguan,GUG_OPEN,NOT,Guguan,
+MARIAN,MTMNM,Maug,Maug,Forereef,Deep,MAU,MAU,NOT,MTMM,87.73461767,351,Maug,Maug,Maug,Maug,Maug,MAU_MTMM,NOT,Maug,
+MARIAN,MTMNM,Maug,Maug,Forereef,Mid,MAU,MAU,NOT,MTMM,190.6950207,763,Maug,Maug,Maug,Maug,Maug,MAU_MTMM,NOT,Maug,
+MARIAN,MTMNM,Maug,Maug,Forereef,Shallow,MAU,MAU,NOT,MTMM,35.44106339,142,Maug,Maug,Maug,Maug,Maug,MAU_MTMM,NOT,Maug,
+MARIAN,CNMI_UNPOP,Pagan,Pagan,Forereef,Deep,PAG,PAG,NOT,OPEN,571.3645349,2285,Pagan,Pagan,Pagan,Pagan,Pagan,PAG_OPEN,NOT,Pagan,
+MARIAN,CNMI_UNPOP,Pagan,Pagan,Forereef,Mid,PAG,PAG,NOT,OPEN,492.5006185,1970,Pagan,Pagan,Pagan,Pagan,Pagan,PAG_OPEN,NOT,Pagan,
+MARIAN,CNMI_UNPOP,Pagan,Pagan,Forereef,Shallow,PAG,PAG,NOT,OPEN,449.0588004,1796,Pagan,Pagan,Pagan,Pagan,Pagan,PAG_OPEN,NOT,Pagan,
+MARIAN,NOT,Pathfinder,Pathfinder,Forereef,Deep,Pathfinder,Pathfinder,NA,NA,33.67386448,NA,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,NOT,Pathfinder,
+MARIAN,NOT,Pathfinder,Pathfinder,Forereef,Mid,Pathfinder,Pathfinder,NA,NA,46.89481662,NA,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,Pathfinder,NOT,Pathfinder,
+MARIAN,Rota,Rota,Rota,Forereef,Deep,ROT,ROT,NOT,OPEN,187.5332091,750,Rota,Rota,Rota,Rota,Rota,ROT_OPEN,NOT,Rota,
+MARIAN,Rota,Rota,Rota,Forereef,Mid,ROT,ROT,NOT,OPEN,254.5438529,1018,Rota,Rota,Rota,Rota,Rota,ROT_OPEN,NOT,Rota,
+MARIAN,Rota,Rota,Rota,Forereef,Shallow,ROT,ROT,NOT,OPEN,889.2950898,3557,Rota,Rota,Rota,Rota,Rota,ROT_OPEN,NOT,Rota,
+MARIAN,SaTiAg,Saipan,Saipan,Backreef,Deep,SAI,SAI,NOT,OPEN,0.102749263,2391,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Backreef,Mid,SAI,SAI,NOT,OPEN,0.838950538,2391,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Backreef,Shallow,SAI,SAI,NOT,OPEN,596.76696,2391,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Forereef,Deep,SAI,SAI,NOT,OPEN,1985.586578,7942,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Forereef,Mid,SAI,SAI,NOT,OPEN,1132.596536,4530,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Forereef,Shallow,SAI,SAI,NOT,OPEN,420.8277658,1683,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Lagoon,Mid,SAI,SAI,NOT,OPEN,170.5443267,682,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,Lagoon,Shallow,SAI,SAI,NOT,OPEN,412.3027837,1649,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,SaTiAg,Saipan,Saipan,OTHER,OTHER,SAI,SAI,NOT,OPEN,126.9930931,NA,Saipan,Saipan,Saipan,Saipan,Saipan,SAI_OPEN,NOT,Saipan,
+MARIAN,NOT,Santa Rosa,Santa Rosa,Forereef,Deep,Santa Rosa,Santa Rosa,NA,NA,2262.645102,NA,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,NOT,Santa Rosa,
+MARIAN,NOT,Santa Rosa,Santa Rosa,Forereef,Mid,Santa Rosa,Santa Rosa,NA,NA,1288.462096,NA,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,Santa Rosa,NOT,Santa Rosa,
+MARIAN,CNMI_UNPOP,Sarigan,Sarigan,Forereef,Deep,SAR,SAR,NOT,OPEN,88.30851333,353,Sarigan,Sarigan,Sarigan,Sarigan,Sarigan,SAR_OPEN,NOT,Sarigan,
+MARIAN,CNMI_UNPOP,Sarigan,Sarigan,Forereef,Mid,SAR,SAR,NOT,OPEN,29.81657193,119,Sarigan,Sarigan,Sarigan,Sarigan,Sarigan,SAR_OPEN,NOT,Sarigan,
+MARIAN,CNMI_UNPOP,Sarigan,Sarigan,Forereef,Shallow,SAR,SAR,NOT,OPEN,79.43434663,318,Sarigan,Sarigan,Sarigan,Sarigan,Sarigan,SAR_OPEN,NOT,Sarigan,
+MARIAN,NOT,Supply Reef,Supply Reef,Forereef,Deep,Supply Reef,Supply Reef,NA,NA,8.705859815,NA,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,NOT,Supply Reef,
+MARIAN,NOT,Supply Reef,Supply Reef,Forereef,Mid,Supply Reef,Supply Reef,NA,NA,1.192725779,NA,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,Supply Reef,NOT,Supply Reef,
+MARIAN,NOT,Tatsumi,Tatsumi,Forereef,Deep,Tatsumi,Tatsumi,NA,NA,88.09014362,NA,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,NOT,Tatsumi,
+MARIAN,NOT,Tatsumi,Tatsumi,Forereef,Mid,Tatsumi,Tatsumi,NA,NA,136.1279988,NA,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,Tatsumi,NOT,Tatsumi,
+MARIAN,SaTiAg,Tinian,Tinian,Forereef,Deep,TIN,TIN,NOT,OPEN,557.103082,2228,Tinian,Tinian,Tinian,Tinian,Tinian,TIN_OPEN,NOT,Tinian,
+MARIAN,SaTiAg,Tinian,Tinian,Forereef,Mid,TIN,TIN,NOT,OPEN,534.0549959,2136,Tinian,Tinian,Tinian,Tinian,Tinian,TIN_OPEN,NOT,Tinian,
+MARIAN,SaTiAg,Tinian,Tinian,Forereef,Shallow,TIN,TIN,NOT,OPEN,323.0482252,1292,Tinian,Tinian,Tinian,Tinian,Tinian,TIN_OPEN,NOT,Tinian,
+MHI,Hawaii,Hawaii,HAW_HAMAKUA,Forereef,Deep,HAW_CM,HAW_HA,CM,OPEN,1479.311358,5917,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_CMHA_CM_OPEN,NOT,HAW_HAMAKUA,Not much hard/soft information
+MHI,Hawaii,Hawaii,HAW_HAMAKUA,Forereef,Mid,HAW_CM,HAW_HA,CM,OPEN,2334.19033,9337,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_CMHA_CM_OPEN,NOT,HAW_HAMAKUA,Not much hard/soft information
+MHI,Hawaii,Hawaii,HAW_HAMAKUA,Forereef,Shallow,HAW_CM,HAW_HA,CM,OPEN,1117.329716,4469,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_HAMAKUA,HAW_CMHA_CM_OPEN,NOT,HAW_HAMAKUA,Not much hard/soft information
+MHI,Hawaii,Hawaii,HAW_KONA,Forereef,Deep,HAW_CR,HAW_KO,CR,OPEN,1546.877064,6188,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_CRKO_CR_OPEN,NOT,HAW_KONA,
+MHI,Hawaii,Hawaii,HAW_KONA,Forereef,Mid,HAW_CR,HAW_KO,CR,OPEN,2362.718917,9451,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_CRKO_CR_OPEN,NOT,HAW_KONA,
+MHI,Hawaii,Hawaii,HAW_KONA,Forereef,Shallow,HAW_CR,HAW_KO,CR,OPEN,1817.863584,7271,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_KONA,HAW_CRKO_CR_OPEN,NOT,HAW_KONA,
+MHI,Hawaii,Hawaii,HAW_PUNA,Forereef,Deep,HAW_CM,HAW_PU,CM,OPEN,1446.862405,5787,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_CMPU_CM_OPEN,NOT,HAW_PUNA,
+MHI,Hawaii,Hawaii,HAW_PUNA,Forereef,Mid,HAW_CM,HAW_PU,CM,OPEN,1603.885128,6416,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_CMPU_CM_OPEN,NOT,HAW_PUNA,
+MHI,Hawaii,Hawaii,HAW_PUNA,Forereef,Shallow,HAW_CM,HAW_PU,CM,OPEN,1012.92738,4052,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_PUNA,HAW_CMPU_CM_OPEN,NOT,HAW_PUNA,
+MHI,Hawaii,Hawaii,HAW_SE,Forereef,Deep,HAW_CM,HAW_SE,CM,OPEN,593.4841055,2374,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_CMSE_CM_OPEN,NOT,HAW_SE,
+MHI,Hawaii,Hawaii,HAW_SE,Forereef,Mid,HAW_CM,HAW_SE,CM,OPEN,857.7582457,3431,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_CMSE_CM_OPEN,NOT,HAW_SE,
+MHI,Hawaii,Hawaii,HAW_SE,Forereef,Shallow,HAW_CM,HAW_SE,CM,OPEN,666.5433106,2666,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_SE,HAW_CMSE_CM_OPEN,NOT,HAW_SE,
+MHI,Maui-nui,Kahoolawe,KAH_NORTH,Forereef,Deep,KAH_CR,KAH_NO,CR,OPEN,200,811,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_CRNO_CR_OPEN,NOT,KAH_NORTH,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
+MHI,Maui-nui,Kahoolawe,KAH_NORTH,Forereef,Mid,KAH_CR,KAH_NO,CR,OPEN,200,811,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_CRNO_CR_OPEN,NOT,KAH_NORTH,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
+MHI,Maui-nui,Kahoolawe,KAH_NORTH,Forereef,Shallow,KAH_CR,KAH_NO,CR,OPEN,200,811,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_NORTH,KAH_CRNO_CR_OPEN,NOT,KAH_NORTH,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
+MHI,Maui-nui,Kahoolawe,KAH_SOUTH,Forereef,Deep,KAH_CR,KAH_SO,CR,OPEN,200,944,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_CRSO_CR_OPEN,NOT,KAH_SOUTH,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
+MHI,Maui-nui,Kahoolawe,KAH_SOUTH,Forereef,Mid,KAH_CR,KAH_SO,CR,OPEN,200,944,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_CRSO_CR_OPEN,NOT,KAH_SOUTH,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
+MHI,Maui-nui,Kahoolawe,KAH_SOUTH,Forereef,Shallow,KAH_CR,KAH_SO,CR,OPEN,200,944,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_SOUTH,KAH_CRSO_CR_OPEN,NOT,KAH_SOUTH,Unkown Size .. Setting to 1/6 of our very rough ballpark estimate of habitat area. It seems low! Critical point for now is that all Kahoolawe sectors are eqaully sized
+MHI,Kaa-Nii,Kauai,KAU_EAST,Forereef,Deep,KAU_SI,KAU_EA,SI,OPEN,2891.111917,11564,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_SIEA_SI_OPEN,NOT,KAU_EAST,
+MHI,Kaa-Nii,Kauai,KAU_EAST,Forereef,Mid,KAU_SI,KAU_EA,SI,OPEN,5602.631417,22411,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_SIEA_SI_OPEN,NOT,KAU_EAST,
+MHI,Kaa-Nii,Kauai,KAU_EAST,Forereef,Shallow,KAU_SI,KAU_EA,SI,OPEN,3051.65048,12207,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_EAST,KAU_SIEA_SI_OPEN,NOT,KAU_EAST,
+MHI,Kaa-Nii,Kauai,KAU_NAPALI,Forereef,Deep,KAU_SI,KAU_NA,SI,OPEN,4307.948554,17232,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_SINA_SI_OPEN,NOT,KAU_NAPALI,
+MHI,Kaa-Nii,Kauai,KAU_NAPALI,Forereef,Mid,KAU_SI,KAU_NA,SI,OPEN,1876.001023,7504,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_SINA_SI_OPEN,NOT,KAU_NAPALI,
+MHI,Kaa-Nii,Kauai,KAU_NAPALI,Forereef,Shallow,KAU_SI,KAU_NA,SI,OPEN,397.7237848,1591,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_NAPALI,KAU_SINA_SI_OPEN,NOT,KAU_NAPALI,
+MHI,Kaa-Nii,Kaula,KAL_KAULA,Forereef,Deep,KAL_SI,KAL_AL,SI,OPEN,277.0347708,1108,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_SIAL_SI_OPEN,NOT,KAL_KAULA,
+MHI,Kaa-Nii,Kaula,KAL_KAULA,Forereef,Mid,KAL_SI,KAL_AL,SI,OPEN,50.28867577,201,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_SIAL_SI_OPEN,NOT,KAL_KAULA,
+MHI,Kaa-Nii,Kaula,KAL_KAULA,Forereef,Shallow,KAL_SI,KAL_AL,SI,OPEN,18.50064904,74,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_KAULA,KAL_SIAL_SI_OPEN,NOT,KAL_KAULA,
+MHI,Maui-nui,Lanai,LAN_NORTH,Forereef,Deep,LAN_CR,LAN_NO,CR,OPEN,291.3020737,1165,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_CRNO_CR_OPEN,NOT,LAN_NORTH,
+MHI,Maui-nui,Lanai,LAN_NORTH,Forereef,Mid,LAN_CR,LAN_NO,CR,OPEN,599.9003844,2400,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_CRNO_CR_OPEN,NOT,LAN_NORTH,
+MHI,Maui-nui,Lanai,LAN_NORTH,Forereef,Shallow,LAN_CR,LAN_NO,CR,OPEN,631.8075072,2527,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_NORTH,LAN_CRNO_CR_OPEN,NOT,LAN_NORTH,
+MHI,Maui-nui,Lanai,LAN_SOUTH,Forereef,Deep,LAN_CM,LAN_SO,CM,OPEN,246.6043512,986,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_CMSO_CM_OPEN,NOT,LAN_SOUTH,
+MHI,Maui-nui,Lanai,LAN_SOUTH,Forereef,Mid,LAN_CM,LAN_SO,CM,OPEN,487.9877445,1952,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_CMSO_CM_OPEN,NOT,LAN_SOUTH,
+MHI,Maui-nui,Lanai,LAN_SOUTH,Forereef,Shallow,LAN_CM,LAN_SO,CM,OPEN,746.0718328,2984,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_SOUTH,LAN_CMSO_CM_OPEN,NOT,LAN_SOUTH,
+MHI,Maui-nui,Maui,MAI_HANA,Forereef,Deep,MAI_CM,MAI_HA,CM,OPEN,225.5929875,902,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_CMHA_CM_OPEN,NOT,MAI_HANA,
+MHI,Maui-nui,Maui,MAI_HANA,Forereef,Mid,MAI_CM,MAI_HA,CM,OPEN,258.3916816,1034,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_CMHA_CM_OPEN,NOT,MAI_HANA,
+MHI,Maui-nui,Maui,MAI_HANA,Forereef,Shallow,MAI_CM,MAI_HA,CM,OPEN,190.0864145,760,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_HANA,MAI_CMHA_CM_OPEN,NOT,MAI_HANA,
+MHI,Maui-nui,Maui,MAI_KAHULUI,Forereef,Deep,MAI_CM,MAI_KA,CM,OPEN,438.345922,1753,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_CMKA_CM_OPEN,NOT,MAI_KAHULUI,
+MHI,Maui-nui,Maui,MAI_KAHULUI,Forereef,Mid,MAI_CM,MAI_KA,CM,OPEN,850.0936376,3400,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_CMKA_CM_OPEN,NOT,MAI_KAHULUI,
+MHI,Maui-nui,Maui,MAI_KAHULUI,Forereef,Shallow,MAI_CM,MAI_KA,CM,OPEN,1099.201993,4397,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_KAHULUI,MAI_CMKA_CM_OPEN,NOT,MAI_KAHULUI,
+MHI,Maui-nui,Maui,MAI_KIHEI,Forereef,Deep,MAI_CM,MAI_KI,CM,OPEN,537.9614588,2152,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_CMKI_CM_OPEN,NOT,MAI_KIHEI,
+MHI,Maui-nui,Maui,MAI_KIHEI,Forereef,Mid,MAI_CM,MAI_KI,CM,OPEN,682.5282166,2730,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_CMKI_CM_OPEN,NOT,MAI_KIHEI,
+MHI,Maui-nui,Maui,MAI_KIHEI,Forereef,Shallow,MAI_CM,MAI_KI,CM,OPEN,650.0680159,2600,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_KIHEI,MAI_CMKI_CM_OPEN,NOT,MAI_KIHEI,
+MHI,Maui-nui,Maui,MAI_LAHAINA,Forereef,Deep,MAI_SI,MAI_LA,SI,OPEN,287.1615845,1149,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_SILA_SI_OPEN,NOT,MAI_LAHAINA,
+MHI,Maui-nui,Maui,MAI_LAHAINA,Forereef,Mid,MAI_SI,MAI_LA,SI,OPEN,483.9295632,1936,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_SILA_SI_OPEN,NOT,MAI_LAHAINA,
+MHI,Maui-nui,Maui,MAI_LAHAINA,Forereef,Shallow,MAI_SI,MAI_LA,SI,OPEN,439.3470347,1757,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_LAHAINA,MAI_SILA_SI_OPEN,NOT,MAI_LAHAINA,
+MHI,Maui-nui,Maui,MAI_MOLOKINI,Forereef,Deep,MAI_CR,MAI_MO,CR,OPEN,6.25,NA,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_CRMO_CR_OPEN,NOT,MAI_MOLOKINI,"Assume is 25ha, assume 50% is mid, split rest equally"
+MHI,Maui-nui,Maui,MAI_MOLOKINI,Forereef,Mid,MAI_CR,MAI_MO,CR,OPEN,12.5,NA,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_CRMO_CR_OPEN,NOT,MAI_MOLOKINI,"Assume is 25ha, assume 50% is mid, split rest equally"
+MHI,Maui-nui,Maui,MAI_MOLOKINI,Forereef,Shallow,MAI_CR,MAI_MO,CR,OPEN,6.25,NA,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_MOLOKINI,MAI_CRMO_CR_OPEN,NOT,MAI_MOLOKINI,"Assume is 25ha, assume 50% is mid, split rest equally"
+MHI,Maui-nui,Maui,MAI_NE,Forereef,Deep,MAI_CM,MAI_NE,CM,OPEN,883.3579854,3533,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_CMNE_CM_OPEN,NOT,MAI_NE,
+MHI,Maui-nui,Maui,MAI_NE,Forereef,Mid,MAI_CM,MAI_NE,CM,OPEN,926.711758,3707,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_CMNE_CM_OPEN,NOT,MAI_NE,
+MHI,Maui-nui,Maui,MAI_NE,Forereef,Shallow,MAI_CM,MAI_NE,CM,OPEN,481.2408332,1925,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_NE,MAI_CMNE_CM_OPEN,NOT,MAI_NE,
+MHI,Maui-nui,Maui,MAI_NW,Forereef,Deep,MAI_CM,MAI_NW,CM,OPEN,315.7175228,1263,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_CMNW_CM_OPEN,NOT,MAI_NW,
+MHI,Maui-nui,Maui,MAI_NW,Forereef,Mid,MAI_CM,MAI_NW,CM,OPEN,287.74445,1151,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_CMNW_CM_OPEN,NOT,MAI_NW,
+MHI,Maui-nui,Maui,MAI_NW,Forereef,Shallow,MAI_CM,MAI_NW,CM,OPEN,176.1167662,704,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_NW,MAI_CMNW_CM_OPEN,NOT,MAI_NW,
+MHI,Maui-nui,Maui,MAI_SE,Forereef,Deep,MAI_CM,MAI_SE,CM,OPEN,788.37286,3153,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_CMSE_CM_OPEN,NOT,MAI_SE,
+MHI,Maui-nui,Maui,MAI_SE,Forereef,Mid,MAI_CM,MAI_SE,CM,OPEN,690.2023226,2761,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_CMSE_CM_OPEN,NOT,MAI_SE,
+MHI,Maui-nui,Maui,MAI_SE,Forereef,Shallow,MAI_CM,MAI_SE,CM,OPEN,405.0121276,1620,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_SE,MAI_CMSE_CM_OPEN,NOT,MAI_SE,
+MHI,Maui-nui,Molokai,MOL_NW,Forereef,Deep,MOL_SI,MOL_NW,SI,OPEN,733.1293957,2933,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_SINW_SI_OPEN,NOT,MOL_NW,
+MHI,Maui-nui,Molokai,MOL_NW,Forereef,Mid,MOL_SI,MOL_NW,SI,OPEN,601.1779629,2405,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_SINW_SI_OPEN,NOT,MOL_NW,
+MHI,Maui-nui,Molokai,MOL_NW,Forereef,Shallow,MOL_SI,MOL_NW,SI,OPEN,501.1542337,2005,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_NW,MOL_SINW_SI_OPEN,NOT,MOL_NW,
+MHI,Maui-nui,Molokai,MOL_PALI,Forereef,Deep,MOL_CM,MOL_PA,CM,OPEN,634.0842128,2536,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_CMPA_CM_OPEN,NOT,MOL_PALI,
+MHI,Maui-nui,Molokai,MOL_PALI,Forereef,Mid,MOL_CM,MOL_PA,CM,OPEN,467.9624676,1872,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_CMPA_CM_OPEN,NOT,MOL_PALI,
+MHI,Maui-nui,Molokai,MOL_PALI,Forereef,Shallow,MOL_CM,MOL_PA,CM,OPEN,516.2585992,2065,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_PALI,MOL_CMPA_CM_OPEN,NOT,MOL_PALI,
+MHI,Maui-nui,Molokai,MOL_SOUTH,Forereef,Deep,MOL_CR,MOL_SO,CR,OPEN,603.9775235,2416,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_CRSO_CR_OPEN,NOT,MOL_SOUTH,
+MHI,Maui-nui,Molokai,MOL_SOUTH,Forereef,Mid,MOL_CR,MOL_SO,CR,OPEN,1293.344283,5173,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_CRSO_CR_OPEN,NOT,MOL_SOUTH,
+MHI,Maui-nui,Molokai,MOL_SOUTH,Forereef,Shallow,MOL_CR,MOL_SO,CR,OPEN,4232.003508,16928,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_SOUTH,MOL_CRSO_CR_OPEN,NOT,MOL_SOUTH,
+MHI,Maui-nui,Molokai,MOL_WEST,Forereef,Deep,MOL_SI,MOL_WE,SI,OPEN,1384.213479,5537,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_SIWE_SI_OPEN,NOT,MOL_WEST,
+MHI,Maui-nui,Molokai,MOL_WEST,Forereef,Mid,MOL_SI,MOL_WE,SI,OPEN,1250.749123,5003,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_SIWE_SI_OPEN,NOT,MOL_WEST,
+MHI,Maui-nui,Molokai,MOL_WEST,Forereef,Shallow,MOL_SI,MOL_WE,SI,OPEN,512.2388267,2049,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_WEST,MOL_SIWE_SI_OPEN,NOT,MOL_WEST,
+MHI,Kaa-Nii,Niihau,NII_EAST,Forereef,Deep,NII_SI,NII_EA,SI,OPEN,1027.496786,4110,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_SIEA_SI_OPEN,NOT,NII_EAST,
+MHI,Kaa-Nii,Niihau,NII_EAST,Forereef,Mid,NII_SI,NII_EA,SI,OPEN,1137.990268,4552,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_SIEA_SI_OPEN,NOT,NII_EAST,
+MHI,Kaa-Nii,Niihau,NII_EAST,Forereef,Shallow,NII_SI,NII_EA,SI,OPEN,613.9646175,2456,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_EAST,NII_SIEA_SI_OPEN,NOT,NII_EAST,
+MHI,Kaa-Nii,Niihau,NII_LEHUA,Forereef,Deep,NII_CM,NII_LE,CM,OPEN,263,1052,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_CMLE_CM_OPEN,NOT,NII_LEHUA,
+MHI,Kaa-Nii,Niihau,NII_LEHUA,Forereef,Mid,NII_CM,NII_LE,CM,OPEN,487.75,1951,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_CMLE_CM_OPEN,NOT,NII_LEHUA,
+MHI,Kaa-Nii,Niihau,NII_LEHUA,Forereef,Shallow,NII_CM,NII_LE,CM,OPEN,354.75,1419,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_LEHUA,NII_CMLE_CM_OPEN,NOT,NII_LEHUA,
+MHI,Kaa-Nii,Niihau,NII_WEST,Forereef,Deep,NII_SI,NII_WE,SI,OPEN,1468.465202,5874,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_SIWE_SI_OPEN,NOT,NII_WEST,
+MHI,Kaa-Nii,Niihau,NII_WEST,Forereef,Mid,NII_SI,NII_WE,SI,OPEN,2992.988492,11972,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_SIWE_SI_OPEN,NOT,NII_WEST,
+MHI,Kaa-Nii,Niihau,NII_WEST,Forereef,Shallow,NII_SI,NII_WE,SI,OPEN,919.395945,3678,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_WEST,NII_SIWE_SI_OPEN,NOT,NII_WEST,
+MHI,Oahu,Oahu,OAH_EAST,Forereef,Deep,OAH_CM,OAH_EA,SI,OPEN,978.9371021,3916,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_CMEA_SI_OPEN,NOT,OAH_EAST,
+MHI,Oahu,Oahu,OAH_EAST,Forereef,Mid,OAH_CM,OAH_EA,SI,OPEN,1848.277607,7393,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_CMEA_SI_OPEN,NOT,OAH_EAST,
+MHI,Oahu,Oahu,OAH_EAST,Forereef,Shallow,OAH_CM,OAH_EA,SI,OPEN,1541.871579,6167,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_EAST,OAH_CMEA_SI_OPEN,NOT,OAH_EAST,
+MHI,Oahu,Oahu,OAH_KAENA,Forereef,Deep,OAH_CM,OAH_KA,SI,OPEN,673.0399306,2692,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_CMKA_SI_OPEN,NOT,OAH_KAENA,
+MHI,Oahu,Oahu,OAH_KAENA,Forereef,Mid,OAH_CM,OAH_KA,SI,OPEN,632.1302084,2529,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_CMKA_SI_OPEN,NOT,OAH_KAENA,
+MHI,Oahu,Oahu,OAH_KAENA,Forereef,Shallow,OAH_CM,OAH_KA,SI,OPEN,343.0090114,1372,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_KAENA,OAH_CMKA_SI_OPEN,NOT,OAH_KAENA,
+MHI,Oahu,Oahu,OAH_NE,Forereef,Deep,OAH_SI,OAH_NE,SI,OPEN,605.4764457,2422,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_SINE_SI_OPEN,NOT,OAH_NE,
+MHI,Oahu,Oahu,OAH_NE,Forereef,Mid,OAH_SI,OAH_NE,SI,OPEN,3213.604407,12854,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_SINE_SI_OPEN,NOT,OAH_NE,
+MHI,Oahu,Oahu,OAH_NE,Forereef,Shallow,OAH_SI,OAH_NE,SI,OPEN,3680.967178,14724,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_NE,OAH_SINE_SI_OPEN,NOT,OAH_NE,
+MHI,Oahu,Oahu,OAH_NORTH,Forereef,Deep,OAH_SI,OAH_NO,SI,OPEN,556.2921428,2225,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_SINO_SI_OPEN,NOT,OAH_NORTH,
+MHI,Oahu,Oahu,OAH_NORTH,Forereef,Mid,OAH_SI,OAH_NO,SI,OPEN,1146.80066,4587,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_SINO_SI_OPEN,NOT,OAH_NORTH,
+MHI,Oahu,Oahu,OAH_NORTH,Forereef,Shallow,OAH_SI,OAH_NO,SI,OPEN,856.7078885,3427,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_NORTH,OAH_SINO_SI_OPEN,NOT,OAH_NORTH,
+MHI,Oahu,Oahu,OAH_SOUTH,Forereef,Deep,OAH_SI,OAH_SO,SI,OPEN,1457.29677,5829,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SISO_SI_OPEN,NOT,OAH_SOUTH,
+MHI,Oahu,Oahu,OAH_SOUTH,Forereef,Mid,OAH_SI,OAH_SO,SI,OPEN,3926.206706,15705,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SISO_SI_OPEN,NOT,OAH_SOUTH,
+MHI,Oahu,Oahu,OAH_SOUTH,Forereef,Shallow,OAH_SI,OAH_SO,SI,OPEN,3658.205214,14633,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SOUTH,OAH_SISO_SI_OPEN,NOT,OAH_SOUTH,
+NWHI,NWHI,French Frigate,French Frigate,Backreef,Mid,FFS,FFS,NOT,PMNM,56.00798857,35,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Backreef,Shallow,FFS,FFS,NOT,PMNM,1079.678505,635,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,Kure,Kure,Backreef,Mid,KUR,KUR,NOT,PMNM,0.694431419,1,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Kure,Kure,Backreef,Shallow,KUR,KUR,NOT,PMNM,312.5339812,313,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Maro,Maro,Backreef,Deep,MAR,MAR,NOT,PMNM,4466.87792,4467,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Maro,Maro,Backreef,Mid,MAR,MAR,NOT,PMNM,3728.607834,3729,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Midway,Midway,Backreef,Deep,MID,MID,NOT,PMNM,0.009372889,0,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Backreef,Mid,MID,MID,NOT,PMNM,4.95344021,5,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Backreef,Shallow,MID,MID,NOT,PMNM,409.997152,410,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Backreef,Mid,PHR,PHR,NOT,PMNM,48.85735714,49,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Backreef,Shallow,PHR,PHR,NOT,PMNM,1422.620999,1423,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_A,Forereef,Deep,TUT_NE,TUT_NE,NOT,AUNA,79.25,317,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_NE_AUNA,TUT_AUNUU,TUT_AUNUU_A,
+SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_A,Forereef,Mid,TUT_NE,TUT_NE,NOT,AUNA,151.55944,606,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_NE_AUNA,TUT_AUNUU,TUT_AUNUU_A,
+SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_A,Forereef,Shallow,TUT_NE,TUT_NE,NOT,AUNA,22.626828,91,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_NE_AUNA,TUT_AUNUU,TUT_AUNUU_A,
+SAMOA,TUT_STH,Tutuila,TUT_FAGALUA,Forereef,Deep,TUT_SW,TUT_SW,NOT,FAGL,7.729803,31,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_SW_FAGL,TUT_FAGALUA_FAGATELE,TUT_FAGALUA,
+SAMOA,TUT_STH,Tutuila,TUT_FAGALUA,Forereef,Mid,TUT_SW,TUT_SW,NOT,FAGL,27.717142,111,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_SW_FAGL,TUT_FAGALUA_FAGATELE,TUT_FAGALUA,
+SAMOA,TUT_STH,Tutuila,TUT_FAGALUA,Forereef,Shallow,TUT_SW,TUT_SW,NOT,FAGL,6.628024,27,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_SW_FAGL,TUT_FAGALUA_FAGATELE,TUT_FAGALUA,
+NWHI,NWHI_NOT_NCRMP,Brooks,Brooks,Forereef,Deep,Brooks,Brooks,NOT,BANK,66.21195617,66,Brooks,Brooks,Brooks,Brooks,Brooks,Brooks_BANK,NOT,Brooks,
+NWHI,NWHI,French Frigate,French Frigate,Forereef,Deep,FFS,FFS,NOT,PMNM,247.22,3237,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Forereef,Mid,FFS,FFS,NOT,PMNM,4498.01,4787,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Forereef,Shallow,FFS,FFS,NOT,PMNM,652.92,849,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Lagoon,Mid,FFS,FFS,NOT,PMNM,7827.37,11060,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Lagoon,Shallow,FFS,FFS,NOT,PMNM,1900.78,2139,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Deep,FFS,FFS,NOT,PMNM,8082.28,32329.12,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Mid,FFS,FFS,NOT,PMNM,3420.42,13681.68,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,
+NWHI,NWHI,French Frigate,French Frigate,Protected Slope,Shallow,FFS,FFS,NOT,PMNM,1,4,French Frigate,French Frigate,French Frigate,French Frigate,French Frigate,FFS,NOT,French Frigate,We have 2 sites now called Protected Slope Shallow. They possibly should be Lagoon or something else.. But we do need a sector value for now
+NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Deep,GAR,GAR,NOT,PMNM,28559.86045,28560,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,Gardner,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
+NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Mid,GAR,GAR,NOT,PMNM,1586.658914,1587,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,Gardner,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
+NWHI,NWHI_NOT_NCRMP,Gardner,Gardner,Forereef,Shallow,GAR,GAR,NOT,PMNM,1586.658914,1587,Gardner,Gardner,Gardner,Gardner,Gardner,GAR,NOT,Gardner,"Virtually no bathymetry, huge uncertainty, assuming 90% of roughly estimates bottom is in deep forereef"
+NWHI,NWHI,Kure,Kure,Forereef,Deep,KUR,KUR,NOT,PMNM,1122.511521,1123,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Kure,Kure,Forereef,Mid,KUR,KUR,NOT,PMNM,1096.142722,1096,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Kure,Kure,Forereef,Shallow,KUR,KUR,NOT,PMNM,219.8318451,220,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Kure,Kure,Lagoon,Mid,KUR,KUR,NOT,PMNM,146.065072,146,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Kure,Kure,Lagoon,Shallow,KUR,KUR,NOT,PMNM,801.5929159,802,Kure,Kure,Kure,Kure,Kure,KUR,NOT,Kure,
+NWHI,NWHI,Laysan,Laysan,Forereef,Deep,LAY,LAY,NOT,PMNM,1763.688407,1764,Laysan,Laysan,Laysan,Laysan,Laysan,LAY,NOT,Laysan,"Very rough guess, many many estimations"
+NWHI,NWHI,Laysan,Laysan,Forereef,Mid,LAY,LAY,NOT,PMNM,1435.923054,1436,Laysan,Laysan,Laysan,Laysan,Laysan,LAY,NOT,Laysan,"Very rough guess, many many estimations"
+NWHI,NWHI,Laysan,Laysan,Forereef,Shallow,LAY,LAY,NOT,PMNM,200,200,Laysan,Laysan,Laysan,Laysan,Laysan,LAY,NOT,Laysan,"Very rough guess, many many estimations"
+NWHI,NWHI,Lisianski,Lisianski,Forereef,Deep,LIS,LIS,NOT,PMNM,14059.07869,14059,Lisianski,Lisianski,Lisianski,Lisianski,Lisianski,LIS,NOT,Lisianski,Major unknowns in maps - habitat and bathymetry ..lots of guesstimation .. Potential to be VERY wrong
+NWHI,NWHI,Lisianski,Lisianski,Forereef,Mid,LIS,LIS,NOT,PMNM,11054.46672,11054,Lisianski,Lisianski,Lisianski,Lisianski,Lisianski,LIS,NOT,Lisianski,Major unknowns in maps - habitat and bathymetry ..lots of guesstimation .. Potential to be VERY wrong
+NWHI,NWHI,Lisianski,Lisianski,Forereef,Shallow,LIS,LIS,NOT,PMNM,5841.383859,5841,Lisianski,Lisianski,Lisianski,Lisianski,Lisianski,LIS,NOT,Lisianski,Major unknowns in maps - habitat and bathymetry ..lots of guesstimation .. Potential to be VERY wrong
+NWHI,NWHI,Maro,Maro,Forereef,Deep,MAR,MAR,NOT,PMNM,5403.476117,5403,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Maro,Maro,Forereef,Mid,MAR,MAR,NOT,PMNM,14308.88263,14309,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Maro,Maro,Forereef,Shallow,MAR,MAR,NOT,PMNM,5894.320658,5894,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Maro,Maro,Lagoon,Mid,MAR,MAR,NOT,PMNM,207.821398,208,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Maro,Maro,Lagoon,Shallow,MAR,MAR,NOT,PMNM,182.6414462,183,Maro,Maro,Maro,Maro,Maro,MAR,NOT,Maro,
+NWHI,NWHI,Midway,Midway,Forereef,Deep,MID,MID,NOT,PMNM,1566.839533,1567,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Forereef,Mid,MID,MID,NOT,PMNM,1472.589454,1473,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Forereef,Shallow,MID,MID,NOT,PMNM,254.2145327,254,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Lagoon,Deep,MID,MID,NOT,PMNM,0.005735694,0,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Lagoon,Mid,MID,MID,NOT,PMNM,396.1011223,396,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI,Midway,Midway,Lagoon,Shallow,MID,MID,NOT,PMNM,890.879595,891,Midway,Midway,Midway,Midway,Midway,MID,NOT,Midway,
+NWHI,NWHI_NOT_NCRMP,Necker,Necker,Forereef,Deep,NEC,NEC,NOT,PMNM,491.2692997,491,Necker,Necker,Necker,Necker,Necker,NEC,NOT,Necker,
+NWHI,NWHI_NOT_NCRMP,Necker,Necker,Forereef,Mid,NEC,NEC,NOT,PMNM,136.8155079,137,Necker,Necker,Necker,Necker,Necker,NEC,NOT,Necker,
+NWHI,NWHI_NOT_NCRMP,Necker,Necker,Forereef,Shallow,NEC,NEC,NOT,PMNM,8.536971662,9,Necker,Necker,Necker,Necker,Necker,NEC,NOT,Necker,
+NWHI,NWHI_NOT_NCRMP,Nihoa,Nihoa,Forereef,Deep,NIH,NIH,NOT,PMNM,351.5016844,352,Nihoa,Nihoa,Nihoa,Nihoa,Nihoa,NIH,NOT,Nihoa,Gaps in bathymetry
+NWHI,NWHI_NOT_NCRMP,Nihoa,Nihoa,Forereef,Mid,NIH,NIH,NOT,PMNM,52.68378472,53,Nihoa,Nihoa,Nihoa,Nihoa,Nihoa,NIH,NOT,Nihoa,Gaps in bathymetry
+NWHI,NWHI_NOT_NCRMP,Nihoa,Nihoa,Forereef,Shallow,NIH,NIH,NOT,PMNM,5.680626717,6,Nihoa,Nihoa,Nihoa,Nihoa,Nihoa,NIH,NOT,Nihoa,Gaps in bathymetry
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Forereef,Deep,PHR,PHR,NOT,PMNM,2427.794421,2428,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Forereef,Mid,PHR,PHR,NOT,PMNM,5454.131479,5454,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Forereef,Shallow,PHR,PHR,NOT,PMNM,615.6033439,616,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Lagoon,Mid,PHR,PHR,NOT,PMNM,2681.950925,2682,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+NWHI,NWHI,Pearl & Hermes,Pearl & Hermes,Lagoon,Shallow,PHR,PHR,NOT,PMNM,5161.106161,5161,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,Pearl & Hermes,PHR,NOT,Pearl & Hermes,
+NWHI,NWHI_NOT_NCRMP,Pioneer,Pioneer,Forereef,Deep,Pioneer,Pioneer,NOT,BANK,5.320384168,5,Pioneer,Pioneer,Pioneer,Pioneer,Pioneer,Pioneer,NOT,Pioneer,
+NWHI,NWHI_NOT_NCRMP,Raita,Raita,Forereef,Deep,Raita,Raita,NOT,BANK,3118.12,3118,Raita,Raita,Raita,Raita,Raita,Raita,NOT,Raita,
+NWHI,NWHI_NOT_NCRMP,Raita,Raita,Forereef,Mid,Raita,Raita,NOT,BANK,335.75,336,Raita,Raita,Raita,Raita,Raita,Raita,NOT,Raita,
+NWHI,NWHI_NOT_NCRMP,StRogatine,StRogatine,Forereef,Deep,StRogatine,StRogatine,NOT,BANK,1726.935,1727,StRogatine,StRogatine,StRogatine,StRogatine,StRogatine,StRogatine,NOT,StRogatine,
+PRIAs,How_Bak,Baker,Baker,Forereef,Deep,BAK,BAK,NOT,PRIMNM,60.02154356,240,Baker,Baker,Baker,Baker,Baker,BAK,NOT,Baker,
+PRIAs,How_Bak,Baker,Baker,Forereef,Mid,BAK,BAK,NOT,PRIMNM,118.6325616,475,Baker,Baker,Baker,Baker,Baker,BAK,NOT,Baker,
+PRIAs,How_Bak,Baker,Baker,Forereef,Shallow,BAK,BAK,NOT,PRIMNM,211.6216964,846,Baker,Baker,Baker,Baker,Baker,BAK,NOT,Baker,
+PRIAs,How_Bak,Howland,Howland,Forereef,Deep,HOW,HOW,NOT,PRIMNM,18.78664183,75,Howland,Howland,Howland,Howland,Howland,HOW,NOT,Howland,
+PRIAs,How_Bak,Howland,Howland,Forereef,Mid,HOW,HOW,NOT,PRIMNM,40.21083959,161,Howland,Howland,Howland,Howland,Howland,HOW,NOT,Howland,
+PRIAs,How_Bak,Howland,Howland,Forereef,Shallow,HOW,HOW,NOT,PRIMNM,113.8553854,455,Howland,Howland,Howland,Howland,Howland,HOW,NOT,Howland,
+PRIAs,Jarvis,Jarvis,Jarvis,Forereef,Deep,JAR,JAR,NOT,PRIMNM,19.64306398,79,Jarvis,Jarvis,Jarvis,Jarvis,Jarvis,JAR,NOT,Jarvis,
+PRIAs,Jarvis,Jarvis,Jarvis,Forereef,Mid,JAR,JAR,NOT,PRIMNM,191.1130626,764,Jarvis,Jarvis,Jarvis,Jarvis,Jarvis,JAR,NOT,Jarvis,
+PRIAs,Jarvis,Jarvis,Jarvis,Forereef,Shallow,JAR,JAR,NOT,PRIMNM,155.1495257,621,Jarvis,Jarvis,Jarvis,Jarvis,Jarvis,JAR,NOT,Jarvis,
+PRIAs,Johnston,Johnston,Johnston,Backreef,Mid,JOH,JOH,NOT,PRIMNM,24.08,96,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 80% hard - should pool this very small amout of mid with shallow
+PRIAs,Johnston,Johnston,Johnston,Backreef,Shallow,JOH,JOH,NOT,PRIMNM,333.2,1333,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 80% hard
+PRIAs,Johnston,Johnston,Johnston,Forereef,Deep,JOH,JOH,NOT,PRIMNM,107.38,430,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 98% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Forereef,Mid,JOH,JOH,NOT,PRIMNM,242.05,968,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 98% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Forereef,Shallow,JOH,JOH,NOT,PRIMNM,283.22,1133,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 98% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Lagoon,Deep,JOH,JOH,NOT,PRIMNM,7.76,31,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 45% hardbottom - should definitely pool lagoon deep with lagoon moderate
+PRIAs,Johnston,Johnston,Johnston,Lagoon,Mid,JOH,JOH,NOT,PRIMNM,1630.99,6524,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 45% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Lagoon,Shallow,JOH,JOH,NOT,PRIMNM,1273.9,5096,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 45% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Protected Slope,Deep,JOH,JOH,NA,NA,3223.37,12893.48,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 50% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Protected Slope,Mid,JOH,JOH,NA,NA,2711.37,10845.48,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 50% hardbottom
+PRIAs,Johnston,Johnston,Johnston,Protected Slope,Shallow,JOH,JOH,NA,NA,6.88,27.52,Johnston,Johnston,Johnston,Johnston,Johnston,JOH,NOT,Johnston,Assumes 50% hardbottom - should pool shallow protected with mid
+PRIAs,King_Pal,Kingman,Kingman,Backreef,Deep,KIN,KIN,NOT,PRIMNM,50.25,163,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Kingman,Kingman,Backreef,Mid,KIN,KIN,NOT,PRIMNM,203.25,739,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Kingman,Kingman,Backreef,Shallow,KIN,KIN,NOT,PRIMNM,380.75,989,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Kingman,Kingman,Forereef,Deep,KIN,KIN,NOT,PRIMNM,46.75,285,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 99% Hard
+PRIAs,King_Pal,Kingman,Kingman,Forereef,Mid,KIN,KIN,NOT,PRIMNM,282.5,2236,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 99% Hard
+PRIAs,King_Pal,Kingman,Kingman,Forereef,Shallow,KIN,KIN,NOT,PRIMNM,279,1140,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 99% Hard
+PRIAs,King_Pal,Kingman,Kingman,Lagoon,Deep,KIN,KIN,NOT,PRIMNM,876.75,4052,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids Assumes 60% hard bottom
+PRIAs,King_Pal,Kingman,Kingman,Lagoon,Mid,KIN,KIN,NOT,PRIMNM,74.75,304,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids Assumes 60% hard bottom
+PRIAs,King_Pal,Kingman,Kingman,Lagoon,Shallow,KIN,KIN,NOT,PRIMNM,0.25,2,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids Assumes 60% hard bottom
+PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Deep,KIN,KIN,NA,PRIMNM,229,756,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Mid,KIN,KIN,NA,PRIMNM,1328.25,4786,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Kingman,Kingman,Protected Slope,Shallow,KIN,KIN,NA,PRIMNM,19.25,77,Kingman,Kingman,Kingman,Kingman,Kingman,KIN,NOT,Kingman,From Grids ASSUMES 90% Hard
+PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Deep,PAL,PAL,NOT,PRIMNM,11.58568484,46,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Mid,PAL,PAL,NOT,PRIMNM,67.99264287,272,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Backreef,Shallow,PAL,PAL,NOT,PRIMNM,1246.94781,4988,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Forereef,Deep,PAL,PAL,NOT,PRIMNM,623.950261,2496,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Forereef,Mid,PAL,PAL,NOT,PRIMNM,1527.372655,6109,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Forereef,Shallow,PAL,PAL,NOT,PRIMNM,642.028097,2568,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Lagoon,Mid,PAL,PAL,NOT,PRIMNM,54.8903582,220,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,Lagoon,Shallow,PAL,PAL,NOT,PRIMNM,18.69397438,75,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,King_Pal,Palmyra,Palmyra,OTHER,OTHER,PAL,PAL,NA,NA,19.27986332,NA,Palmyra,Palmyra,Palmyra,Palmyra,Palmyra,PAL,NOT,Palmyra,
+PRIAs,Wake,Wake,Wake,Backreef,Deep,WAK,WAK,NOT,PRIMNM,0.008197859,0,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+PRIAs,Wake,Wake,Wake,Backreef,Mid,WAK,WAK,NOT,PRIMNM,5.530948577,22,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+PRIAs,Wake,Wake,Wake,Backreef,Shallow,WAK,WAK,NOT,PRIMNM,689.5000228,2758,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+PRIAs,Wake,Wake,Wake,Forereef,Deep,WAK,WAK,NOT,PRIMNM,59.48386537,238,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+PRIAs,Wake,Wake,Wake,Forereef,Mid,WAK,WAK,NOT,PRIMNM,102.2772869,409,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+PRIAs,Wake,Wake,Wake,Forereef,Shallow,WAK,WAK,NOT,PRIMNM,117.9897305,472,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+PRIAs,Wake,Wake,Wake,Lagoon,Shallow,WAK,WAK,NOT,PRIMNM,307.2366532,1229,Wake,Wake,Wake,Wake,Wake,WAK,NOT,Wake,
+SAMOA,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Forereef,Deep,OFU,OFU,NOT,OPEN,303.685,1215,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,OFU_OPEN,NOT,Ofu & Olosega,Area calculated from 50*50 grids
+SAMOA,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Forereef,Mid,OFU,OFU,NOT,OPEN,369.0125,1476,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,OFU_OPEN,NOT,Ofu & Olosega,Area calculated from 50*50 grids
+SAMOA,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Forereef,Shallow,OFU,OFU,NOT,OPEN,120.675,483,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,Ofu & Olosega,OFU_OPEN,NOT,Ofu & Olosega,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_INNER,Backreef,Mid,ROS,ROS,NA,MPA,11.5,46,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,ROS_INNER,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_INNER,Backreef,Shallow,ROS,ROS,NA,MPA,159.8562,639,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,ROS_INNER,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_INNER,Lagoon,Deep,ROS,ROS,NA,MPA,74.5,298,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,ROS_INNER,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_INNER,Lagoon,Mid,ROS,ROS,NA,MPA,27.5,110,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,ROS_INNER,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_INNER,Lagoon,Shallow,ROS,ROS,NA,MPA,2.25,9,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_INNER,ROS_MPA,NOT,ROS_INNER,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_SANCTUARY,Forereef,Deep,ROS,ROS,NA,MPA,16.5025,66,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_MPA,NOT,ROS_SANCTUARY,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_SANCTUARY,Forereef,Mid,ROS,ROS,NA,MPA,85.3,341,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_MPA,NOT,ROS_SANCTUARY,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_SANCTUARY,Forereef,Shallow,ROS,ROS,NA,MPA,18.4925,74,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_SANCTUARY,ROS_MPA,NOT,ROS_SANCTUARY,Area calculated from 50*50 grids
+SAMOA,Rose,Rose,ROS_UNSAMPLED,OTHER,OTHER,ROS,ROS,NA,MPA,46.345,NA,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_UNSAMPLED,ROS_MPA,NOT,ROS_UNSAMPLED,Area calculated from 50*50 grids
+SAMOA,NOT,South Bank,South Bank,Forereef,Deep,South Bank,South Bank,NA,NA,25,NA,South Bank,South Bank,South Bank,South Bank,South Bank,South Bank,NOT,South Bank,"Arbitrarily setting to 25ha, assuming also that it is all deep .. CRED found it hard to find any bottom < 30m"
+SAMOA,Swains,Swains,SWA_OPEN,Forereef,Deep,SWA,SWA,NA,OPEN,2.930460683,12,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,NOT,SWA,
+SAMOA,Swains,Swains,SWA_OPEN,Forereef,Mid,SWA,SWA,NA,OPEN,15.6128307,62,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,NOT,SWA,
+SAMOA,Swains,Swains,SWA_OPEN,Forereef,Shallow,SWA,SWA,NA,OPEN,92.22740392,369,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,SWA_OPEN,NOT,SWA,
+SAMOA,Swains,Swains,SWA_SANCTUARY,Forereef,Deep,SWA,SWA,NA,MPA,9.371844797,37,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_MPA,NOT,SWA,
+SAMOA,Swains,Swains,SWA_SANCTUARY,Forereef,Mid,SWA,SWA,NA,MPA,41.80811022,167,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_MPA,NOT,SWA,
+SAMOA,Swains,Swains,SWA_SANCTUARY,Forereef,Shallow,SWA,SWA,NA,MPA,118.5523679,474,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_SANCTUARY,SWA_MPA,NOT,SWA,
+SAMOA,Tau,Tau,TAU_OPEN,Forereef,Deep,TAU,TAU,NOT,OPEN,179.335,717,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,NOT,TAU,Area calculated from 50*50 grids
+SAMOA,Tau,Tau,TAU_OPEN,Forereef,Mid,TAU,TAU,NOT,OPEN,494.905,1980,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,NOT,TAU,Area calculated from 50*50 grids
+SAMOA,Tau,Tau,TAU_OPEN,Forereef,Shallow,TAU,TAU,NOT,OPEN,119.3825,478,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,TAU_OPEN,NOT,TAU,Area calculated from 50*50 grids
+SAMOA,Tau,Tau,TAU_SANCTUARY,Forereef,Deep,TAU,TAU,NA,MPA,24.1775,97,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_MPA,NOT,TAU,Area calculated from 50*50 grids
+SAMOA,Tau,Tau,TAU_SANCTUARY,Forereef,Mid,TAU,TAU,NA,MPA,71.735,287,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_MPA,NOT,TAU,Area calculated from 50*50 grids
+SAMOA,Tau,Tau,TAU_SANCTUARY,Forereef,Shallow,TAU,TAU,NA,MPA,14.335,57,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_SANCTUARY,TAU_MPA,NOT,TAU,Area calculated from 50*50 grids
+SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_B,Forereef,Deep,TUT,TUT,NA,AUNB,202.8,811,Tutuila,Tutuila,Tutuila,TUT_AUNUU_B,TUT_AUNUU_B,TUT_AUNB,TUT_AUNUU,TUT_AUNUU_B,
+SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_B,Forereef,Mid,TUT,TUT,NA,AUNB,40.8,163,Tutuila,Tutuila,Tutuila,TUT_AUNUU_B,TUT_AUNUU_B,TUT_AUNB,TUT_AUNUU,TUT_AUNUU_B,
+SAMOA,TUT_NTH,Tutuila,TUT_AUNUU_B,Forereef,Shallow,TUT,TUT,NA,AUNB,0.2,1,Tutuila,Tutuila,Tutuila,TUT_AUNUU_B,TUT_AUNUU_B,TUT_AUNB,TUT_AUNUU,TUT_AUNUU_B,
+SAMOA,TUT_STH,Tutuila,TUT_FAGATELE,Forereef,Deep,TUT,TUT,NA,FAGA,4.5,18,Tutuila,Tutuila,Tutuila,TUT_FAGATELE,TUT_FAGATELE,TUT_FAGA,TUT_FAGALUA_FAGATELE,TUT_FAGALUA_FAGATELE,
+SAMOA,TUT_STH,Tutuila,TUT_FAGATELE,Forereef,Mid,TUT,TUT,NA,FAGA,20.2,81,Tutuila,Tutuila,Tutuila,TUT_FAGATELE,TUT_FAGATELE,TUT_FAGA,TUT_FAGALUA_FAGATELE,TUT_FAGALUA_FAGATELE,
+SAMOA,TUT_STH,Tutuila,TUT_FAGATELE,Forereef,Shallow,TUT,TUT,NA,FAGA,9.4,38,Tutuila,Tutuila,Tutuila,TUT_FAGATELE,TUT_FAGATELE,TUT_FAGA,TUT_FAGALUA_FAGATELE,TUT_FAGALUA_FAGATELE,
+SAMOA,TUT_NTH,Tutuila,TUT_NE_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,372.8,1174,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_OPEN,TUT_NE,TUT_NE_OPEN,
+SAMOA,TUT_NTH,Tutuila,TUT_NE_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,425,1094,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_OPEN,TUT_NE,TUT_NE_OPEN,
+SAMOA,TUT_NTH,Tutuila,TUT_NE_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,272.9,1001,Tutuila,Tutuila,Tutuila,TUT_NE,TUT_NE_OPEN,TUT_OPEN,TUT_NE,TUT_NE_OPEN,
+SAMOA,TUT_NTH,Tutuila,TUT_NW_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,257.7,1031,Tutuila,Tutuila,Tutuila,TUT_NW,TUT_NW_OPEN,TUT_OPEN,TUT_NW,TUT_NW_OPEN,
+SAMOA,TUT_NTH,Tutuila,TUT_NW_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,220.3,881,Tutuila,Tutuila,Tutuila,TUT_NW,TUT_NW_OPEN,TUT_OPEN,TUT_NW,TUT_NW_OPEN,
+SAMOA,TUT_NTH,Tutuila,TUT_NW_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,130.4,522,Tutuila,Tutuila,Tutuila,TUT_NW,TUT_NW_OPEN,TUT_OPEN,TUT_NW,TUT_NW_OPEN,
+SAMOA,NOT,Tutuila,TUT_PAGOPAGO,Forereef,Deep,TUT,TUT,NA,OPEN,9.7,NA,Tutuila,Tutuila,Tutuila,TUT_PAGOPAGO,TUT_PAGOPAGO,TUT_OPEN,TUT_PAGOPAGO,TUT_PAGOPAGO,
+SAMOA,NOT,Tutuila,TUT_PAGOPAGO,Forereef,Mid,TUT,TUT,NA,OPEN,29.4,NA,Tutuila,Tutuila,Tutuila,TUT_PAGOPAGO,TUT_PAGOPAGO,TUT_OPEN,TUT_PAGOPAGO,TUT_PAGOPAGO,
+SAMOA,NOT,Tutuila,TUT_PAGOPAGO,Forereef,Shallow,TUT,TUT,NA,OPEN,59.7,NA,Tutuila,Tutuila,Tutuila,TUT_PAGOPAGO,TUT_PAGOPAGO,TUT_OPEN,TUT_PAGOPAGO,TUT_PAGOPAGO,
+SAMOA,TUT_STH,Tutuila,TUT_SE_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,291.8,1167,Tutuila,Tutuila,Tutuila,TUT_SE,TUT_SE_OPEN,TUT_OPEN,TUT_SE,TUT_SE_OPEN,
+SAMOA,TUT_STH,Tutuila,TUT_SE_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,659.5,2638,Tutuila,Tutuila,Tutuila,TUT_SE,TUT_SE_OPEN,TUT_OPEN,TUT_SE,TUT_SE_OPEN,
+SAMOA,TUT_STH,Tutuila,TUT_SE_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,472.9,1891,Tutuila,Tutuila,Tutuila,TUT_SE,TUT_SE_OPEN,TUT_OPEN,TUT_SE,TUT_SE_OPEN,
+SAMOA,TUT_STH,Tutuila,TUT_SW_OPEN,Forereef,Deep,TUT,TUT,NA,OPEN,266.2,1034,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_OPEN,TUT_SW,TUT_SW_OPEN,
+SAMOA,TUT_STH,Tutuila,TUT_SW_OPEN,Forereef,Mid,TUT,TUT,NA,OPEN,227.5,799,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_OPEN,TUT_SW,TUT_SW_OPEN,
+SAMOA,TUT_STH,Tutuila,TUT_SW_OPEN,Forereef,Shallow,TUT,TUT,NA,OPEN,208.8,809,Tutuila,Tutuila,Tutuila,TUT_SW_OPEN,TUT_SW_OPEN,TUT_OPEN,TUT_SW,TUT_SW_OPEN,
