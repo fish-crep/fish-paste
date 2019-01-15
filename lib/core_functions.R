@@ -24,11 +24,10 @@ new_Aggregate_InputTable<-function(data, field_list) {
   # function assumes that x is a data frame looking like our standard input
   # field_list is the list of fields to include (could be verything relating to each survey, or everything relating to a fish species)
   # function returns a data frame 
-    y <- ddply(data, field_list, summarize,sum(SITEVISITID,na.rm = T))
+    y <- ddply(data,field_list, summarize,count=sum(SITEVISITID,na.rm = T))
     y<-y[,field_list] # drop the count - was just using that to generate a summary table
     return(y)
 } # end Aggregate_InputTables
-
 
 
 #********************
