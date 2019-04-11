@@ -24,6 +24,10 @@ d<-as.vector(tv$TABLE_NAME[grep("V_BIA", as.character(tv$TABLE_NAME))])
 ##
 rawtables<-c(a,b,c)
 rawtables
+
+df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V0_SITE_VISIT_ALL")); head(df)
+save(df, file="ALL_SITE_SITEVISIT.rdata")
+
 df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V0_FISH_REA")); head(df)
 save(df, file="ALL_REA_FISH_RAW.rdata")
 
