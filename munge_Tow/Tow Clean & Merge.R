@@ -1,7 +1,7 @@
 rm(list=ls())
 ### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere
 
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")
+setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data")
 # SET UP ------------------------------------------------------------------
 #setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
 library(gdata)             # needed for drop_levels()
@@ -36,6 +36,9 @@ wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50
 wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]
 wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" 
 wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size
+
+unique(wd[is.na(wd$TROPHIC_MONREP),]$SPECIES)
+wd[wd$SPECIES=="MOSP",]$TROPHIC_MONREP<-"PLANKTIVORE"
 
 #wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES
 LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")
