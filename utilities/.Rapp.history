@@ -1,0 +1,5 @@
+load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")
+ls()
+head(Df)
+head(df)
+str(df)

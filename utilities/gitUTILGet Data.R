@@ -59,11 +59,9 @@ save(df, file="ALL_REA_JUVCORAL_RAW.rdata")
 df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_FISH_TDS_SIGHTINGS")); head(df)
 save(df, file="ALL_TOW_FISH_SIGHTINGS.rdata")
 
-
 #TOW FISH #
 df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_FISH_TDS")); head(df)
 save(df, file="ALL_TOW_FISH_RAW.rdata")
-
 
 #TOW BENTHIC#
 df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_BENT_TDS")); head(df)
@@ -76,7 +74,6 @@ save(bia, file="ALL_BIA_STR_RAW_NEW.rdata")
 
 cli <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V_BIA_PERC_COVER_PHOTO_CLI_")); head(cli)
 save(cli, file="ALL_BIA_CLIMATE_PERM.rdata")
-
 
 # Coral Net Benthic Data
 cnet <- sqlQuery(ch, paste("SELECT * FROM GISDAT.MV_BIA_CNET_ANALYSIS_DATA")); head(cnet)
