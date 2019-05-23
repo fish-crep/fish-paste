@@ -13,7 +13,7 @@ setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")
 Sys.setenv(ODBCINI = "/library/ODBC/odbc.ini")
 
 ##*******## jump down to FISH REA WORKINGS if already saved as a .rfile
-ch <- odbcConnect("CRED_Oracle", uid = "IWILLIAMS", pwd = "XXXXXXXXXXXX")
+######ch <- odbcConnect("CRED_Oracle", uid = "IWILLIAMS", pwd = "XXXXXXXXXXXX")
 ##
 ## #list available tables
 tv<-sqlTables(ch, tableType = "VIEW")
