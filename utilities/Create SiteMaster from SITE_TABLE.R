@@ -87,7 +87,7 @@ zg<-rbind(zx, cs)
 # # write.csv(zg, "MOD SURVEY MASTER.csv")
 zg[zg$SITE=="TUT-02353",]
 
-write.csv(z, "MOD SURVEY MASTER.csv")
+write.csv(z, "MOD SURVEY MASTER.csv", row.names = FALSE)
 
 #Now generate SURVEY OCEANOGRAPHY!
 o<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/SITE OCEANOGR.csv")
