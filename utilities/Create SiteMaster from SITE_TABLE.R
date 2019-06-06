@@ -35,6 +35,10 @@ table(df$TYPE)
 sv<-cast(df, REGION + ISLAND + SITE + OLD_SITE + REEF_ZONE + DEPTH_BIN + ROUNDID + MISSIONID + SITEVISITID + OBS_YEAR + DATE_ + HABITAT_CODE + LATITUDE_SV + LONGITUDE_SV + LATITUDE_LOV + LONGITUDE_LOV + EXCLUDE_FLAG + CLIMATE_STATION_YN + PERM_SITE + TRANSECT_PHOTOS + PHOTOMOSAIC_YN + MIN_Z_M+ MAX_Z_M + MIN_DEPTH_M + MAX_DEPTH_M ~ TYPE, value="XX", sum)
 #write.csv(sv, file="tmpALLsurvey.csv")
 head(sv)
+
+sv[sv$Both>0,]$Fish<-1
+sv[sv$Both>0,]$Benthic<-1
+sc$Both<-NULL
 save(sv, file="SURVEY METDATA.RData")
 
 
