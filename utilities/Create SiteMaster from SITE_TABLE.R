@@ -38,7 +38,7 @@ head(sv)
 
 sv[sv$Both>0,]$Fish<-1
 sv[sv$Both>0,]$Benthic<-1
-sc$Both<-NULL
+sv$Both<-NULL
 save(sv, file="SURVEY METDATA.RData")
 
 
