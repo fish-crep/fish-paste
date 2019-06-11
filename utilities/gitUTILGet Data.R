@@ -79,3 +79,9 @@ save(cli, file="ALL_BIA_CLIMATE_PERM.rdata")
 cnet <- sqlQuery(ch, paste("SELECT * FROM GISDAT.MV_BIA_CNET_ANALYSIS_DATA")); head(cnet)
 save(cnet, file="ALL_BIA_STR_CNET.rdata")
 
+cnet_incR <- sqlQuery(ch, paste("SELECT * FROM GISDAT.MV_BIA_CNET_ANALYSIS_DATA_ALL")); head(cnet_incR)
+save(cnet_incR, file="ALL_BIA_STR_CNET_INC_ROBOT.rdata")
+
+
+
+

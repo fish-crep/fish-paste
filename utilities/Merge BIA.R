@@ -18,7 +18,8 @@ load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_BIA_
 bia$SITE<-SiteNumLeadingZeros(bia$SITE)
 
 #CNET data - from CoralNet
-load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_BIA_STR_CNET.rdata")	#cnet
+load("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_BIA_STR_CNET_INC_ROBOT.rdata")	#cnet
+cnet<-cnet_incR
 cnet$SITE<-SiteNumLeadingZeros(cnet$SITE)
 
 #CLI Site data - this is from CPCE
@@ -27,7 +28,7 @@ cli$SITE<-SiteNumLeadingZeros(cli$SITE)
 
 ##Just adding CLIMATE SITES to end of bia
 bia<-rbind(bia, cli)
-
+bia$ANALYST_TYPE<-"HUMAN"
 
 ##Generate Table of all the bia categories
 head(bia)
@@ -57,7 +58,7 @@ cnet$TIER_2<-cnet$SUBCATEGORY_CODE
 cnet$TIER_3<-cnet$GENERA_CODE
 
 
-FIELDS_TO_RETAIN<-c("SITEVISITID", "METHOD", "REGION", "OBS_YEAR", "ISLAND", "SITE", "LATITUDE", "LONGITUDE", "REEF_ZONE", "DEPTH_BIN", "PERM_SITE", "CLIMATE_STATION_YN", "MIN_DEPTH", "MAX_DEPTH", "HABITAT_CODE", "DATE_", "REP", "IMAGE_NAME", "PHOTOID", "ANALYST", "TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME", "SHORT_CODE", "POINTS")
+FIELDS_TO_RETAIN<-c("SITEVISITID", "METHOD", "ANALYST_TYPE", "REGION", "OBS_YEAR", "ISLAND", "SITE", "LATITUDE", "LONGITUDE", "REEF_ZONE", "DEPTH_BIN", "PERM_SITE", "CLIMATE_STATION_YN", "MIN_DEPTH", "MAX_DEPTH", "HABITAT_CODE", "DATE_", "REP", "IMAGE_NAME", "PHOTOID", "ANALYST", "TIER_1", "CATEGORY_NAME", "TIER_2", "SUBCATEGORY_NAME", "TIER_3", "GENERA_NAME", "SHORT_CODE", "POINTS")
 x<-bia[,FIELDS_TO_RETAIN]; head(x)
 y<-cnet[,FIELDS_TO_RETAIN]; head(y)
 
@@ -110,7 +111,7 @@ save(ab, file="All BIA BOTH METHODS clean.RData")
 
 
 #Generate a SITE table
-SITE_FIELDS<-c("SITEVISITID", "METHOD", "REGION", "OBS_YEAR", "DATE_", "ISLAND", "PERM_SITE", "CLIMATE_STATION_YN", "SITE", "LATITUDE", "LONGITUDE", "REEF_ZONE", "DEPTH_BIN")
+SITE_FIELDS<-c("SITEVISITID", "METHOD", "ANALYST_TYPE", "REGION", "OBS_YEAR", "DATE_", "ISLAND", "PERM_SITE", "CLIMATE_STATION_YN", "SITE", "LATITUDE", "LONGITUDE", "REEF_ZONE", "DEPTH_BIN")
 summary(ab[,SITE_FIELDS])
 levels(ab$REEF_ZONE)<-c(levels(ab$REEF_ZONE), "UNKNOWN")
 levels(ab$DEPTH_BIN)<-c(levels(ab$DEPTH_BIN), "UNKNOWN")
