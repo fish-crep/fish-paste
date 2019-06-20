@@ -10,9 +10,8 @@ source("lib/fish_team_functions.R")
 # get strata and sectors data data - NB - the data in the raw file should be checked and updated
 sectors<-read.csv("data/Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
 # load site master to merge with sector names
-site_master<-read.csv("data/SITE MASTER.csv")
-site_master$SITE<-SiteNumLeadingZeros(site_master$SITE)
-site_master<-subset(site_master$METHOD %in% c("nSPC", "nSPC-CCR"))  # Just pull the fish surveys (as there can now be benthic survey records at same sitse, but with different SITEIVISTIID values - and this removes scope for confusion
+sm<-read.csv("data/SURVEY MASTER.csv")
+sm$SITE<-SiteNumLeadingZeros(site_master$SITE)
 
 ## LOAD AND CLEAN fish data
 load("data/ALL_REA_FISH_RAW.rdata")
@@ -39,9 +38,8 @@ x<-subset(x, x$METHOD %in% c("nSPC", "nSPC-CCR"), drop=TRUE)
 #x<-subset(x, x$OBS_YEAR >2008, drop=TRUE)
 x<-subset(x, x$OBS_TYPE %in% c("U","I","N", "F", "T", "P"))  # note this includes all the data .. wlll need to add filtering to the scripts that analyse the data
 
-#add SITE MASTER information to x  #IDW - note that if we join on SITE then SITE MASTER would also join to all surveys at a site .. for nSPC there are no duplicates, but some of those sites were oldeer BLT sites that were also survyed in earlier years.
-#x<-merge(x, site_master[,c("SITE", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by="SITE", all.x=TRUE)
-x<-merge(x, site_master[,c("SITE", "METHOD", "SEC_NAME", "ANALYSIS_SEC", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by=c("SITE", "METHOD"), all.x=TRUE)
+#add SURVEY MASTER information to x  
+x<-merge(x, sm[,c("SITE", "METHOD", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by=c("SITEVISITID"), all.x=TRUE)
 
 
 
