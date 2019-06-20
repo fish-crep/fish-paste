@@ -36,6 +36,8 @@ sv<-cast(df, REGION + ISLAND + SITE + OLD_SITE + REEF_ZONE + DEPTH_BIN + ROUNDID
 #write.csv(sv, file="tmpALLsurvey.csv")
 head(sv)
 
+
+#Actually, need to deal with this better - can be microbial and fish for example
 sv[sv$Both>0,]$Fish<-1
 sv[sv$Both>0,]$Benthic<-1
 sv$Both<-NULL
