@@ -41,13 +41,13 @@ sum_field<-function(d, field_list){
 	return(rowSums(d[,field_list]))
 } #set field
 
-df$benth<-sum_field(df, c("LPI_YN", "CORAL_BELT_ADULT_YN", "CORAL_BELT_JUVENILE_YN"))
-df$fish<-sum_field(df, c("FISH_REA_YN", "FISH_REA_YN"))/2
-df$arms_d<-sum_field(df, c("ARMS_DEPLOY_YN", "ARMS_DEPLOY_YN"))/2
-df$arms_r<-sum_field(df, c("ARMS_RECOVERED", "ARMS_RETRIEVE_YN"))
-df$cau_d<-sum_field(df, c("CAUS_DEPLOYED", "CAUS_DEPLOY_YN"))
-df$cau_r<-sum_field(df, c("CAUS_RECOVERED", "CAUS_RETRIEVE_YN"))
-df$microb<-sum_field(df, c("MICROBIAL_SAMPLE", "MICROBIAL_SAMPLE"))/2
+df$benth<-ifelse(sum_field(df, c("LPI_YN", "CORAL_BELT_ADULT_YN", "CORAL_BELT_JUVENILE_YN")) > 0,1,0)
+df$fish<-ifelse(sum_field(df, c("FISH_REA_YN", "FISH_REA_YN")) > 0,1,0)
+df$arms_d<-ifelse(sum_field(df, c("ARMS_DEPLOY_YN", "ARMS_DEPLOY_YN")) > 0,1,0)
+df$arms_r<-ifelse(sum_field(df, c("ARMS_RECOVERED", "ARMS_RETRIEVE_YN")) > 0, 1, 0)
+df$cau_d<-ifelse(sum_field(df, c("CAUS_DEPLOYED", "CAUS_DEPLOY_YN")) > 0, 1, 0)
+df$cau_r<-ifelse(sum_field(df, c("CAUS_RECOVERED", "CAUS_RETRIEVE_YN")) > 0, 1, 0)
+df$microb<-ifelse(sum_field(df, c("MICROBIAL_SAMPLE", "MICROBIAL_SAMPLE")) > 0, 1, 0)
 
 #sv<-cast(df, REGION + ISLAND + SITE + OLD_SITE + REEF_ZONE + DEPTH_BIN + ROUNDID + MISSIONID + SITEVISITID + FISH_SITEVISITID + BENTHIC_SITEVISITID + OBS_YEAR + DATE_ + HABITAT_CODE + LATITUDE_SV + LONGITUDE_SV + LATITUDE_LOV + LONGITUDE_LOV + EXCLUDE_FLAG + CLIMATE_STATION_YN + PERM_SITE + PERM_MARKER + TRANSECT_PHOTOS + PHOTOMOSAIC_YN + MIN_Z_M+ MAX_Z_M + MIN_DEPTH_M + MAX_DEPTH_M ~ TYPE, value="XX", sum)
 #write.csv(sv, file="tmpALLsurvey.csv")
