@@ -11,7 +11,7 @@ source("lib/fish_team_functions.R")
 sectors<-read.csv("data/Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
 # load site master to merge with sector names
 sm<-read.csv("data/SURVEY MASTER.csv")
-sm$SITE<-SiteNumLeadingZeros(site_master$SITE)
+sm$SITE<-SiteNumLeadingZeros(sm$SITE)
 
 ## LOAD AND CLEAN fish data
 load("data/ALL_REA_FISH_RAW.rdata")
