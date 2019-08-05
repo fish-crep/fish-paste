@@ -39,7 +39,7 @@ x<-subset(x, x$METHOD %in% c("nSPC", "nSPC-CCR"), drop=TRUE)
 x<-subset(x, x$OBS_TYPE %in% c("U","I","N", "F", "T", "P"))  # note this includes all the data .. wlll need to add filtering to the scripts that analyse the data
 
 #add SURVEY MASTER information to x  
-x<-merge(x, sm[,c("SITE", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by=c("SITEVISITID"), all.x=TRUE)
+x<-merge(x, sm[,c("SITEVISITID", "SEC_NAME", "ANALYSIS_YEAR", "ANALYSIS_SCHEME")], by=c("SITEVISITID"), all.x=TRUE)
 
 
 
