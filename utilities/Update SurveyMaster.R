@@ -97,7 +97,7 @@ dim(z)
 # # write.csv(zg, "MOD SURVEY MASTER.csv")
 z[z$SITE=="TUT-02353",]
 
-write.csv(z, "SURVEY MASTER.csv", row.names = FALSE)
+write.csv(z, "SURVEY MASTER UPDATE.csv", row.names = FALSE)
 
 #Now generate SURVEY OCEANOGRAPHY!
 o<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/SITE OCEANOGR.csv")
