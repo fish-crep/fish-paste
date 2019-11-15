@@ -17,8 +17,6 @@ Aggregate_InputTable<-function(x, field_list){
 	
 } # end Aggregate_InputTables
 
-
-
 #New Input table function- this new function uses ddply to summary data and can handle NAs.
 new_Aggregate_InputTable<-function(data, field_list) {
   # function assumes that x is a data frame looking like our standard input

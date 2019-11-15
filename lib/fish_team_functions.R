@@ -342,11 +342,44 @@ Calc_RepDiversity<-function(x){
 	return(data.frame(REPLICATEID=a$REPLICATEID, H=H, R=R, E=E))
 } #end CalcRepDiversity
 
+Calc_REP_Species_Richness<-function(x){  
+  # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
+  # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
+  
+  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID", "SPECIES")], sum)	#convert to count per species per rep
+  z<-aggregate(y$SPECIES,by=y[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID")], length)  		# count number of entries per rep	
+  dimnames(z)[[2]]<-c("SITEVISITID", "METHOD", "SITE", "REP","DIVER", "REPLICATEID", "SPECIESRICHNESS")
+  
+  return(z)
+  
+}   # end Calc_REP_Species_Richness
+
+Calc_REP_Bio<-function(x, grouping_field){  
+  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
+  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)
+  #add an Abundance m2 field to x
+  x$Bio_gm2<-Calc_Biomassgm2(x)
+  
+  x$GROUP<-x[,grouping_field]
+  
+  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
+  base_cols=c("SITEVISITID","METHOD","SITE", "REP", "DIVER", "REPLICATEID") # minimum set of fields to build up from
+  pool_cols<-c(base_cols,"GROUP")                # minimum set, plus the one we are interested in
+  
+  #first calculate total biomass per rep for all values of this field
+  y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
+  names(y)<-c(pool_cols, "Bio_gm2")
+  #now format this more or less as a crosstab, with field of interest as column variable
+  y<-cast(y, SITEVISITID + METHOD + SITE + REP + DIVER + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Bio_gm2", fill=0)
+  
+  return(y)
+  
+} # end Calc_REP_Bio
 
 
+# REMAINING FUNCTIONS ARE FOR FISH QC. I AM NOT CERTAIN THAT THESE ARE THE MOST RECENT VERSION - WHICH I THINK ARE MORE LIEKLY TO BE IN THE MOST REcNET QC SCRIPTS THEMSELVES (IDW Nov 14th 2019)
 
-
-
+# divervs
 # divervsdiver ------------------------------------------------------------
 ###################################
 # to compare the biomass estimates of one diver versus their buddy 
@@ -409,69 +442,7 @@ divervsdiver<-function(data, year, region){
   
 }   ## divervsdiver                                                                                                          
 
-
-
-# # 
-# # Calculate site cover %, by averaging all photos within a REP, then all REPS within a SITE and YEAR .. do that at either tier 1 or tier 2 level, depending on the value of the tier parameter
-# #
-# # NB PHOTO_FIELDS<-c("SITE", "OBS_YEAR", "REP", "PHOTOID", "TIER_1", "TIER_2", "POINTS") .. those originally come from the Oracle StrRdm BIA view .. and the input value to this function (ie bia_data) should be a data frame with those fields..
-# #
-# #
-# Site_BIA<-function (bia_data, tier="TIER_1")
-# {
-	# bia_data$TIER<-bia_data[,tier]
-	# t_lev<-levels(bia_data$TIER)
-	# #format as a crosstab, with tier as column variable to create one record per photo, to allow for averaging and so on ..
-	# xx<-cast(bia_data, OBS_YEAR + SITE + REP + PHOTOID ~ TIER, value="POINTS", fill=0, fun.aggregate=sum)
-	# # now convert to percentages
-	# xx$TotPoints<-rowSums(xx[,t_lev])
-	# xx[,t_lev]<-xx[,t_lev]/xx$TotPoints
-	# #now average within YEAR, SITE, REP
-	# xx<-aggregate(xx[, t_lev],by=xx[,c("OBS_YEAR","SITE", "REP")], mean)
-	# #now average within YEAR, SITE
-	# xx<-aggregate(xx[, t_lev],by=xx[,c("OBS_YEAR","SITE")], mean)
-	
-	# return(xx)
-	
-# } #Site_BIA
-
-Calc_REP_Species_Richness<-function(x){  
-  # I would prefer this to be a function that can work with any value (species, family, genera.., am not there yet) 
-  # function returns a data frame with Site_VisitID, Method, and mean species_richness per Rep at the sute (Rep being an nSPC cylinder or a transect)	
-  
-  y<-aggregate(x$COUNT,by=x[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID", "SPECIES")], sum)	#convert to count per species per rep
-  z<-aggregate(y$SPECIES,by=y[,c("SITEVISITID", "METHOD", "SITE", "REP", "DIVER", "REPLICATEID")], length)  		# count number of entries per rep	
-  dimnames(z)[[2]]<-c("SITEVISITID", "METHOD", "SITE", "REP","DIVER", "REPLICATEID", "SPECIESRICHNESS")
-  
-  return(z)
-  
-}
-# end Calc_REP_Species_Richness
-
-Calc_REP_Bio<-function(x, grouping_field){  
-  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily
-  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)
-  #add an Abundance m2 field to x
-  x$Bio_gm2<-Calc_Biomassgm2(x)
-  
-  x$GROUP<-x[,grouping_field]
-  
-  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest
-  base_cols=c("SITEVISITID","METHOD","SITE", "REP", "DIVER", "REPLICATEID") # minimum set of fields to build up from
-  pool_cols<-c(base_cols,"GROUP")                # minimum set, plus the one we are interested in
-  
-  #first calculate total biomass per rep for all values of this field
-  y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)
-  names(y)<-c(pool_cols, "Bio_gm2")
-  #now format this more or less as a crosstab, with field of interest as column variable
-  y<-cast(y, SITEVISITID + METHOD + SITE + REP + DIVER + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Bio_gm2", fill=0)
-  
-  return(y)
-  
-} # end Calc_REP_Bio
-
-
-# divervsdiver4 ------------------------------------------------------------
+diver4 ------------------------------------------------------------
 ###################################to compare the biomass estimates of one diver versus their buddy 
 # required: from working data in fishbase run Calc_Rep_Cover, Calc_Rep_Bio and Calc_Rep_Richness then merge region and years together with this
 # currently this is set up for the status specify data, year and region e.g. divervsdiver(working.data, 2012, "MHI")
@@ -653,12 +624,7 @@ divervsdiver4<-function(data, year, region, x_range){
   
 }        ## divervsdiver4 
 
-
-
 ### ## # Multiple plot function -------------------------------------------------------------
-
-###
-#
 # ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
 # - cols:   Number of columns in layout
 # - layout: A matrix specifying the layout. If present, 'cols' is ignored.
