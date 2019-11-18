@@ -442,7 +442,6 @@ divervsdiver<-function(data, year, region){
   
 }   ## divervsdiver                                                                                                          
 
-diver4 ------------------------------------------------------------
 ###################################to compare the biomass estimates of one diver versus their buddy 
 # required: from working data in fishbase run Calc_Rep_Cover, Calc_Rep_Bio and Calc_Rep_Richness then merge region and years together with this
 # currently this is set up for the status specify data, year and region e.g. divervsdiver(working.data, 2012, "MHI")
