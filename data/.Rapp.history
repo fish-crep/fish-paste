@@ -79,853 +79,20 @@ x[is.na(x$TROPHIC_MONREP),"TROPHIC_MONREP"]<-"UNKNOWN"
 x<-droplevels(x)
 unique[x[x$FAMILY=="Scaridae",]$TAXONNAME]
 sort(unique(x[x$FAMILY=="Scaridae",]$TAXONNAME))
-# # get ESD guam data from Achang#
-# #
-# # read in wsd data#
-# load("D:/CRED/fish_cruise_routine_report/monitoring_report/2018_status_report/data/Data Outputs/working_site_data.Rdata")#
-# g<-wsd[wsd$SEC_NAME=="GUA_ACHANG",]#
-# #
-# # write csv#
-# write.csv(g,file="D:/CRED/Guam/data/esd_sites.csv")#
-# Read in Guam data from Val#
-a<-read.csv("LTMP_fish_data.csv")#
+setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Data Requests/Kramer Tow")#
+rm(list=ls())#
 #
-# isolate site visit data: site name, year, lat, long, depth bin, strata#
-head(a)#
-b<-a[,c("STATIONID", "Year", "WAVEEXPOSURE", "DEPTH","STRATUM", "STATION_TYPE","COMBID","LATITUDE",  "LONGITUDE", "TRANSECT_TYPE", "METHOD_NAME", "TRANSECT_LENGTH", "TRANSECT_WIDTH", "TRANSECT_RADIUS", "CALIBRATION")]#
-# rename COMBID to SITEVISITID#
-names(b)[names(b) %in% "COMBID"]<-"SITEVISITID"#
-# delete duplicate records#
-c<-unique(b[,])#
-#save site info#
-#write.csv(c,file="D:/CRED/Guam/data/ltmp_site_data.csv")#
-# bring in the ESD scripts#
-library(dplyr)#
 library(gdata)             # needed for drop_levels()#
 library(reshape)           # reshape library inclues the cast() function used below#
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
 source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-# ##calculate the biomass per m2 per record#
-# Calc_Biomassgm2<-function(x){#
-#   # IDW return y .. do not modify x inside the function .. just pass out biomassgm2#
-#   # do this elsewhere - keep this function doing one thing - calculating biomassgm2 y$Srvy.Yr<-as.factor(y$Srvy.Yr)#
-#   Biomassperfish<-x$LW_A*((x$SIZE_*x$LENGTH_CONVERSION_FACTOR)^x$LW_B)#
-#   Biomassperrecord<-Biomassperfish*x$COUNT#
-#   Area<-ifelse(x$METHOD %in% c("nSPC", "nSPC-CCR"), pi*(7.5^2), ifelse(x$SIZE_ < 20, 50, 100))#
-#   return(Biomassperrecord/Area)#
-#   #
-# } #end Calc_Biomassgm2#
-# use script to calculate site level biomass#
-# Calc_Site_Bio<-function(x, grouping_field){  #
-#   # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily#
-#   # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)#
-#   #
-#   #add an Abundance m2 field to x#
-#   x$Bio_gm2<-Calc_Biomassgm2(x)#
-#   #
-#   # add the grouping field to the data frame#
-#   x$GROUP<-x[,grouping_field]#
-#   #
-#   #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest#
-#   base_cols=c("SITEVISITID","METHOD","REP", "REPLICATEID") # minimum set of fields to build up from#
-#   pool_cols<-c(base_cols,"GROUP")                # minimum set, plus the one we are interested in#
-#   #
-#   #first calculate total biomass per rep for all values of this field#
-#   y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)#
-#   names(y)<-c(pool_cols, "Bio_gm2")#
-#   #now format this more or less as a crosstab, with field of interest as column variable#
-#   y<-cast(y, SITEVISITID + METHOD + REP + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Bio_gm2", fill=0)#
-#   #
-#   #pool by Rep ("A","B","C" generally), then by site-survey (i.e. by SiteVisitID and Method)#
-#   num_row_cols=length(base_cols)#
-#   pool_cols<-c("SITEVISITID","METHOD","REP")#
-#   y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)#
-#   num_row_cols=length(pool_cols) #working data now has fewer columns#
-#   pool_cols<-c("SITEVISITID", "METHOD")#
-#   y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)#
-#   #
-#   return(y)#
-#   #
-# } # end Calc_Site_Bio#
-# COPY DATA FRAME#
-wd<-a#
 #
-# Filter out presence#
-dim(wd)#
-wd<-wd[wd$PRESENCE_YN != "1",].   #IDW#
-#IDW-NB ... OUR NORMAL PROCEDURE IS OFTEN TO JSUT SET COUNT TO 0 OF RECORDS WE WANT TO NOT INCLUDE IN ABUNDANCE AND BIOMASS ESTIMATES. -SO THAT THEY DONT GET COUNTED, BUT WE DONT LOSE THAT TEHRE WAS A REP OR A SITE (IF ALL RECORDS ARE OF SOME TYPE WE DONT WANT)#
-#IDW - IF YOU DID DO THAT FOR THIS SCRIPT, YOU WOULD HAVE TO DO IT BELOW, AFTER COUNT HAS BEEN SET TO A NUMERIC FIELD (A FEW LINES BELOW)#
-dim(wd)#
-#wd<-wd[wd$INSTANTANEOUS_YN == 1,]#
-wd<-drop.levels(wd)#
-# change factors to numbers#
-str(wd)#
-wd$FISH_LENGTH<-as.numeric(as.character(wd$FISH_LENGTH))#
-wd$LW_C<-as.numeric(as.character(wd$LW_C))#
-wd$FISH_COUNT<-as.numeric(as.character(wd$FISH_COUNT))#
-#change fish transect ID to factor#
-wd$FISHTRANSECTID<-as.factor(wd$FISHTRANSECTID)#
-#IDW.  DEAL WITH NAs, which had been NULLS#
-wd[is.na(wd$FISH_COUNT),]$FISH_COUNT<-0#
-wd[is.na(wd$FISH_LENGTH),]$FISH_LENGTH<-0#
-# just get SPC sites, and add a METHOD field for nSPC#
-wd<-wd[(wd$METHOD_NAME=="Fish SPC"),]#
-wd$METHOD<-"nSPC"#
-# get Guam fields to run like ESD fields:#
-colnames(wd)#
-# change COMBID to SITEVISITID, FISHTRANSECTID to REPLICATEID, gm.2 to Bio_gm2, #
-wd$SITEVISITID<-wd$COMBID#
-wd$REPLICATEID<-wd$FISHTRANSECTID#
-wd$OLD_GM2<-wd$gm.2#
-wd$SIZE_<-wd$FISH_LENGTH#
-wd$LENGTH_CONVERSION_FACTOR<-wd$LW_C#
-wd$COUNT<-wd$FISH_COUNT#
-wd$REP<-wd$SPC_CYLINDER#
-wd$COMBID<-wd$FISHTRANSECTID<-wd$gm.2<-wd$FISH_LENGTH<-wd$LW_C<-wd$FISH_COUNT<-wd$SPC_CYLINDER<-NULL#
-# names(wd)[names(wd) %in% c("COMBID","FISHTRANSECTID", "gm.2","FISH_LENGTH","LW_C","FISH_COUNT","SPC_CYLINDER")]<-c("SITEVISITID","REPLICATEID","Bio_gm2","SIZE_","LENGTH_CONVERSION_FACTOR","COUNT","REP")#
-#IDW     FYI - I SEE YOU MODIFIED THE FUNCTIONS HERE - AND I THINK HAVE LIFTED SOME OF THE CODE BELOW. MAYBE THAT IS THE BEST WAY TO DO IT, BUT INSTEAD, IF AT ALL POSSIBLE, I TWOULD TRY TO MAKE THE DATA STRUCTURES HERE LOOK ENOUGH LIKE THE NORMAL ONES IN OUR CODE THAT YOU COULD USE THE STANDARD CODE - IE PUT MORE EFFORT INTO THE DATA CLEANUP AND MODIFICATION HERE, SO THAT YOU CAN UTILIZE THE EXISTING CODE (WHICH WE KNOW WORKS!). ITS JUST SURPRISINGLY EASY TO MAKE AN ERROR WHEN YOU WRITE NEW FUNCTIONS#
-Calc_Biomassgm2_GUAM<-function(x){#
-  # IDW return y .. do not modify x inside the function .. just pass out biomassgm2#
-  # do this elsewhere - keep this function doing one thing - calculating biomassgm2 y$Srvy.Yr<-as.factor(y$Srvy.Yr)#
-  Biomassperfish<-x$LW_A*((x$SIZE_*x$LENGTH_CONVERSION_FACTOR)^x$LW_B)#
-  Biomassperrecord<-Biomassperfish*x$COUNT#
-  Area<-pi*(7.5^2)#
-  return(Biomassperrecord/Area)#
-} #end Calc_Biomassgm2#
-Calc_Site_Bio_GUAM<-function(x, grouping_field){  #
-  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case CommonFamily#
-  # function returns a data frame with Site_VisitID, Method, and mean site biomass(gm2) per each value of the field_of_interest (hard wired as CommonFamily for now!)#
-  #add an Abundance m2 field to x#
-    x$Bio_gm2<-Calc_Biomassgm2_GUAM(x)#
-    # add the grouping field to the data frame#
-  x$GROUP<-x[,grouping_field]#
-  #Replicate ID is the base unit .. so pool up biomass at ReplicateID level, for the field of interest#
-  base_cols=c("SITEVISITID","METHOD","REP","REPLICATEID","STATION_TYPE") # minimum set of fields to build up from#
-  pool_cols<-c(base_cols,"GROUP")                # minimum set, plus the one we are interested in#
-  #first calculate total biomass per rep for all values of this field#
-  y<-aggregate(x$Bio_gm2,by=x[,pool_cols], sum)#
-  names(y)<-c(pool_cols, "Bio_gm2")#
-  #now format this more or less as a crosstab, with field of interest as column variable#
-  y<-cast(y, SITEVISITID +STATION_TYPE + METHOD + REP + REPLICATEID ~ GROUP, fun.aggregate=sum, value="Bio_gm2", fill=0)#
-  #pool by Rep , then by site-survey (i.e. by SiteVisitID)#
-  num_row_cols=length(base_cols)#
-  pool_cols<-c("SITEVISITID","REPLICATEID","METHOD","REP","STATION_TYPE")#
-  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)#
-  num_row_cols=length(pool_cols) #working data now has fewer columns#
-  pool_cols<-c("SITEVISITID","METHOD","STATION_TYPE")#
-  y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)#
-  return(y)#
-} # end Calc_Site_Bio#
-r1<-Calc_Site_Bio_GUAM(wd, "FAMILY")
-devtools:install_github("rmcelreath/rethinking")
-devtools::install_github("rmcelreath/rethinking")
-sum(posterior)
-install.packages("rstan", repos = "https://cloud.r-project.org/", dependencies = TRUE)
-#### For NOAA computers: in order to use this script you will need to contact ITS to set up the ODBC drivers on your computer. You will not have adminstrative rights#
-# You will also need to set up an oracle account if you haven't already#
-##Once everything it set up you can download the individual datasets. If you experience errors that datasets can't be found double check your oracle account to make sure you have access#
-#if you don't have access you will need to ask someone in ESD Data Management to have you access to whatever views you are interested in.#
-#ITS will be providing the steps to set up your ODBC drivers, which will be included here soon.#
-rm(list=ls())#
-library(RODBC)            # to connect to oracle#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-Sys.setenv(ODBCINI = "/library/ODBC/odbc.ini")
-ch <- odbcConnect("CRED_Oracle", uid = "IWILLIAMS", pwd = "Tay5Ju7dEpp#Uk9")
-## #list available tables#
-tv<-sqlTables(ch, tableType = "VIEW")#
-a<-as.vector(tv$TABLE_NAME[grep("V0_", as.character(tv$TABLE_NAME))])
-df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.V0_FISH_REA")); head(df)#
-save(df, file="ALL_REA_FISH_RAW.rdata")
-#TOW FISH PRESENCE DATA##
-df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_FISH_TDS_SIGHTINGS")); head(df)#
-save(df, file="ALL_TOW_FISH_SIGHTINGS.rdata")#
-#TOW FISH ##
-df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_FISH_TDS")); head(df)#
-save(df, file="ALL_TOW_FISH_RAW.rdata")#
-#TOW BENTHIC##
-df <- sqlQuery(ch, paste("SELECT * FROM GISDAT.VS_BENT_TDS")); head(df)#
-save(df, file="ALL_TOW_BENT_RAW.rdata")
-rm(list=ls())#
-### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
-#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")#
-# SET UP ------------------------------------------------------------------#
-#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-library(gdata)             # needed for drop_levels()#
-library(reshape2)           # reshape library inclues the cast() function used below#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
-#source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-#
-#################################################################### TOW WORKUP ############################################################################
-#MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"#
-head(wd)#
-## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
-## remove these so that the tow length is corrected....#
-nosc<-which(wd$SPECIES == "NOSC")#
-wd<-wd[-nosc,]#
-miss<-which(wd$SPECIES == "MISS")#
-wd<-wd[-miss,]#
-#
-wd[is.na(wd$COUNT),]$COUNT<-0#
-wd[is.na(wd$SIZE_),]$SIZE_<-0	#
-#
-#Fix errors in the database#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$COUNT<-40		# COUNT and SIZE swapped#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50    #
-#
-#all remainder should become PRES data#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" #
-wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size#
-#
-#wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES#
-LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")#
-lw<-aggregate(wd$COUNT,by=wd[,LW_FIELDS], sum, na.rm=FALSE)#
-lw$x<-NULL#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")#
-od<-df#
-od$OBS_TYPE<-"PRES"#
-#
-#some small fixes
-od[is.na(od$SIZE_),]$SIZE_<-0#
-od[od$SIZE_<15 & od$SIZE_!=0,]#
-od[od$SPECIES=="CAAB" & od$SIZE_==9,]$COUNT<-9; od[od$SPECIES=="CAAB" & od$SIZE_==9,]$SIZE_<-90#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$SIZE_<-110#
-od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-55#
-od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-120#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-70#
-od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$COUNT<-2; od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$SIZE_<-250#
-od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$SIZE_<-80;od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$SIZE_<-90;od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$SIZE_<-55#
-od[od$SIZE_<30 & od$SIZE_!=0,]#
-#
-head(od[od$SPECIES=="CAAB",])#
-od[od$SPECIES=="CAAM" ,]$FAMILY<-"Carcharhinidae"#
-od[od$SPECIES=="CAAM" ,]$TAXONNAME<-"Carcharhinus amblyrhynchos"#
-od[od$SPECIES=="CAAM" ,]$COMMONFAMILYALL<-"Requiem"#
-od[od$SPECIES=="CAAM" ,]$COMMONNAME<-"Grey reef shark"#
-od[od$SPECIES=="CAAM" ,]$SPECIES<-"CAAB"
-head(od[od$SPECIES=="CHUD",])#
-od[od$SPECIES=="CHUL" ,]$FAMILY<-"Labridae"#
-od[od$SPECIES=="CHUL" ,]$TAXONNAME<-"Cheilinus undulatus"#
-od[od$SPECIES=="CHUL" ,]$COMMONFAMILYALL<-"Wrasse"#
-od[od$SPECIES=="CHUL" ,]$COMMONNAME<-"Humphead wrasse"#
-od[od$SPECIES=="CHUL" ,]$SPECIES<-"CHUD"#
-#
-head(od[od$SPECIES=="SPQE",])#
-od[od$SPECIES=="SPJE" ,]$FAMILY<-"Sphyraenidae"#
-od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena qenie"#
-od[od$SPECIES=="SPJE" ,]$COMMONFAMILYALL<-"Barracuda"#
-od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Blackfin barracuda"#
-od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPQE"#
-head(od)#
-#
-head(od[od$SPECIES=="SCSP",])#
-od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"#
-od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus sp"#
-od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"#
-od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Scarus genus species"#
-od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCSP"
-#filling in fields that are missing from one or other query (but which are still useful to include in merged data)#
-wd$COMMENT_<-"fill"#
-DATA_FIELDS<-c("ROUNDID", "MISSIONID", "REGION", "ISLAND", "OBS_YEAR", "DATE_", "REEF_ZONE", "DIVER1", "DIVER2", "LATITUDE", "LONGITUDE", "DIVEID", "SEGMENT", "SEGMENTID", "PROJECTEDLENGTH", "TOW_TYPE", "TOWKEY", "DEPTH", "TEMPERATURE", "STARTLOCALTIME", "ENDLOCALTIME", "CENTROIDLAT", "CENTROIDLON", "SPECIES",  "FAMILY", "COMMONFAMILYALL", "TAXONNAME", "COMMONNAME", "COUNT", "SIZE_", "OBS_TYPE", "COMMENT_")#
-#
-head(wd[,DATA_FIELDS])#
-head(od[,DATA_FIELDS])#
-#
-#Make wd be all data put together! ######
-wd<-rbind(wd[, DATA_FIELDS], od[, DATA_FIELDS])#
-#
-#Add Length-weight info back in#
-wd<-merge(wd, lw, by="SPECIES", all.x=T)#
-unique(wd[is.na(wd$LW_A),]$TAXONNAME)#
-wd[is.na(wd$LW_A),]$LW_A<-0#
-wd[is.na(wd$LW_B),]$LW_B<-0#
-wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$LENGTH_CONVERSION_FACTOR<-1#
-levels(wd$TROPHIC_MONREP)<-c(levels(wd$TROPHIC_MONREP), "UNKNOWN")#
-NOT_FISH<-c("HKTU", "STLO", "TUTR", "MENO", "DOLP", "GRTU", "MONK", "TURT")#
-wd[wd$SPECIES %in% c("NONE", NOT_FISH),]$TROPHIC_MONREP<-"UNKNOWN"#
-unique(wd[is.na(wd$TROPHIC_MONREP), c("SPECIES", "TAXONNAME", "COMMONNAME")])#
-#
-wd[wd$SPECIES=="MUVA",]$TROPHIC_MONREP<-"SECONDARY"#
-wd[wd$SPECIES %in% c("DEMA", "GARD"),]$TROPHIC_MONREP<-"PLANKTIVORE"#
-wd[wd$SPECIES=="VAAL",]$TROPHIC_MONREP<-"PISCIVORE"
-wd[is.na(wd$DEPTH),]$DEPTH<-0	#
-wd[is.na(wd$CENTROIDLAT),]$CENTROIDLAT<-0	#
-wd[is.na(wd$CENTROIDLON),]$CENTROIDLON<-0	#
-wd[is.na(wd$TEMPERATURE),]$TEMPERATURE<-0	#
-#
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "UNKNOWN")#
-levels(wd$FAMILY)<-c(levels(wd$FAMILY), "UNKNOWN")#
-levels(wd$TAXONNAME)<-c(levels(wd$TAXONNAME), "UNKNOWN")#
-levels(wd$COMMONNAME)<-c(levels(wd$COMMONNAME), "UNKNOWN")#
-levels(wd$COMMONFAMILYALL)<-c(levels(wd$COMMONFAMILYALL), "UNKNOWN", "Whale")#
-wd[wd$SPECIES=="MENO",]$COMMONFAMILYALL<-"Whale"#
-#
-wd[is.na(wd$TAXONNAME),"TAXONNAME"]<-"UNKNOWN"#
-wd[is.na(wd$FAMILY),"FAMILY"]<-"UNKNOWN"#
-wd[is.na(wd$REEF_ZONE),"REEF_ZONE"]<-"UNKNOWN"#
-wd[is.na(wd$COMMONFAMILYALL),"COMMONFAMILYALL"]<-"UNKNOWN"#
-unique(wd[is.na(wd$COMMONNAME), c("SPECIES", "TAXONNAME", "OBS_TYPE")])#
-wd[is.na(wd$COMMONNAME),"COMMONNAME"]<-"UNKNOWN"#
-#
-#DISTINGUISH between COUNT (for biomass and abundance calculations and number observed .. for other calculations)#
-wd$N_OBSERVED<-wd$COUNT#
-wd[wd$OBS_TYPE!="LINE",]$COUNT<-0#
-wd<-droplevels(wd)#
-dim(wd)
-sort(unique(wd$SPECIES))
-head(wd[wd$SPECIES=="MOSP",])
-rm(list=ls())#
-### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
-#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")#
-# SET UP ------------------------------------------------------------------#
-#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-library(gdata)             # needed for drop_levels()#
-library(reshape2)           # reshape library inclues the cast() function used below#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
-#source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-#
-#################################################################### TOW WORKUP ############################################################################
-#MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"#
-head(wd)#
-## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
-## remove these so that the tow length is corrected....#
-nosc<-which(wd$SPECIES == "NOSC")#
-wd<-wd[-nosc,]#
-miss<-which(wd$SPECIES == "MISS")#
-wd<-wd[-miss,]#
-#
-wd[is.na(wd$COUNT),]$COUNT<-0#
-wd[is.na(wd$SIZE_),]$SIZE_<-0	#
-#
-#Fix errors in the database#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$COUNT<-40		# COUNT and SIZE swapped#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50
-#all remainder should become PRES data#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" #
-wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size
-#wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES#
-LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")#
-lw<-aggregate(wd$COUNT,by=wd[,LW_FIELDS], sum, na.rm=FALSE)#
-lw$x<-NULL#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")#
-od<-df#
-od$OBS_TYPE<-"PRES"#
-#
-#some small fixes#
-od[is.na(od$SIZE_),]$SIZE_<-0#
-od[od$SIZE_<15 & od$SIZE_!=0,]#
-od[od$SPECIES=="CAAB" & od$SIZE_==9,]$COUNT<-9; od[od$SPECIES=="CAAB" & od$SIZE_==9,]$SIZE_<-90#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$SIZE_<-110#
-od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-55#
-od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-120#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-70#
-od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$COUNT<-2; od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$SIZE_<-250#
-od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$SIZE_<-80;od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$SIZE_<-90;od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$SIZE_<-55#
-od[od$SIZE_<30 & od$SIZE_!=0,]
-head(od[od$SPECIES=="CAAB",])#
-od[od$SPECIES=="CAAM" ,]$FAMILY<-"Carcharhinidae"#
-od[od$SPECIES=="CAAM" ,]$TAXONNAME<-"Carcharhinus amblyrhynchos"#
-od[od$SPECIES=="CAAM" ,]$COMMONFAMILYALL<-"Requiem"#
-od[od$SPECIES=="CAAM" ,]$COMMONNAME<-"Grey reef shark"#
-od[od$SPECIES=="CAAM" ,]$SPECIES<-"CAAB"#
-#
-head(od[od$SPECIES=="CHUD",])#
-od[od$SPECIES=="CHUL" ,]$FAMILY<-"Labridae"#
-od[od$SPECIES=="CHUL" ,]$TAXONNAME<-"Cheilinus undulatus"#
-od[od$SPECIES=="CHUL" ,]$COMMONFAMILYALL<-"Wrasse"#
-od[od$SPECIES=="CHUL" ,]$COMMONNAME<-"Humphead wrasse"#
-od[od$SPECIES=="CHUL" ,]$SPECIES<-"CHUD"#
-#
-head(od[od$SPECIES=="SPQE",])#
-od[od$SPECIES=="SPJE" ,]$FAMILY<-"Sphyraenidae"#
-od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena qenie"#
-od[od$SPECIES=="SPJE" ,]$COMMONFAMILYALL<-"Barracuda"#
-od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Blackfin barracuda"#
-od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPQE"#
-head(od)#
-#
-head(od[od$SPECIES=="SCSP",])#
-od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"#
-od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus sp"#
-od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"#
-od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Scarus genus species"#
-od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCSP"
-#filling in fields that are missing from one or other query (but which are still useful to include in merged data)#
-wd$COMMENT_<-"fill"#
-DATA_FIELDS<-c("ROUNDID", "MISSIONID", "REGION", "ISLAND", "OBS_YEAR", "DATE_", "REEF_ZONE", "DIVER1", "DIVER2", "LATITUDE", "LONGITUDE", "DIVEID", "SEGMENT", "SEGMENTID", "PROJECTEDLENGTH", "TOW_TYPE", "TOWKEY", "DEPTH", "TEMPERATURE", "STARTLOCALTIME", "ENDLOCALTIME", "CENTROIDLAT", "CENTROIDLON", "SPECIES",  "FAMILY", "COMMONFAMILYALL", "TAXONNAME", "COMMONNAME", "COUNT", "SIZE_", "OBS_TYPE", "COMMENT_")#
-#
-head(wd[,DATA_FIELDS])#
-head(od[,DATA_FIELDS])#
-#
-#Make wd be all data put together! ######
-wd<-rbind(wd[, DATA_FIELDS], od[, DATA_FIELDS])#
-#
-#Add Length-weight info back in#
-wd<-merge(wd, lw, by="SPECIES", all.x=T)#
-unique(wd[is.na(wd$LW_A),]$TAXONNAME)
-wd[wd$SPECIES=="GARD"]
-wd[wd$SPECIES=="GARD",]
-head(wd[wd$SPECIES=="MUVA",])
-unique(wd[wd$SPECIES=="MUVA", c("LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")])
-unique(wd[wd$SPECIES %in% c("MUVA", "MOSP", "DEMA", "GARD", "VAAL"), c("LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP", "TAXONNAME")])
-rm(list=ls())#
-### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
-#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")#
-# SET UP ------------------------------------------------------------------#
-#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-library(gdata)             # needed for drop_levels()#
-library(reshape2)           # reshape library inclues the cast() function used below#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
-#source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-#
-#################################################################### TOW WORKUP ############################################################################
-#MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"
-unique(wd[wd$SPECIES %in% c("MUVA", "MOSP", "DEMA", "GARD", "VAAL"), c("LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP", "TAXONNAME")])
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")#
-od<-df#
-od$OBS_TYPE<-"PRES"
-unique(od[od$SPECIES %in% c("MUVA", "MOSP", "DEMA", "GARD", "VAAL"), c("LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP", "TAXONNAME")])
-head(od)
-rm(list=ls())#
-### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
-#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")#
-# SET UP ------------------------------------------------------------------#
-#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-library(gdata)             # needed for drop_levels()#
-library(reshape2)           # reshape library inclues the cast() function used below#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
-#source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-#
-#################################################################### TOW WORKUP ############################################################################
-#MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"#
-head(wd)#
-## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
-## remove these so that the tow length is corrected....#
-nosc<-which(wd$SPECIES == "NOSC")#
-wd<-wd[-nosc,]#
-miss<-which(wd$SPECIES == "MISS")#
-wd<-wd[-miss,]#
-#
-wd[is.na(wd$COUNT),]$COUNT<-0#
-wd[is.na(wd$SIZE_),]$SIZE_<-0	#
-#
-#Fix errors in the database#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$COUNT<-40		# COUNT and SIZE swapped#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50    #
-#
-#all remainder should become PRES data#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" #
-wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size#
-#
-#wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES#
-LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")#
-lw<-aggregate(wd$COUNT,by=wd[,LW_FIELDS], sum, na.rm=FALSE)#
-lw$x<-NULL
-lw[lw$SPECIES=="MOSP",]
-wd[is.na(wd$TROPHIC_MONREP),]$SPECIES
-unique(wd[is.na(wd$TROPHIC_MONREP),]$SPECIES)
-rm(list=ls())#
-### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
-#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/PRIA Report")#
-# SET UP ------------------------------------------------------------------#
-#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-library(gdata)             # needed for drop_levels()#
-library(reshape2)           # reshape library inclues the cast() function used below#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
-#source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-#
-#################################################################### TOW WORKUP ############################################################################
-#MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"#
-head(wd)#
-## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
-## remove these so that the tow length is corrected....#
-nosc<-which(wd$SPECIES == "NOSC")#
-wd<-wd[-nosc,]#
-miss<-which(wd$SPECIES == "MISS")#
-wd<-wd[-miss,]#
-#
-wd[is.na(wd$COUNT),]$COUNT<-0#
-wd[is.na(wd$SIZE_),]$SIZE_<-0	#
-#
-#Fix errors in the database#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$COUNT<-40		# COUNT and SIZE swapped#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50    #
-#
-#all remainder should become PRES data#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" #
-wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size#
-#
-unique(wd[is.na(wd$TROPHIC_MONREP),]$SPECIES)#
-wd[wd$SPECIES=="MOSP",]$TROPHIC_MONREP<-"PLANKTIVORE"
-unique(wd[is.na(wd$TROPHIC_MONREP),]$SPECIES)
-#wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES#
-LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")#
-lw<-aggregate(wd$COUNT,by=wd[,LW_FIELDS], sum, na.rm=FALSE)#
-lw$x<-NULL
-lw[lw$SPECIES=="MOSP",]
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")#
-od<-df#
-od$OBS_TYPE<-"PRES"#
-#
-#some small fixes#
-od[is.na(od$SIZE_),]$SIZE_<-0#
-od[od$SIZE_<15 & od$SIZE_!=0,]#
-od[od$SPECIES=="CAAB" & od$SIZE_==9,]$COUNT<-9; od[od$SPECIES=="CAAB" & od$SIZE_==9,]$SIZE_<-90#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$SIZE_<-110#
-od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-55#
-od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-120#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-70#
-od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$COUNT<-2; od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$SIZE_<-250#
-od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$SIZE_<-80;od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$SIZE_<-90;od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$SIZE_<-55#
-od[od$SIZE_<30 & od$SIZE_!=0,]#
-#
-head(od[od$SPECIES=="CAAB",])#
-od[od$SPECIES=="CAAM" ,]$FAMILY<-"Carcharhinidae"#
-od[od$SPECIES=="CAAM" ,]$TAXONNAME<-"Carcharhinus amblyrhynchos"#
-od[od$SPECIES=="CAAM" ,]$COMMONFAMILYALL<-"Requiem"#
-od[od$SPECIES=="CAAM" ,]$COMMONNAME<-"Grey reef shark"#
-od[od$SPECIES=="CAAM" ,]$SPECIES<-"CAAB"#
-#
-head(od[od$SPECIES=="CHUD",])#
-od[od$SPECIES=="CHUL" ,]$FAMILY<-"Labridae"#
-od[od$SPECIES=="CHUL" ,]$TAXONNAME<-"Cheilinus undulatus"#
-od[od$SPECIES=="CHUL" ,]$COMMONFAMILYALL<-"Wrasse"#
-od[od$SPECIES=="CHUL" ,]$COMMONNAME<-"Humphead wrasse"#
-od[od$SPECIES=="CHUL" ,]$SPECIES<-"CHUD"#
-#
-head(od[od$SPECIES=="SPQE",])#
-od[od$SPECIES=="SPJE" ,]$FAMILY<-"Sphyraenidae"#
-od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena qenie"#
-od[od$SPECIES=="SPJE" ,]$COMMONFAMILYALL<-"Barracuda"#
-od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Blackfin barracuda"#
-od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPQE"#
-head(od)#
-#
-head(od[od$SPECIES=="SCSP",])#
-od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"#
-od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus sp"#
-od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"#
-od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Scarus genus species"#
-od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCSP"#
-#
-#filling in fields that are missing from one or other query (but which are still useful to include in merged data)#
-wd$COMMENT_<-"fill"#
-DATA_FIELDS<-c("ROUNDID", "MISSIONID", "REGION", "ISLAND", "OBS_YEAR", "DATE_", "REEF_ZONE", "DIVER1", "DIVER2", "LATITUDE", "LONGITUDE", "DIVEID", "SEGMENT", "SEGMENTID", "PROJECTEDLENGTH", "TOW_TYPE", "TOWKEY", "DEPTH", "TEMPERATURE", "STARTLOCALTIME", "ENDLOCALTIME", "CENTROIDLAT", "CENTROIDLON", "SPECIES",  "FAMILY", "COMMONFAMILYALL", "TAXONNAME", "COMMONNAME", "COUNT", "SIZE_", "OBS_TYPE", "COMMENT_")#
-#
-head(wd[,DATA_FIELDS])#
-head(od[,DATA_FIELDS])#
-#
-#Make wd be all data put together! ######
-wd<-rbind(wd[, DATA_FIELDS], od[, DATA_FIELDS])#
-#
-#Add Length-weight info back in#
-wd<-merge(wd, lw, by="SPECIES", all.x=T)#
-unique(wd[is.na(wd$LW_A),]$TAXONNAME)#
-wd[is.na(wd$LW_A),]$LW_A<-0#
-wd[is.na(wd$LW_B),]$LW_B<-0#
-wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$LENGTH_CONVERSION_FACTOR<-1#
-levels(wd$TROPHIC_MONREP)<-c(levels(wd$TROPHIC_MONREP), "UNKNOWN")#
-NOT_FISH<-c("HKTU", "STLO", "TUTR", "MENO", "DOLP", "GRTU", "MONK", "TURT")#
-wd[wd$SPECIES %in% c("NONE", NOT_FISH),]$TROPHIC_MONREP<-"UNKNOWN"#
-unique(wd[is.na(wd$TROPHIC_MONREP), c("SPECIES", "TAXONNAME", "COMMONNAME")])#
-#
-wd[wd$SPECIES=="MUVA",]$TROPHIC_MONREP<-"SECONDARY"#
-wd[wd$SPECIES %in% c("DEMA", "GARD"),]$TROPHIC_MONREP<-"PLANKTIVORE"#
-wd[wd$SPECIES=="VAAL",]$TROPHIC_MONREP<-"PISCIVORE"#
-#
-wd[is.na(wd$DEPTH),]$DEPTH<-0	#
-wd[is.na(wd$CENTROIDLAT),]$CENTROIDLAT<-0	#
-wd[is.na(wd$CENTROIDLON),]$CENTROIDLON<-0	#
-wd[is.na(wd$TEMPERATURE),]$TEMPERATURE<-0	#
-#
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "UNKNOWN")#
-levels(wd$FAMILY)<-c(levels(wd$FAMILY), "UNKNOWN")#
-levels(wd$TAXONNAME)<-c(levels(wd$TAXONNAME), "UNKNOWN")#
-levels(wd$COMMONNAME)<-c(levels(wd$COMMONNAME), "UNKNOWN")#
-levels(wd$COMMONFAMILYALL)<-c(levels(wd$COMMONFAMILYALL), "UNKNOWN", "Whale")#
-wd[wd$SPECIES=="MENO",]$COMMONFAMILYALL<-"Whale"#
-#
-wd[is.na(wd$TAXONNAME),"TAXONNAME"]<-"UNKNOWN"#
-wd[is.na(wd$FAMILY),"FAMILY"]<-"UNKNOWN"#
-wd[is.na(wd$REEF_ZONE),"REEF_ZONE"]<-"UNKNOWN"#
-wd[is.na(wd$COMMONFAMILYALL),"COMMONFAMILYALL"]<-"UNKNOWN"#
-unique(wd[is.na(wd$COMMONNAME), c("SPECIES", "TAXONNAME", "OBS_TYPE")])#
-wd[is.na(wd$COMMONNAME),"COMMONNAME"]<-"UNKNOWN"#
-#
-#DISTINGUISH between COUNT (for biomass and abundance calculations and number observed .. for other calculations)#
-wd$N_OBSERVED<-wd$COUNT#
-wd[wd$OBS_TYPE!="LINE",]$COUNT<-0#
-wd<-droplevels(wd)#
-dim(wd)#
-#
-##### NOW FIXING DEPTHS ################################
-#
-#set depth, and centroid lat-long field to NaN if zero ... #
-#read in information in depths of tows with known missing depths#
-tmd<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/munge_Tow/Tow Missing Depths.csv")#
-tmd<-tmd[,c("DIVEID", "Average")]#
-#
-wd[wd$DEPTH==0,"DEPTH"]<-NaN#
-#
-#Using twd to assign depths io cases where that information is missing#
-dim(wd)#
-wd<-merge(wd, tmd, by="DIVEID", all.x=T)#
-wd[is.na(wd$DEPTH),]$DEPTH<-wd[is.na(wd$DEPTH),]$Average#
-wd$Average<-NULL#
-#
-summary(wd)#
-#
-unique(wd[wd$REEF_ZONE=="Unspecified", c("ISLAND")])#
-#
-load("PRIA Tow RZ.RData")  #rz#
-rz$RZ<-rz$REEF_ZONE  #
-rz[is.na(rz$RZ),]				#Only one egment in Johnston is missing .. and it seems from examination of the data to be Protected slope#
-#
-wd<-merge(wd, rz[,c("DIVEID", "SEGMENT", "RZ")], by=c("DIVEID", "SEGMENT"), all.x=T)#
-unique(rz$ISLAND)#
-wd[wd$ISLAND =="Kingman", c("ISLAND", "OBS_YEAR", "DIVEID", "SEGMENT", "DEPTH", "REEF_ZONE", "RZ")]#
-#
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "Protected Slope")#
-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$REEF_ZONE<-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$RZ#
-wd$RZ<-NULL#
-#
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Tutuila"),]$REEF_ZONE<-"Forereef"#
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Jarvis"),]$REEF_ZONE<-"Forereef"#
-wd[wd$REEF_ZONE=="Unspecified" ,]#
-#
-wd[wd$SEGMENT>10,]#
-wd<-subset(wd, wd$SEGMENT %in% seq(1,10))#
-wtd<-droplevels(wd)
-save(wtd, file="ALL_TOW_FISH_CLEANED.RData")
-rm(list=ls())#
-### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
-#
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/PRIA Report")
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data")
-# SET UP ------------------------------------------------------------------#
-#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Base R/Base Data Files")#
-library(gdata)             # needed for drop_levels()#
-library(reshape2)           # reshape library inclues the cast() function used below#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/core_functions.R")#
-source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_team_functions.R")#
-#source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/Islandwide Mean&Variance Functions.R")#
-#
-#################################################################### TOW WORKUP ############################################################################
-#MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"#
-head(wd)#
-## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
-## remove these so that the tow length is corrected....#
-nosc<-which(wd$SPECIES == "NOSC")#
-wd<-wd[-nosc,]#
-miss<-which(wd$SPECIES == "MISS")#
-wd<-wd[-miss,]#
-#
-wd[is.na(wd$COUNT),]$COUNT<-0#
-wd[is.na(wd$SIZE_),]$SIZE_<-0	#
-#
-#Fix errors in the database#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$COUNT<-40		# COUNT and SIZE swapped#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50    #
-#
-#all remainder should become PRES data#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" #
-wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size#
-#
-unique(wd[is.na(wd$TROPHIC_MONREP),]$SPECIES)#
-wd[wd$SPECIES=="MOSP",]$TROPHIC_MONREP<-"PLANKTIVORE"#
-#
-#wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES#
-LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")#
-lw<-aggregate(wd$COUNT,by=wd[,LW_FIELDS], sum, na.rm=FALSE)#
-lw$x<-NULL#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")#
-od<-df#
-od$OBS_TYPE<-"PRES"#
-#
-#some small fixes#
-od[is.na(od$SIZE_),]$SIZE_<-0#
-od[od$SIZE_<15 & od$SIZE_!=0,]#
-od[od$SPECIES=="CAAB" & od$SIZE_==9,]$COUNT<-9; od[od$SPECIES=="CAAB" & od$SIZE_==9,]$SIZE_<-90#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$SIZE_<-110#
-od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-55#
-od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-120#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-70#
-od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$COUNT<-2; od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$SIZE_<-250#
-od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$SIZE_<-80;od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$SIZE_<-90;od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$SIZE_<-55#
-od[od$SIZE_<30 & od$SIZE_!=0,]#
-#
-head(od[od$SPECIES=="CAAB",])#
-od[od$SPECIES=="CAAM" ,]$FAMILY<-"Carcharhinidae"#
-od[od$SPECIES=="CAAM" ,]$TAXONNAME<-"Carcharhinus amblyrhynchos"#
-od[od$SPECIES=="CAAM" ,]$COMMONFAMILYALL<-"Requiem"#
-od[od$SPECIES=="CAAM" ,]$COMMONNAME<-"Grey reef shark"#
-od[od$SPECIES=="CAAM" ,]$SPECIES<-"CAAB"#
-#
-head(od[od$SPECIES=="CHUD",])#
-od[od$SPECIES=="CHUL" ,]$FAMILY<-"Labridae"#
-od[od$SPECIES=="CHUL" ,]$TAXONNAME<-"Cheilinus undulatus"#
-od[od$SPECIES=="CHUL" ,]$COMMONFAMILYALL<-"Wrasse"#
-od[od$SPECIES=="CHUL" ,]$COMMONNAME<-"Humphead wrasse"#
-od[od$SPECIES=="CHUL" ,]$SPECIES<-"CHUD"#
-#
-head(od[od$SPECIES=="SPQE",])#
-od[od$SPECIES=="SPJE" ,]$FAMILY<-"Sphyraenidae"#
-od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena qenie"#
-od[od$SPECIES=="SPJE" ,]$COMMONFAMILYALL<-"Barracuda"#
-od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Blackfin barracuda"#
-od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPQE"#
-head(od)#
-#
-head(od[od$SPECIES=="SCSP",])#
-od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"#
-od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus sp"#
-od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"#
-od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Scarus genus species"#
-od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCSP"#
-#
-#filling in fields that are missing from one or other query (but which are still useful to include in merged data)#
-wd$COMMENT_<-"fill"#
-DATA_FIELDS<-c("ROUNDID", "MISSIONID", "REGION", "ISLAND", "OBS_YEAR", "DATE_", "REEF_ZONE", "DIVER1", "DIVER2", "LATITUDE", "LONGITUDE", "DIVEID", "SEGMENT", "SEGMENTID", "PROJECTEDLENGTH", "TOW_TYPE", "TOWKEY", "DEPTH", "TEMPERATURE", "STARTLOCALTIME", "ENDLOCALTIME", "CENTROIDLAT", "CENTROIDLON", "SPECIES",  "FAMILY", "COMMONFAMILYALL", "TAXONNAME", "COMMONNAME", "COUNT", "SIZE_", "OBS_TYPE", "COMMENT_")#
-#
-head(wd[,DATA_FIELDS])#
-head(od[,DATA_FIELDS])#
-#
-#Make wd be all data put together! ######
-wd<-rbind(wd[, DATA_FIELDS], od[, DATA_FIELDS])#
-#
-#Add Length-weight info back in#
-wd<-merge(wd, lw, by="SPECIES", all.x=T)#
-unique(wd[is.na(wd$LW_A),]$TAXONNAME)#
-wd[is.na(wd$LW_A),]$LW_A<-0#
-wd[is.na(wd$LW_B),]$LW_B<-0#
-wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$LENGTH_CONVERSION_FACTOR<-1#
-levels(wd$TROPHIC_MONREP)<-c(levels(wd$TROPHIC_MONREP), "UNKNOWN")#
-NOT_FISH<-c("HKTU", "STLO", "TUTR", "MENO", "DOLP", "GRTU", "MONK", "TURT")#
-wd[wd$SPECIES %in% c("NONE", NOT_FISH),]$TROPHIC_MONREP<-"UNKNOWN"#
-unique(wd[is.na(wd$TROPHIC_MONREP), c("SPECIES", "TAXONNAME", "COMMONNAME")])#
-#
-wd[wd$SPECIES=="MUVA",]$TROPHIC_MONREP<-"SECONDARY"#
-wd[wd$SPECIES %in% c("DEMA", "GARD"),]$TROPHIC_MONREP<-"PLANKTIVORE"#
-wd[wd$SPECIES=="VAAL",]$TROPHIC_MONREP<-"PISCIVORE"#
-#
-wd[is.na(wd$DEPTH),]$DEPTH<-0	#
-wd[is.na(wd$CENTROIDLAT),]$CENTROIDLAT<-0	#
-wd[is.na(wd$CENTROIDLON),]$CENTROIDLON<-0	#
-wd[is.na(wd$TEMPERATURE),]$TEMPERATURE<-0	#
-#
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "UNKNOWN")#
-levels(wd$FAMILY)<-c(levels(wd$FAMILY), "UNKNOWN")#
-levels(wd$TAXONNAME)<-c(levels(wd$TAXONNAME), "UNKNOWN")#
-levels(wd$COMMONNAME)<-c(levels(wd$COMMONNAME), "UNKNOWN")#
-levels(wd$COMMONFAMILYALL)<-c(levels(wd$COMMONFAMILYALL), "UNKNOWN", "Whale")#
-wd[wd$SPECIES=="MENO",]$COMMONFAMILYALL<-"Whale"#
-#
-wd[is.na(wd$TAXONNAME),"TAXONNAME"]<-"UNKNOWN"#
-wd[is.na(wd$FAMILY),"FAMILY"]<-"UNKNOWN"#
-wd[is.na(wd$REEF_ZONE),"REEF_ZONE"]<-"UNKNOWN"#
-wd[is.na(wd$COMMONFAMILYALL),"COMMONFAMILYALL"]<-"UNKNOWN"#
-unique(wd[is.na(wd$COMMONNAME), c("SPECIES", "TAXONNAME", "OBS_TYPE")])#
-wd[is.na(wd$COMMONNAME),"COMMONNAME"]<-"UNKNOWN"#
-#
-#DISTINGUISH between COUNT (for biomass and abundance calculations and number observed .. for other calculations)#
-wd$N_OBSERVED<-wd$COUNT#
-wd[wd$OBS_TYPE!="LINE",]$COUNT<-0#
-wd<-droplevels(wd)#
-dim(wd)#
-#
-##### NOW FIXING DEPTHS ################################
-#
-#set depth, and centroid lat-long field to NaN if zero ... #
-#read in information in depths of tows with known missing depths#
-tmd<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/munge_Tow/Tow Missing Depths.csv")#
-tmd<-tmd[,c("DIVEID", "Average")]#
-#
-wd[wd$DEPTH==0,"DEPTH"]<-NaN#
-#
-#Using twd to assign depths io cases where that information is missing#
-dim(wd)#
-wd<-merge(wd, tmd, by="DIVEID", all.x=T)#
-wd[is.na(wd$DEPTH),]$DEPTH<-wd[is.na(wd$DEPTH),]$Average#
-wd$Average<-NULL#
-#
-summary(wd)#
-#
-unique(wd[wd$REEF_ZONE=="Unspecified", c("ISLAND")])#
-#
-load("PRIA Tow RZ.RData")  #rz#
-rz$RZ<-rz$REEF_ZONE  #
-rz[is.na(rz$RZ),]				#Only one egment in Johnston is missing .. and it seems from examination of the data to be Protected slope#
-#
-wd<-merge(wd, rz[,c("DIVEID", "SEGMENT", "RZ")], by=c("DIVEID", "SEGMENT"), all.x=T)#
-unique(rz$ISLAND)#
-wd[wd$ISLAND =="Kingman", c("ISLAND", "OBS_YEAR", "DIVEID", "SEGMENT", "DEPTH", "REEF_ZONE", "RZ")]#
-#
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "Protected Slope")#
-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$REEF_ZONE<-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$RZ#
-wd$RZ<-NULL#
-#
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Tutuila"),]$REEF_ZONE<-"Forereef"#
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Jarvis"),]$REEF_ZONE<-"Forereef"#
-wd[wd$REEF_ZONE=="Unspecified" ,]#
-#
-wd[wd$SEGMENT>10,]#
-wd<-subset(wd, wd$SEGMENT %in% seq(1,10))#
-wtd<-droplevels(wd)
+load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_CLEANED.rdata")#
+wd<-wtd
+table(wd$REGION, we$OBS_YEAR)
+table(wd$REGION, wd$OBS_YEAR)
+table(wd$ISLAND, wd$OBS_YEAR)
 rm(list=ls())#
 ### This merges the tow presence and transect data .. cleans up NAs, and depths, and other data errors .. generates clean data file suitable for analysis elsewhere#
 #
@@ -942,164 +109,9 @@ source("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/lib/fish_te
 #MERGE THE TOW OBSERVATIONS WITH TOW PRESENCE ABSENCE#
 #
 load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_RAW.rdata")#
-wd<-df#
-wd$OBS_TYPE<-"LINE"#
-head(wd)#
-## drop any rows which have NOSC and MISS in the species field, these are tows which were aborted part way through#
-## remove these so that the tow length is corrected....#
-nosc<-which(wd$SPECIES == "NOSC")#
-wd<-wd[-nosc,]#
-miss<-which(wd$SPECIES == "MISS")#
-wd<-wd[-miss,]#
-#
-wd[is.na(wd$COUNT),]$COUNT<-0#
-wd[is.na(wd$SIZE_),]$SIZE_<-0	#
-#
-#Fix errors in the database#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$COUNT<-40		# COUNT and SIZE swapped#
-wd[wd$DIVEID==201205123 & wd$SPECIES=="CASE" & wd$SIZE_==40,]$SIZE_<-50    #
-#
-#all remainder should become PRES data#
-wd[wd$SIZE_<50 & wd$SIZE_ !=0, c("OBS_YEAR", "REGION", "DIVEID", "SEGMENT", "DIVER1", "SPECIES", "COUNT", "SIZE_")]#
-wd[wd$SIZE_<50 & wd$SPECIES !="NONE",]$OBS_TYPE<-"PRES" #
-wd[wd$SPECIES =="CHUD"& wd$COUNT==0 & wd$OBS_TYPE=="PRES",]$COUNT<-1  #CHUD was observed ... does need a size#
-#
-unique(wd[is.na(wd$TROPHIC_MONREP),]$SPECIES)#
-wd[wd$SPECIES=="MOSP",]$TROPHIC_MONREP<-"PLANKTIVORE"#
-#
-#wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$SPECIES#
-LW_FIELDS<-c("SPECIES","LW_A", "LW_B", "LENGTH_CONVERSION_FACTOR", "TROPHIC_MONREP")#
-lw<-aggregate(wd$COUNT,by=wd[,LW_FIELDS], sum, na.rm=FALSE)#
-lw$x<-NULL#
-#
-load(file="/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/data/ALL_TOW_FISH_SIGHTINGS.rdata")#
-od<-df#
-od$OBS_TYPE<-"PRES"
-#some small fixes#
-od[is.na(od$SIZE_),]$SIZE_<-0#
-od[od$SIZE_<15 & od$SIZE_!=0,]#
-od[od$SPECIES=="CAAB" & od$SIZE_==9,]$COUNT<-9; od[od$SPECIES=="CAAB" & od$SIZE_==9,]$SIZE_<-90#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003172,]$SIZE_<-110#
-od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="LUBO" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-55#
-od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="TROB" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-120#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201003105,]$SIZE_<-70#
-od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$COUNT<-2; od[od$SPECIES=="DOLP" & od$SIZE_==2 & od$DIVEID==201004162,]$SIZE_<-250#
-od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$SIZE_<-80;od[od$SPECIES=="CHUD" & od$COUNT==80 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$SIZE_<-90;od[od$SPECIES=="CHUD" & od$COUNT==90 & od$DIVEID==201103241,]$COUNT<-1#
-od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$COUNT<-1; od[od$SPECIES=="CHUD" & od$SIZE_==1 & od$DIVEID==201404081,]$SIZE_<-55#
-od[od$SIZE_<30 & od$SIZE_!=0,]#
-#
-head(od[od$SPECIES=="CAAB",])#
-od[od$SPECIES=="CAAM" ,]$FAMILY<-"Carcharhinidae"#
-od[od$SPECIES=="CAAM" ,]$TAXONNAME<-"Carcharhinus amblyrhynchos"#
-od[od$SPECIES=="CAAM" ,]$COMMONFAMILYALL<-"Requiem"#
-od[od$SPECIES=="CAAM" ,]$COMMONNAME<-"Grey reef shark"#
-od[od$SPECIES=="CAAM" ,]$SPECIES<-"CAAB"#
-#
-head(od[od$SPECIES=="CHUD",])#
-od[od$SPECIES=="CHUL" ,]$FAMILY<-"Labridae"#
-od[od$SPECIES=="CHUL" ,]$TAXONNAME<-"Cheilinus undulatus"#
-od[od$SPECIES=="CHUL" ,]$COMMONFAMILYALL<-"Wrasse"#
-od[od$SPECIES=="CHUL" ,]$COMMONNAME<-"Humphead wrasse"#
-od[od$SPECIES=="CHUL" ,]$SPECIES<-"CHUD"#
-#
-head(od[od$SPECIES=="SPQE",])#
-od[od$SPECIES=="SPJE" ,]$FAMILY<-"Sphyraenidae"#
-od[od$SPECIES=="SPJE" ,]$TAXONNAME<-"Sphyraena qenie"#
-od[od$SPECIES=="SPJE" ,]$COMMONFAMILYALL<-"Barracuda"#
-od[od$SPECIES=="SPJE" ,]$COMMONNAME<-"Blackfin barracuda"#
-od[od$SPECIES=="SPJE" ,]$SPECIES<-"SPQE"#
-head(od)#
-#
-head(od[od$SPECIES=="SCSP",])#
-od[od$SPECIES=="SCTR" ,]$FAMILY<-"Scaridae"#
-od[od$SPECIES=="SCTR" ,]$TAXONNAME<-"Scarus sp"#
-od[od$SPECIES=="SCTR" ,]$COMMONFAMILYALL<-"Parrotfish"#
-od[od$SPECIES=="SCTR" ,]$COMMONNAME<-"Scarus genus species"#
-od[od$SPECIES=="SCTR" ,]$SPECIES<-"SCSP"#
-#
-#filling in fields that are missing from one or other query (but which are still useful to include in merged data)#
-wd$COMMENT_<-"fill"#
-DATA_FIELDS<-c("ROUNDID", "MISSIONID", "REGION", "ISLAND", "OBS_YEAR", "DATE_", "REEF_ZONE", "DIVER1", "DIVER2", "LATITUDE", "LONGITUDE", "DIVEID", "SEGMENT", "SEGMENTID", "PROJECTEDLENGTH", "TOW_TYPE", "TOWKEY", "DEPTH", "TEMPERATURE", "STARTLOCALTIME", "ENDLOCALTIME", "CENTROIDLAT", "CENTROIDLON", "SPECIES",  "FAMILY", "COMMONFAMILYALL", "TAXONNAME", "COMMONNAME", "COUNT", "SIZE_", "OBS_TYPE", "COMMENT_")#
-#
-head(wd[,DATA_FIELDS])#
-head(od[,DATA_FIELDS])#
-#
-#Make wd be all data put together! ######
-wd<-rbind(wd[, DATA_FIELDS], od[, DATA_FIELDS])
-#Add Length-weight info back in#
-wd<-merge(wd, lw, by="SPECIES", all.x=T)#
-unique(wd[is.na(wd$LW_A),]$TAXONNAME)#
-wd[is.na(wd$LW_A),]$LW_A<-0#
-wd[is.na(wd$LW_B),]$LW_B<-0#
-wd[is.na(wd$LENGTH_CONVERSION_FACTOR),]$LENGTH_CONVERSION_FACTOR<-1#
-levels(wd$TROPHIC_MONREP)<-c(levels(wd$TROPHIC_MONREP), "UNKNOWN")#
-NOT_FISH<-c("HKTU", "STLO", "TUTR", "MENO", "DOLP", "GRTU", "MONK", "TURT")#
-wd[wd$SPECIES %in% c("NONE", NOT_FISH),]$TROPHIC_MONREP<-"UNKNOWN"#
-unique(wd[is.na(wd$TROPHIC_MONREP), c("SPECIES", "TAXONNAME", "COMMONNAME")])#
-#
-wd[wd$SPECIES=="MUVA",]$TROPHIC_MONREP<-"SECONDARY"#
-wd[wd$SPECIES %in% c("DEMA", "GARD"),]$TROPHIC_MONREP<-"PLANKTIVORE"#
-wd[wd$SPECIES=="VAAL",]$TROPHIC_MONREP<-"PISCIVORE"#
-#
-wd[is.na(wd$DEPTH),]$DEPTH<-0	#
-wd[is.na(wd$CENTROIDLAT),]$CENTROIDLAT<-0	#
-wd[is.na(wd$CENTROIDLON),]$CENTROIDLON<-0	#
-wd[is.na(wd$TEMPERATURE),]$TEMPERATURE<-0	#
-#
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "UNKNOWN")#
-levels(wd$FAMILY)<-c(levels(wd$FAMILY), "UNKNOWN")#
-levels(wd$TAXONNAME)<-c(levels(wd$TAXONNAME), "UNKNOWN")#
-levels(wd$COMMONNAME)<-c(levels(wd$COMMONNAME), "UNKNOWN")#
-levels(wd$COMMONFAMILYALL)<-c(levels(wd$COMMONFAMILYALL), "UNKNOWN", "Whale")#
-wd[wd$SPECIES=="MENO",]$COMMONFAMILYALL<-"Whale"#
-#
-wd[is.na(wd$TAXONNAME),"TAXONNAME"]<-"UNKNOWN"#
-wd[is.na(wd$FAMILY),"FAMILY"]<-"UNKNOWN"#
-wd[is.na(wd$REEF_ZONE),"REEF_ZONE"]<-"UNKNOWN"#
-wd[is.na(wd$COMMONFAMILYALL),"COMMONFAMILYALL"]<-"UNKNOWN"#
-unique(wd[is.na(wd$COMMONNAME), c("SPECIES", "TAXONNAME", "OBS_TYPE")])#
-wd[is.na(wd$COMMONNAME),"COMMONNAME"]<-"UNKNOWN"#
-#
-#DISTINGUISH between COUNT (for biomass and abundance calculations and number observed .. for other calculations)#
-wd$N_OBSERVED<-wd$COUNT#
-wd[wd$OBS_TYPE!="LINE",]$COUNT<-0#
-wd<-droplevels(wd)#
-dim(wd)
-##### NOW FIXING DEPTHS ################################
-#
-#set depth, and centroid lat-long field to NaN if zero ... #
-#read in information in depths of tows with known missing depths#
-tmd<-read.csv("/Users/ivor.williams/Documents/CRED/Fish Team/Git/fish-paste/munge_Tow/Tow Missing Depths.csv")#
-tmd<-tmd[,c("DIVEID", "Average")]
-wd[wd$DEPTH==0,"DEPTH"]<-NaN#
-#
-#Using twd to assign depths io cases where that information is missing#
-dim(wd)#
-wd<-merge(wd, tmd, by="DIVEID", all.x=T)#
-wd[is.na(wd$DEPTH),]$DEPTH<-wd[is.na(wd$DEPTH),]$Average#
-wd$Average<-NULL#
-#
-summary(wd)#
-#
-unique(wd[wd$REEF_ZONE=="Unspecified", c("ISLAND")])
-load("PRIA Tow RZ.RData")  #rz
-load("PRIA Tow RZ.RData")  #rz
-rz$RZ<-rz$REEF_ZONE  #
-rz[is.na(rz$RZ),]				#Only one egment in Johnston is missing .. and it seems from examination of the data to be Protected slope
-wd<-merge(wd, rz[,c("DIVEID", "SEGMENT", "RZ")], by=c("DIVEID", "SEGMENT"), all.x=T)#
-unique(rz$ISLAND)#
-wd[wd$ISLAND =="Kingman", c("ISLAND", "OBS_YEAR", "DIVEID", "SEGMENT", "DEPTH", "REEF_ZONE", "RZ")]
-levels(wd$REEF_ZONE)<-c(levels(wd$REEF_ZONE), "Protected Slope")#
-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$REEF_ZONE<-wd[wd$ISLAND %in% unique(rz$ISLAND), ]$RZ#
-wd$RZ<-NULL#
-#
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Tutuila"),]$REEF_ZONE<-"Forereef"#
-wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Jarvis"),]$REEF_ZONE<-"Forereef"#
-wd[wd$REEF_ZONE=="Unspecified" ,]#
-#
-wd[wd$SEGMENT>10,]#
-wd<-subset(wd, wd$SEGMENT %in% seq(1,10))#
-wtd<-droplevels(wd)
-save(wtd, file="ALL_TOW_FISH_CLEANED.RData")
+wd<-df
+wd<-subset(wd, wd$ISLAND=="Jarvis")
+wd<-droplevels(wd)
+wd<-subset(wd, wd$OBS_YEAR==2017)
+wd<-droplevels(wd)
+unique(wd$DIVEID)

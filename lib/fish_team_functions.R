@@ -59,8 +59,6 @@ Calc_Site_MeanLengthByGroup<-function(x, grouping_field, min_size=10){
 
 ##calculate the biomass per m2 per record
 Calc_Biomassgm2<-function(x){
-	# IDW return y .. do not modify x inside the function .. just pass out biomassgm2
-	# do this elsewhere - keep this function doing one thing - calculating biomassgm2 y$Srvy.Yr<-as.factor(y$Srvy.Yr)
 	Biomassperfish<-x$LW_A*((x$SIZE_*x$LENGTH_CONVERSION_FACTOR)^x$LW_B)
 	Biomassperrecord<-Biomassperfish*x$COUNT
 	Area<-ifelse(x$METHOD %in% c("nSPC", "nSPC-CCR"), pi*(7.5^2), ifelse(x$SIZE_ < 20, 50, 100))
@@ -71,8 +69,6 @@ Calc_Biomassgm2<-function(x){
 
 ##calculate the abundance per m2 per record
 Calc_Abundm2<-function(x){
-	# IDW return y .. do not modify x inside the function .. just pass out biomassgm2
-	# do this elsewhere - keep this function doing one thing - calculating biomassgm2 y$Srvy.Yr<-as.factor(y$Srvy.Yr)
 	Area<-ifelse(x$METHOD %in% c("nSPC", "nSPC-CCR"), pi*(7.5^2), ifelse(x$SIZE_ < 20, 50, 100))
 	return(x$COUNT/Area)
 	
@@ -113,8 +109,6 @@ Calc_Site_Bio_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50, Inf))
 } # end Calc_Site_Bio_By_SizeClass
 
 Calc_Site_Abund_By_SizeClass<-function(x, size_classes = c(0,10,20,30,40,50,Inf)){  
-  # function assumes that x is a data frame with at least the columns/elements listed in base_cols, plus the field_of_interest, in this case Trophic_MonRep
-   
 	#add an abundance field to x
 	x$Abund_m2<-Calc_Abundm2(x)
   	##add a size class field to x
@@ -227,7 +221,6 @@ Calc_Site_Bio<-function(x, grouping_field){
 	y<-aggregate(y[,(num_row_cols+1):dim(y)[2]],by=y[,pool_cols], mean)
 	
 	return(y)
-	
 } # end Calc_Site_Bio
 
 

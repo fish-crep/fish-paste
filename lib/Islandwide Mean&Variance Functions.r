@@ -1,4 +1,3 @@
-# Calculate variance based off old functions using Ault Formulas .. but modified to not use secondary unit variance (there is not real replication at that level) and assuming different input structure - more in keeping with structure of data coming directly from REA_FISH_BASE and standard manipulations
 #
 
 # gdata library inclues the drop.levels() function used below
@@ -7,36 +6,120 @@ library(dplyr)
 
 
 #############################################################################################################################
-# Function reads a strata areas csv, and converts those to weightings per strata per island, and returns a matrix with weights
-# Assumes data structure looks a bit like this ..
-# island	strata1	strata2	strata3 etc..
-# Guam		1230	3444	98
-# Saipan	245		1990	4450
-# output file has same structure and names, but with areas converted to weights ..
-# hence island names, and strata names must match thsoe used in data files for subsequent functions to work
-# nb also requires there to be a file "tmpAreaPerStrata.csv" in the working directory
+# Function calculates mean, variance and N for passed-in data_cols at whatever requested pooling_level (can be single or multiple fields)
+	# This funcrion is similat to Calc_PooledStrata_MeanVarianceCount, but is much less restricted .. allows user to pool at any level 
+		# SITEVISITID is base sample level (ie generally a SURVEY DIVE)
+	# returns a list with three dfs: - 1st df is means per data col per strata, 2nd is var, 3rd is SE
 #############################################################################################################################
-GetIslandWeights <- function ()
+Calc_PerStrata <- function (sample_data, data_cols, pooling_level = c("ISLAND", "STRATA", "OBS_YEAR", "METHOD"))
 {
-	Wh.data = read.csv("tmpAreaPerStrata.CSV")              # Habitat Per Strata Per Island 
-	Wh<-Wh.data                                             # Convert that to weights i.e. - proportion of total habitat per island by strata (total comes to 1 each row)
-	Wh[,2:(dim(Wh.data)[2]-1)]<- Wh.data[,2:(dim(Wh.data)[2]-1)]/rowSums(Wh.data[,2:(dim(Wh.data)[2]-1)])
+  BASE_DATA_COLS<-c(pooling_level, "SITEVISITID", data_cols)
+  
+  #first clean up sample data to just have the data that will be used for generating islandwide mean, var, N values (per strata, method, year)
+  sample_data<-sample_data[,BASE_DATA_COLS]
+  
+  # Calculate aggregate Mean, Var, N	
+  strata.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean)
+  strata.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var)
+  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  strata.means$N<-strata.vars$N<-N
+  strata.se<-strata.vars
+  strata.se[,data_cols]<-sqrt(strata.vars[,data_cols])/sqrt(N)
+  
+  out.x<-list(strata.means[,c(pooling_level,"N", data_cols)], strata.se[,c(pooling_level,"N", data_cols)], strata.vars[,c(pooling_level,"N", data_cols)])
+  names(out.x)<-list("Mean", "SampleSE", "SampleVar")
+  return(out.x)
+  
+}
+# end Calc_PerStrata
 
-# IDW need to convert these to same format as calculated data files e.g. 2 dimensional array ("Island" "Strata") with data being strata weight
-	n.islands<-dim(Wh)[1]
-	n.strata<-dim(Wh)[2]-1
-	island.names<-Wh[1]
-	strata.names<-list(names(Wh)[2:dim(Wh)[2]])
-	output.array<-array(dim=c(n.islands, n.strata), data=0, dimnames=c(island.names, strata.names))
-	for (i in 1:n.islands){
-		for (j in 1:n.strata) {
-			output.array[i,j]<-Wh[i,j+1] 	
-		}
-	}
-	 	
-	return(output.array)             
+
+############################################################################################################################
+# Greatly simplified versio of Calc_Pooled - that uses a weighting field in the data, rather than a joi with the sector table.
+# This should be far mroe flexible and straightofrward to apply than the previous version
+#################################################################################################################################
+Calc_Pooled_Simple<-function (means_data, var_data, data_cols, output_level=c("REGION","ISLAND", "OBS_YEAR"), weighting_field="AREA_HA")
+{
+
+GRID_CELL_SIZE<-50*50   #grid cells are 50*50
+AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
+
+	#Generate output structures
+	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level)],sum)
+	pooled.means[,data_cols]<-NA
+	pooled.se<-pooled.means
+	pooled.means$TOT_AREA_WT<-NA
 	
-} # end GetIslandWeights
+	#go through the output structures row by row pooling and weighting the mean and vars data for that output level
+	for(i in 1:dim(pooled.means)[1]){
+		md<-inner_join(means_data, pooled.means[i, OUTPUT_LEVEL], by=OUTPUT_LEVEL)		
+		vd<-inner_join(var_data, pooled.means[i, OUTPUT_LEVEL], by=OUTPUT_LEVEL)	
+		
+		tot.wt<-sum(md[,weighting_field])
+		md$wt<-md[,weighting_field] / tot.wt
+		vd$wt<-md$wt
+				
+		vd$pctSampled<-(vd$N*GRID_CELL_SIZE)/(vd[,weighting_field]*AREA_UNITS)
+
+    	#TMP FIDDLE, SHOULD NEVER HAPPEN, BUT pctSampled should not be above 1
+    	if(max(vd$pctSampled, na.rm=T)>1)
+    	{
+    		print("pctSampled is greater than 1: ")
+    		print(vd[vd$pctSampled==max(vd$pctSampled),!colnames(vd) %in% data_cols])
+    		vd[vd$pctSampled>1,]$pctSampled<-1
+    	}
+
+		#now do the weighting ...
+		pooled.means[i,data_cols]<-colSums(md[,data_cols]*md$wt) 
+		pooled.means[i,]$TOT_AREA_WT<-tot.wt 
+		# multiply sample variance values by square of strata weight and divided by number of samples this strata, and adjust for proportion of total area sampled (I am using Krebs formula 8.18 p276)
+		pooled.se[i,data_cols]<-colSums(vd[,data_cols]*((vd$wt^2)/vd$N)*(1-vd$pctSampled))     #IDW this is effectively variance of sample means for entire domain
+		pooled.se[i,data_cols]<-sqrt(pooled.se[i,data_cols])                                   #now converting this to standard deviation of sample means for entire domain (=equiv to sample SE)
+	}
+
+  	return(list(Mean=pooled.means, PooledSE=pooled.se))
+  
+} #end Calc_Pooled_Simple
+
+
+
+
+############ IDW _ I AM NOT SURE WE USE ANY OF THE FUNCTIONS BELOW ###################
+
+
+
+
+# #############################################################################################################################
+# # Function reads a strata areas csv, and converts those to weightings per strata per island, and returns a matrix with weights
+# # Assumes data structure looks a bit like this ..
+# # island	strata1	strata2	strata3 etc..
+# # Guam		1230	3444	98
+# # Saipan	245		1990	4450
+# # output file has same structure and names, but with areas converted to weights ..
+# # hence island names, and strata names must match thsoe used in data files for subsequent functions to work
+# # nb also requires there to be a file "tmpAreaPerStrata.csv" in the working directory
+# #############################################################################################################################
+# GetIslandWeights <- function ()
+# {
+	# Wh.data = read.csv("tmpAreaPerStrata.CSV")              # Habitat Per Strata Per Island 
+	# Wh<-Wh.data                                             # Convert that to weights i.e. - proportion of total habitat per island by strata (total comes to 1 each row)
+	# Wh[,2:(dim(Wh.data)[2]-1)]<- Wh.data[,2:(dim(Wh.data)[2]-1)]/rowSums(Wh.data[,2:(dim(Wh.data)[2]-1)])
+
+# # IDW need to convert these to same format as calculated data files e.g. 2 dimensional array ("Island" "Strata") with data being strata weight
+	# n.islands<-dim(Wh)[1]
+	# n.strata<-dim(Wh)[2]-1
+	# island.names<-Wh[1]
+	# strata.names<-list(names(Wh)[2:dim(Wh)[2]])
+	# output.array<-array(dim=c(n.islands, n.strata), data=0, dimnames=c(island.names, strata.names))
+	# for (i in 1:n.islands){
+		# for (j in 1:n.strata) {
+			# output.array[i,j]<-Wh[i,j+1] 	
+		# }
+	# }
+	 	
+	# return(output.array)             
+	
+# } # end GetIslandWeights
 
 
 #############################################################################################################################
@@ -225,33 +308,6 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 } #end Calc_Pooled
 
 
-#############################################################################################################################
-# Function calculates mean, variance and N for passed-in data_cols at whatever requested pooling_level (can be single or multiple fields)
-	# This funcrion is similat to Calc_PooledStrata_MeanVarianceCount, but is much less restricted .. allows user to pool at any level 
-		# SITEVISITID is base sample level (ie generally a SURVEY DIVE)
-	# returns a list with three dfs: - 1st df is means per data col per strata, 2nd is var, 3rd is SE
-#############################################################################################################################
-Calc_PerStrata <- function (sample_data, data_cols, pooling_level = c("ISLAND", "STRATA", "OBS_YEAR", "METHOD"))
-{
-  BASE_DATA_COLS<-c(pooling_level, "SITEVISITID", data_cols)
-  
-  #first clean up sample data to just have the data that will be used for generating islandwide mean, var, N values (per strata, method, year)
-  sample_data<-sample_data[,BASE_DATA_COLS]
-  
-  # Calculate aggregate Mean, Var, N	
-  strata.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean)
-  strata.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var)
-  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
-  strata.means$N<-strata.vars$N<-N
-  strata.se<-strata.vars
-  strata.se[,data_cols]<-sqrt(strata.vars[,data_cols])/sqrt(N)
-  
-  out.x<-list(strata.means[,c(pooling_level,"N", data_cols)], strata.se[,c(pooling_level,"N", data_cols)], strata.vars[,c(pooling_level,"N", data_cols)])
-  names(out.x)<-list("Mean", "SampleSE", "SampleVar")
-  return(out.x)
-  
-}
-# end Calc_PerStrata
 
 
 ############################################################################################################################
@@ -531,56 +587,6 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
   	return(out.x)
   
 } #end X_Calc_Pooled
-
-
-
-############################################################################################################################
-# Greatly simplified versio of Calc_Pooled - that uses a weighting field in the data, rather than a joi with the sector table.
-# This should be far mroe flexible and straightofrward to apply than the previous version
-#################################################################################################################################
-Calc_Pooled_Simple<-function (means_data, var_data, data_cols, output_level=c("REGION","ISLAND", "OBS_YEAR"), weighting_field="AREA_HA")
-{
-
-GRID_CELL_SIZE<-50*50   #grid cells are 50*50
-AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
-
-	#Generate output structures
-	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level)],sum)
-	pooled.means[,data_cols]<-NA
-	pooled.se<-pooled.means
-	pooled.means$TOT_AREA_WT<-NA
-	
-	#go through the output structures row by row pooling and weighting the mean and vars data for that output level
-	for(i in 1:dim(pooled.means)[1]){
-		md<-inner_join(means_data, pooled.means[i, OUTPUT_LEVEL], by=OUTPUT_LEVEL)		
-		vd<-inner_join(var_data, pooled.means[i, OUTPUT_LEVEL], by=OUTPUT_LEVEL)	
-		
-		tot.wt<-sum(md[,weighting_field])
-		md$wt<-md[,weighting_field] / tot.wt
-		vd$wt<-md$wt
-				
-		vd$pctSampled<-(vd$N*GRID_CELL_SIZE)/(vd[,weighting_field]*AREA_UNITS)
-
-    	#TMP FIDDLE, SHOULD NEVER HAPPEN, BUT pctSampled should not be above 1
-    	if(max(vd$pctSampled, na.rm=T)>1)
-    	{
-    		print("pctSampled is greater than 1: ")
-    		print(vd[vd$pctSampled==max(vd$pctSampled),!colnames(vd) %in% data_cols])
-    		vd[vd$pctSampled>1,]$pctSampled<-1
-    	}
-
-		#now do the weighting ...
-		pooled.means[i,data_cols]<-colSums(md[,data_cols]*md$wt) 
-		pooled.means[i,]$TOT_AREA_WT<-tot.wt 
-		# multiply sample variance values by square of strata weight and divided by number of samples this strata, and adjust for proportion of total area sampled (I am using Krebs formula 8.18 p276)
-		pooled.se[i,data_cols]<-colSums(vd[,data_cols]*((vd$wt^2)/vd$N)*(1-vd$pctSampled))     #IDW this is effectively variance of sample means for entire domain
-		pooled.se[i,data_cols]<-sqrt(pooled.se[i,data_cols])                                   #now converting this to standard deviation of sample means for entire domain (=equiv to sample SE)
-	}
-
-  	return(list(Mean=pooled.means, PooledSE=pooled.se))
-  
-} #end Calc_Pooled_Simple
-
 
 
 

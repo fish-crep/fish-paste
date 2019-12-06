@@ -1,0 +1,36 @@
+rm(list=ls())#
+#setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Data Requests/Adel TowedDiver")#
+#### THIS TOW GENERATES SECTOR LEVEL INFORMATION ON BIOMASS BY TOW SPECIES, USING SEGMENT AS THE BASE UNIT#
+#### CODE HERE CAN BE USED AS DEFAULT TO GENERATE BIOMASS OR ABUNDANCE AT SEGMENT OR TOW LEVEL#
+#
+library(gdata)             # needed for drop_levels()#
+library(reshape)           # reshape library inclues the cast() function used below#
+source("lib/core_functions.R")#
+source("lib/fish_team_functions.R")#
+source("lib/Islandwide Mean&Variance Functions.R")#
+#
+#read in information in depths of tows with known missing depths#
+tmd<-read.csv("Tow Missing Depths.csv")#
+tmd<-tmd[,c("DIVEID", "Average")]#
+#
+load(file="data/ALL_TOW_FISH_RAW.rdata")#
+wd<-df#
+nosc<-which(wd$SPECIES == "NOSC")#
+wd<-wd[-nosc,]#
+miss<-which(wd$SPECIES == "MISS")#
+wd<-wd[-miss,]#
+#
+############################# FILTER TO FOREREEF FROM 2010 ONWARDS ############################
+# NB this means that we lose tows and segments where REEF_ZONE is Unspecified .. so setting those to Forereef where we know what they are#
+#
+wd<-subset(wd, wd$OBS_YEAR>2009)#
+#
+unique(wd[wd$REEF_ZONE=="Unspecified",]$ISLAND)#
+wd[wd$ISLAND=="Tutuila",]$REEF_ZONE<-"Forereef"     # Tut tows are always forereef#
+unique(wd[wd$REEF_ZONE=="Unspecified", c("ISLAND", "OBS_YEAR", "DIVEID", "DEPTH")])#
+# Kingman & Palmyra tows are deep enough that I think we can assume they are FOREREEF#
+wd[wd$REEF_ZONE=="Unspecified" & wd$ISLAND %in% c("Kingman", "Palmyra"),]$REEF_ZONE<-"Forereef"     # Tut tows are always forereef#
+unique(wd[wd$REEF_ZONE=="Unspecified", c("ISLAND", "OBS_YEAR", "DIVEID")])    ##### THERE LIEKLY IS METADATA THAT WOULD ALLOW US TO FIX THES, BUT FOR NOW I THINK THEY SHOULD BE DROPPED - THEY WILL BE BY CODE BELOW#
+wd<-subset(wd, wd$REEF_ZONE %in% c("Forereef"))#
+#
+wd<-droplevels(wd)
