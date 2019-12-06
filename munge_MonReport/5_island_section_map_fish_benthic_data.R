@@ -1,5 +1,5 @@
 rm(list=ls())
-setwd("E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/data/Data Outputs")
+setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/data/Data Outputs")
 
 ##  selecting the map data
 load("clean_working_site_data_used_in_higher_pooling_for_report.rdata")
@@ -13,10 +13,10 @@ maps<-wsd.uncap
 
 summary(maps)
 
-## just select fish and depth cols
+##  select metadata and data cols
 
-fishmaps<-maps[,c("OBS_YEAR", "REGION", "ISLAND","ANALYSIS_SEC", "SITE", "DEPTH_BIN", "LATITUDE", "LONGITUDE",
-                  "ANALYSIS_STRATA", "PRIMARY", "SECONDARY", "PISCIVORE", "PLANKTIVORE", "TotFish", "0_20", "20_50", "50_plus")]
+fishmaps<-maps[,c("OBS_YEAR", "ANALYSIS_YEAR","REGION", "ISLAND","SEC_NAME", "REEF_ZONE","SITE", "DEPTH_BIN", "LATITUDE", "LONGITUDE",
+                  "ANALYSIS_SCHEME", "PRIMARY", "SECONDARY", "PISCIVORE", "PLANKTIVORE", "TotFish", "0_20", "20_50", "50_plus")]
 
 ## cap values at 500 for map (including all the outliers make bubble sizes mental)
 fishmaps$fish_500<-fishmaps$TotFish
@@ -26,12 +26,20 @@ fishmaps$fish_500[which(fishmaps$fish_500 >500)]<-501
 fishmaps$fish_1000<-fishmaps$TotFish
 fishmaps$fish_1000[which(fishmaps$fish_1000 >1000)]<-1001  
 
-write.csv(fishmaps, "fishmaps_nspc_clean_wsd_2009_16.csv")
+## cap values at 100 for map (for populated islands)
+fishmaps$fish_100<-fishmaps$TotFish
+fishmaps$fish_100[which(fishmaps$fish_100 >100)]<-101  
+
+## cap values at 200 for map (for populated islands)
+fishmaps$fish_200<-fishmaps$TotFish
+fishmaps$fish_200[which(fishmaps$fish_200 >200)]<-201 
+
+write.csv(fishmaps, "fishmaps_nspc_clean_wsd_2009_19.csv")
 
 
 ## site benthic data
-benthicmaps<-maps[,c("OBS_YEAR", "REGION", "ISLAND","ANALYSIS_SEC", "SITE", "DEPTH_BIN", "LATITUDE", "LONGITUDE",
-                 "ANALYSIS_STRATA","HARD_CORAL", "MA", "CCA", "TA", "SAND","OTHER_BENTHIC", "BSR")]
+benthicmaps<-maps[,c("OBS_YEAR", "REGION", "ISLAND","SEC_NAME","REEF_ZONE", "SITE", "DEPTH_BIN", "LATITUDE", "LONGITUDE",
+                 "ANALYSIS_SCHEME","HARD_CORAL", "MA", "CCA", "SAND","OTHER_BENTHIC", "BSR")]
 
 ## drop the 2009 sites without benthic data (n = 380, all PRIAs and NWHI from 2009)
 benthicmaps<-benthicmaps[-which(is.na(benthicmaps$HARD_CORAL)),]
@@ -44,9 +52,11 @@ which(benthicmaps$BSR == Inf)
 
 benthicmaps[which(benthicmaps$BSR == Inf),"BSR"]<-as.numeric(25)
 
-write.csv(benthicmaps, "benthicmaps_nspc_clean_wsd_2009_16.csv")
+# Cap BSR at 15 so bubbles aren't outrageous
+benthicmaps$BSR_15<-benthicmaps$BSR
+benthicmaps$BSR_15[which(benthicmaps$BSR_15>15)]<-16
 
+write.csv(benthicmaps, "benthicmaps_nspc_clean_wsd_2009_19.csv")
 
-#
 
 #### NOW GIVE THESE FILES TO PAULA ####

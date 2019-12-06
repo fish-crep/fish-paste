@@ -1,53 +1,62 @@
 rm(list=ls())
+library(dplyr)
+source("D:/CRED/fish_team_R/fish-paste/lib/core_functions.R")
+source("D:/CRED/fish_team_R/fish-paste/lib/fish_team_functions.R")
+source("D:/CRED/fish_team_R/fish-paste/lib/Islandwide Mean&Variance Functions.R")
 
-setwd("D:/CRED/fish_team_R/fish-paste/lib")
-source("fish_team_functions.R")
-source("Islandwide Mean&Variance Functions.R")
-source("D:/CRED/fish_team_R/R/diver_v_diver4.R")
-setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/data/Data Outputs")
+setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/data/Data Outputs")
 library(reshape)
 
 ##### Table 2 in report body ######
-load("D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/data/Data Outputs/MONREPdata_pooled_reg_FRF.rdata")
+load("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/data/Data Outputs/MONREPdata_pooled_reg_FRF.rdata")
 ref<-as.data.frame(dpR) # forereef only reference
-# get relevant columns
-test<-ref[,c("Mean.REGION","Mean.N","Mean.TotFish","Mean.PISCIVORE","Mean.SECONDARY","Mean.PRIMARY","Mean.PLANKTIVORE","Mean.0_20","Mean.20_50","Mean.50_plus")]
+# get relevant columns with mean and SE
+test<-ref[,c("Mean.REGION","Mean.N","Mean.TotFish","PooledSE.TotFish","Mean.PISCIVORE","PooledSE.PISCIVORE","Mean.SECONDARY","PooledSE.SECONDARY","Mean.PRIMARY","PooledSE.PRIMARY","Mean.PLANKTIVORE","PooledSE.PLANKTIVORE","Mean.0_20","PooledSE.0_20","Mean.20_50","PooledSE.20_50","Mean.50_plus","PooledSE.50_plus")]
 # round to 1 decimal place
-temp<-round(test[,c(2:10)],digits=1)
-test<-cbind(test$Mean.REGION,temp)
-# rename region
-names(test)[1]<-"REGION"
-# order: NWHI, MHI, N. MARIAN, S.MARIAN, PRIAs, SAMOA
-#levels(test$REGION)<-c("NWHI", "MHI", "N. MARIAN", "S.MARIAN", "PRIAs", "SAMOA")
-# save file
-write.csv(test,file="D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/table_2.csv")
-
-# separate table for st dev
-test<-ref[,c("Mean.REGION","Mean.N","PooledSE.TotFish","PooledSE.PISCIVORE","PooledSE.SECONDARY","PooledSE.PRIMARY","PooledSE.PLANKTIVORE","PooledSE.0_20","PooledSE.20_50","PooledSE.50_plus")]
-temp<-round(test[,c(3:10)],digits=1)
+temp<-round(test[,c(3:18)],digits=1)
 test<-cbind(test$Mean.REGION,test$Mean.N,temp)
 # rename region
-names(test)[1]<-"REGION"
-# order: NWHI, MHI, N. MARIAN, S.MARIAN, PRIAs, SAMOA
-#levels(test$REGION)<-c("NWHI", "MHI", "N. MARIAN", "S.MARIAN", "PRIAs", "SAMOA")
-# save file
-write.csv(test,file="D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/table_2stdev.csv")
+names(test)[1]<-"Region"
+names(test)[2]<-"Sites"
+
+# combine mean and SE in one column for each metric
+test$All_fishes<-paste(test$Mean.TotFish," (",test$PooledSE.TotFish,")",sep="")
+test$Piscivores<-paste(test$Mean.PISCIVORE," (",test$PooledSE.PISCIVORE,")",sep="")
+test$Sec_consumers<-paste(test$Mean.SECONDARY," (",test$PooledSE.SECONDARY,")",sep="")
+test$Pri_consumers<-paste(test$Mean.PRIMARY," (",test$PooledSE.PRIMARY,")",sep="")
+test$Planktivores<-paste(test$Mean.PLANKTIVORE," (",test$PooledSE.PLANKTIVORE,")",sep="")
+test$small_cm_TL<-paste(test$Mean.0_20," (",test$PooledSE.0_20,")",sep="")
+test$mid_cm_TL<-paste(test$Mean.20_50," (",test$PooledSE.20_50,")",sep="")
+test$great_cm_TL<-paste(test$Mean.50_plus," (",test$PooledSE.50_plus,")",sep="")
+
+# just keep relevant columns
+colnames(test)
+teste<-test[,c(1,2,19:26)]
+head(teste)
+tests<-rbind(teste[c(2,1,6,5,3,4),])
+
+write.csv(tests,file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/tables/table_2.csv")
+
 
 ### appendices
 # appendix 2: All surveys per region per year and method used -----------------
-
+library(plyr)
+library(dplyr)
+library(tidyr)
 load("working_site_data.rdata")
-site.data<-wsd
-
-## table... regions surveyed per year
-levels(site.data$REGION_NAME)<-c("Am.Samoa","Main HI","Mariana Arch.","Northwest HI", "PRIAs")
-tmp<-table(site.data$REGION_NAME, site.data$OBS_YEAR, site.data$METHOD)
-test<-as.data.frame(tmp)
-write.csv(test,"D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/appendix_surveys_per_method_per_region_per_yearKM.csv")
-tmp[which(tmp[,] == 0)]<-" "
-
-write.csv(tmp, "D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/appendix_surveys_per_method_per_region_per_yearIVOR.csv")
-write.csv(site.data,file= "D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/appendix_surveys_per_method_TEMP.csv")
+# add '1' to each site so that can be summed for sites by region, year, and method
+wsd$N<-1
+# use ddply to make a pivot table
+site<-ddply(wsd, .(REGION,OBS_YEAR,METHOD),summarize,"n_sites"=sum(N))
+# cast table to be region by year, just need from 2009 on...
+year<-cast(site,REGION~OBS_YEAR)
+# get regions in order: N. Mariana, S Mariana, MHI,NWHI,PRIMNM,Am. Samoa
+year
+year<-rbind(year[c(6,5,1,2,3,4),])
+# this gives NA values for some years, replace that with a dash
+year[is.na(year)] <-"-"
+#save file
+write.csv(year,"D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/tables/appendix_surveys_per_method_per_region_per_year.csv")
 
 # appendix 4: strata sector by year ---------------------------------------
 # these show sites at the level they were pooled for analysis. Backreef and ROSE lagoon sites are all pooled. Drop sectors that have 1 site, these were dropped for analysis
@@ -56,63 +65,43 @@ getwd()
 load("sites_year_reef_zone_depth_bin.Rdata") # loads as 'a'
 wd<-a
 head(wd)
+# get 2019 sites
+wd<-wd[wd$ANALYSIS_YEAR=="2019",]
+write.csv(wd,file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/tables/sites_year_reef_zone_depth_bin2019.csv")
+# wd$Forereef<-(wd$FD+wd$FM+wd$FS)
+# wd$Lagoon<-(wd$LD+wd$LM+wd$LS) # should equal LA = LAGOON ALL?
+# wd$protected_slope<-(wd$PD+wd$PM+wd$PS)
+# wd$Backreef<-wd$BA
+# wd$all_sites<-(wd$Forereef+wd$Lagoon+wd$LA+wd$protected_slope+wd$Backreef)
 
-wd$Forereef<-(wd$FD+wd$FM+wd$FS)
-wd$Lagoon<-(wd$LD+wd$LM+wd$LS) # should equal LA = LAGOON ALL?
-wd$protected_slope<-(wd$PD+wd$PM+wd$PS)
-wd$all_sites<-(wd$Forereef+wd$Lagoon+wd$LA+wd$protected_slope)
-write.csv(wd,file="sites_year_reef_zone_depth_bin.csv")
+# get relevant columns for appendix
+colnames(wd)
+wda<-wd[,c("REGION","ISLAND","SEC_NAME","BA","FD","FM","FS","LA","LD","LM","LS","PD","PM","PS")]
+#rename fields
+colnames(wda)[1]<-"Region"
+colnames(wda)[2]<-"Island"
+colnames(wda)[3]<-"Sector"
+colnames(wda)[4]<-"Backreef"
+colnames(wda)[5]<-"Forereef-D"
+colnames(wda)[6]<-"Forereef-M"
+colnames(wda)[7]<-"Forereef-S"
+colnames(wda)[8]<-"Lagoon"
+colnames(wda)[9]<-"Lagoon-D"
+colnames(wda)[10]<-"Lagoon-M"
+colnames(wda)[11]<-"Lagoon-S"
+colnames(wda)[12]<-"Protected Slope-D"
+colnames(wda)[13]<-"Protected Slope-M"
+colnames(wda)[14]<-"Protected Slope-S"
 
-# ################old code 
-# load("working_site_data.Rdata")
-# secs<-wsd
-# head(secs)
-# # @#$^^$% SOUTH BANK!!
-# secs<-secs[secs$ISLAND !="South Bank",]
-# secs<-droplevels(secs)
-# head(secs)
-# names(secs)
-# secs<-secs[,c("REGION","ISLAND","ANALYSIS_SEC","ANALYSIS_YEAR", "ANALYSIS_STRATA","SITE")]# ANALYSIS_YEAR, REGION, ISLAND, ANALYSIS_SEC, ANALYSIS_STRATA 
-# secs$N<-1 # to sum number of sites in each sector/depth bin
-# # select only sites from 2017
-# test<-secs[secs$ANALYSIS_YEAR=="2017",]
-# summary(test)
-# test<-droplevels(test)
-# # example code below for cast function
-# #a<-cast(tmp, OBS_YEAR + REGION + ISLAND + SEC_NAME ~ REEF_ZONE + DEPTH_BIN, value="n_sites", sum, fill=NA)
-# temp<-as.data.frame(cast(test, REGION+ISLAND+ANALYSIS_SEC+ANALYSIS_YEAR~ANALYSIS_STRATA,value="N",sum, fill=NA))
-# summary(temp)
-# names(temp)
-# # use only relevant strata 
-# df<-temp[,c("ANALYSIS_YEAR","REGION" ,"ISLAND","ANALYSIS_SEC" , "ForereefDeep" ,"ForereefMid" , "ForereefShallow", "LagoonMid" , "LagoonShallow","Protected SlopeDeep","Protected SlopeMid")]
-# 
-# names(df) # change to match relevant strata
-# names(df) <- c("Year", "Region", "Island", "Sector", "Forereef-D", "Forereef-M", "Forereef-S", "Lagoon-M", "Lagoon-S","Protected Slope-D","Protected Slope-M")
-# # # sum lagoon and protected slope 
-# # str(df)
-# # df[is.na(df)] <- 0
-# # df$lagoonall<-rowSums(df[,c("Lagoon-M","Lagoon-S")])
-# # #df$psall<-rowSums(df[,c("Protected Slope-D","Protected Slope-M")])
-# # # get rid of lagoon and backreef shal,mid,deep, just keep totals
-# # names(df)
-# # df2<-df[,c("Year","Region","Island","Sector","Forereef-D","Forereef-M","Forereef-S","lagoonall", "psall")]
-# # #change names
-# # names(df2)
-# # names(df2)<-c("Year", "Region", "Island", "Sector", "Forereef-D", "Forereef-M", "Forereef-S","Lagoon-All","Protected Slope-All")
-# # # change zeros to blank entries
-# # df2[df2 == 0]<-NA
-# 
-# # DROP sectors that only have 1 rep, change NAs to blank entries
-# df[df == 1]<-NA
-# df[is.na(df)]<-" " 
-# write.csv(df, file="D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/tables/appendix_sector_year_data_table.csv")
+# remove strata with zero sites
+summary(wda)
+wdb<-wda[,c("Region","Island","Sector","Forereef-D","Forereef-M","Forereef-S")]
+
+write.csv(wdb,file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/tables/appendix_4.csv")
 
 # appendix 5: diver vs diver comparisons ----------------------------------
 getwd()
-
 load("raw_working_data.rdata")
-
-wd[wd$FAMILY=="",]$FAMILY<-"UNKNOWN"
 
 ## need to read in the species_table from Fish Base
 #Pull all species information into a separate df, for possible later use ..
@@ -121,9 +110,9 @@ species_table<-Aggregate_InputTable(wd, FISH_SPECIES_FIELDS)
 
 ## using Calc_REP functions (from fish_team_functions) to get richness and biomass estimates per replicate....
 r1<-Calc_REP_Bio(wd, "FAMILY"); family.cols<-names(r1)[7:dim(r1)[2]]
-# naming difference for unknown.. quick temp fix
-#family.cols # where is UNKNOWN?
-#family.cols<-family.cols[-67] ## drop level UNKNOWN
+# naming difference for unknown.. quick temp fix...drop unknown because we can't compare those?
+family.cols # where is UNKNOWN?
+#family.cols<-family.cols[-68] ## drop level UNKNOWN
 r1$TotFish<-rowSums(r1[,family.cols])
 
 r2<-Calc_REP_Species_Richness(wd)
@@ -152,33 +141,21 @@ names(compdata)<-c("REPLICATEID","SITEVISITID","SITE","REP","TotFish","SPECIESRI
 
 
 # set wd
-setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/figures/appndx")
+setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/figures/appendix")
 ## divervsdiver4 - creates an anonymous and named version of diver comparisons for totfish, richness and coral estimates 
-# get list of regions surveyed this year
-unique(compdata$REGION)
-
 ##- need to look at the range of the data per year region to tweak the x axis range
-dataNWHI<-compdata[compdata$REGION=="NWHI"&compdata$ANALYSIS_YEAR==2017,]
-summary(dataNWHI)# look at max value for tot fish and adjust x_range below - same scale for each region, just find largest number. Ok if you get warnings and it cuts some values out. 
-dataPRIA<-compdata[compdata$REGION=="PRIAs"&compdata$ANALYSIS_YEAR==2017,]
-summary(dataPRIA)
+dataMHI<-compdata[compdata$REGION=="MHI"&compdata$ANALYSIS_YEAR==2019,]
+summary(dataMHI)# look at max value for tot fish and adjust x_range below - may need to adjust for extreme outliers
+
 ## to create a multigraph with total fish, richness and coral estimates run divervsdiver3
-divervsdiver4(data=compdata, year = "2017", region="NWHI", x_range= 100)
-divervsdiver4(data=compdata, year = "2017", region="N.MARIAN", x_range= 100) # 75
-divervsdiver4(data=compdata, year = "2017", region="PRIAs", x_range= 100) # 50
-divervsdiver4(data=compdata, year = "2017", region="S.MARIAN", x_range= 100) # 25
+divervsdiver4(data=compdata, year = "2019", region="MHI", x_range= 150)
 
-# trying to make graphs taller to see graphs with lots of divers
-setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/figures/appndx/diver_v_diver")
-#divervsdiver4(data=compdata, year = "2016", region="NWHI", x_range= 100)
-divervsdiver4(data=compdata, year = "2016", region="SAMOA", x_range= 100)
-#divervsdiver4(data=compdata, year = "2016", region="PRIAs", x_range= 100)
-#divervsdiver4(data=compdata, year = "2016", region="MHI", x_range= 100)
 
- 
-#------------- appendix 6: random stratified sites surveyed per region / island -------------
+# appendix 6: random stratified sites surveyed per region / island -------------####
+# last year's table is in tables folder from 2017, I just added sites from excel from current year
 
-load("D:/CRED/fish_cruise_routine_report/monitoring_report/2017_status_report/data/Data Outputs/clean_working_site_data_used_in_higher_pooling_for_report.Rdata")
+#OR: 
+load("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/data/Data Outputs/clean_working_site_data_used_in_higher_pooling_for_report.Rdata")
 site.data.nspc<-wsd.uncap
 # @#$^^$% SOUTH BANK!!
 site.data.nspc<-site.data.nspc[site.data.nspc$ISLAND !="South Bank",]
@@ -189,28 +166,44 @@ site.data.nspc<-site.data.nspc[,c("REGION","OBS_YEAR","ISLAND","ANALYSIS_YEAR","
 # give a count to each site to sum by year and island
 site.data.nspc$N<-1
 head(site.data.nspc)
-levels(site.data.nspc$REGION)<-c("Main HI", "Northwest HI", "PRIA", "Am.Samoa", "S. Mariana","N. Mariana")
+levels(site.data.nspc$REGION)<-c("Main HI", "Northwestern HI", "PRIMNM", "Am.Samoa", "S. Mariana","N. Mariana")
 site.data.nspc$REGION<-factor(site.data.nspc$REGION, levels(site.data.nspc$REGION)[c(2,1,6,5,3,4)]) # NWHI, MHI, N. Mariana, S. Mariana, PRIA, Samoa
 df<-site.data.nspc
 levels(site.data.nspc$ISLAND)
-#match island to factor number(16, 23,32,19,18,7,20,6,25,26,27,14,28,24,17,22,13,9,5,21,3,1,30,42,35,39,2,34,8,41,12,15,31,10,4,11,37,29,38,40,33,36)
-#df$ISLAND<-factor(df$ISLAND, levels(df$ISLAND)[c("Kure","Midway","Pearl & Hermes","Lisianski","Laysan","Gardner","Maro", "French Frigate","Necker", "Nihoa","Niihau","Kauai","Oahu","Molokai","Lanai","Maui","Kahoolawe","Hawaii","Farallon de Pajaros","Maug","Asuncion","Agrihan","Pagan","AGS","Saipan","Tinian","Aguijan","Rota","Guam","Wake","Johnston","Kingman","Palmyra","Howland","Baker", "Jarvis", "Swains","Ofu & Olosega", "Tau","Tutuila","Rose", "South Bank")])
+#match island to factor number so that island list matches the following: 
+#df$ISLAND<-factor(df$ISLAND, levels(df$ISLAND)[c("Kure","Midway","Pearl & Hermes","Lisianski","Laysan","Gardner","Maro", "French Frigate","Necker", "Nihoa","Niihau","Kauai","Oahu","Molokai","Lanai","Maui","Kahoolawe","Hawaii","Farallon de Pajaros","Maug","Asuncion","Agrihan","Pagan","AGS","Saipan","Tinian","Aguijan","Rota","Guam","Wake","Johnston","Kingman","Palmyra","Howland","Baker", "Jarvis", "Swains","Ofu & Olosega", "Tau","Tutuila","Rose")])
 
-#site.data.nspc$ISLAND<-factor(site.data.nspc$ISLAND, levels(site.data.nspc$ISLAND)[c(16, 23,32,19,18,7,20,6,25,26,27,14,28,24,17,22,13,9,5,21,3,1,30,42,35,39,2,34,8,41,12,15,31,10,4,11,37,29,38,40,33,36)])
-
-
+# this *should* work:
+site.data.nspc$ISLAND<-factor(site.data.nspc$ISLAND, levels(site.data.nspc$ISLAND)[c(17,24,33,20,19,8,21,7,26,27,28,15,29,25,18,23,14,10,6,22,4,1,31,2,36,39,3,35,9,41,13,16,32,11,5,12,37,30,38,40,34)])
+# Check to make sure island list matches above commented out list
+levels(site.data.nspc$ISLAND)
 
 a<-tapply(site.data.nspc$N, list(site.data.nspc$ISLAND, site.data.nspc$OBS_YEAR), sum)
-a<-as.data.frame(a)
+a<-data.frame(a)
 a$Total<-rowSums(a, na.rm = TRUE)
 a[is.na(a)]<-" "
 
 a$ISLAND<-as.factor(row.names(a))
 
-a$REGION<-as.vector(c(rep("Northwest HI", 10), rep("Main HI", 8), rep("N. Mariana", 6),rep("S. Mariana", 5), rep("PRIA", 7), rep("Am.Samoa", 6)))
+a$REGION<-as.vector(c(rep("Northwestern HI", 10), rep("Main HI", 8), rep("N. Mariana", 6),rep("S. Mariana", 5), rep("PRIMNM", 7), rep("Am.Samoa", 5)))
 
-names(a)<-c("2009", "2010", "2011" ,"2012", "2013","2014", "2015","2016","Total", "Island", "Region")
-a<-a[,c("Region", "Island", "2009", "2010", "2011", "2012", "2013", "2014", "2015","2016","Total")]
+names(a)<-c("2009", "2010", "2011" ,"2012", "2013","2014", "2015","2016","2017","2018","2019","Total", "Island", "Region")
+a<-a[,c("Region", "Island", "2009", "2010", "2011", "2012", "2013", "2014", "2015","2016","2017","2018","2019","Total")]
 
-write.csv(a, file="D:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/tables/appendix_nspc_surveys_per_island.csv")
+write.csv(a, file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/tables/appendix_nspc_surveys_per_island.csv")
 
+# Table for island figures and sites surveyed per year and habitat --------------------------
+
+# load site data
+library(plyr)
+load("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/data/Data Outputs/working_site_data.rdata")
+head(wsd)
+summary(wsd)
+unique(wsd$OBS_YEAR)
+
+# add count column to sum sites
+wsd$N<-1
+# sum by island, reef zone, year
+sum<-ddply(wsd, .(ISLAND,METHOD,OBS_YEAR,REEF_ZONE),summarize,"n_sites"=sum(N))
+head(sum)
+write.csv(sum, file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/tables/nspc_surveys_per_island_year_zone.csv")

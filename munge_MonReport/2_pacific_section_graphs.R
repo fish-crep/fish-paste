@@ -1,4 +1,4 @@
-setwd("E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/data/Data Outputs")
+setwd("D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/data/Data Outputs")
 
 rm(list=ls())
 
@@ -12,8 +12,8 @@ library(gdata)
 # data selection ----------------------------------------------------------
 
 load("MONREPdata_pooled_is_RZ.rdata") ### island estimates mean over cruises since spc after 2007
-wd<-as.data.frame(data_pooled_is)
-rd<-as.data.frame(data_pooled_is)
+wd<-as.data.frame(dpI)
+rd<-as.data.frame(dpI)
 
 # only want to compare forereef for Pacific graphs, subset
 rd<-rd[rd$Mean.REEF_ZONE=="Forereef",]
@@ -22,8 +22,6 @@ rd<-rd[rd$Mean.ISLAND != "South Bank",]
 rd<-drop.levels(rd)
 
 # consumer group graph ----------------------------------------------------
-
-## consumer group graph
 tmr<-rd[c("Mean.REGION", "Mean.ISLAND","Mean.PRIMARY","Mean.SECONDARY", "Mean.PISCIVORE", "Mean.PLANKTIVORE", "Mean.TotFish")]
 test<-melt(tmr)
 names(test)<-c("REGION", "Island", "Consumer group", "Biomass")
@@ -37,8 +35,8 @@ levels(dt$Consumergroup)<-c("Pri. cons.", "Sec. cons.", "Piscivores", "Planktivo
 dt$Consumergroup<-reorder(dt$Consumergroup, new.order=c("Piscivores","Sec. cons.","Pri. cons.","Planktivores", "All fishes"))
 dt<-dt[order(dt$Consumergroup),]
 
-levels(dt$Region)<-c("MHI", "N.Mariana", "NWHI", "PRIA", "S.Mariana", "Samoa")
-dt$Region<-reorder(dt$Region, new.order=c("NWHI","MHI","N.Mariana","S.Mariana","PRIA", "Samoa"))
+levels(dt$Region)<-c("MHI", "N.Mariana", "NWHI", "PRIMNM", "S.Mariana", "Samoa")
+dt$Region<-reorder(dt$Region, new.order=c("NWHI","MHI","N.Mariana","S.Mariana","PRIMNM", "Samoa"))
 dt<-dt[order(dt$Region),]
 
 ####  !!!!!! May need to update island names !!!!!!!!!!!
@@ -82,10 +80,22 @@ p <- ggplot(dt, aes(fill=Consumergroup, y=Biomass, x=Island)) +
 
 p
 
-ggsave(filename ="E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/figures/pacific_graph_consumers.png", width=7, height = 5.8, units = 'in')
-#tiff(file="E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/figures/pacific_graph_consumersTIFF.tiff",width=7,height=5.8,pointsize=1/300,units='in',res=300)
-#p
-#dev.off()
+# SAVE AS LOW-RES PNG:
+ggsave(filename ="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/figures/pacific_graph_consumers.png", width=7, height = 5.8, units = 'in')
+
+
+# SAVE AS HIGH-RES TIFF:
+tiff(file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/figures/pacific_graph_consumersTIFF.tiff",width=7,height=5.8,pointsize=1/300,units='in',res=300)
+p <- ggplot(dt, aes(fill=Consumergroup, y=Biomass, x=Island)) + 
+  geom_bar(width = 0.85, position= position_dodge(width=0.5), stat="identity", colour="black") +
+  geom_errorbar(limits, position=dodge, width=0.25) + 
+  scale_fill_brewer(palette = "Blues") + 
+  facet_grid(Consumergroup ~ Region, scales = "free", space="free_x") + 
+  theme_bw() +
+  labs(y = expression(paste("Fish biomass (g ", m^-2,")")))
+
+p
+dev.off()
 
 # size class graph --------------------------------------------------------
 
@@ -99,9 +109,9 @@ names(test2)<-c("Region", "Island", "Size class", "SE")
 dt<-as.data.frame(cbind(test, test2$SE))
 names(dt)<-c("Region","Island","Size_class", "Biomass", "SE")
 levels(dt$Size_class)<-c("0-20 cm TL", "20-50 cm TL", ">50 cm TL")
-levels(dt$Region)<-c("MHI", "N.Mariana", "NWHI", "PRIA", "S.Mariana", "Samoa")
+levels(dt$Region)<-c("MHI", "N.Mariana", "NWHI", "PRIMNM", "S.Mariana", "Samoa")
 
-dt$Region<-reorder(dt$Region, new.order=c("NWHI","MHI","N.Mariana","S.Mariana","PRIA", "Samoa"))
+dt$Region<-reorder(dt$Region, new.order=c("NWHI","MHI","N.Mariana","S.Mariana","PRIMNM", "Samoa"))
 dt<-dt[order(dt$Region),]
 
 ### !!!! May need to update island names !!!!!
@@ -122,5 +132,17 @@ p <- ggplot(dt, aes(fill=Size_class, y=Biomass, x=Island)) +
   theme_bw() +
   labs(y = expression(paste("Fish biomass (g ", m^-2,")")))
 p
-ggsave(filename ="E:/CRED/fish_cruise_routine_report/monitoring_report/2016_status_report/figures/pacific_graph_size_class.png", width=7, height = 5.5, units = c("in"))
+# SAVE AS A PNG, LESS MEMORY:
+ggsave(filename ="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/figures/pacific_graph_size_class.png", width=7, height = 5.5, units = c("in"))
 
+# SAVE AS HIGH RESOLUTION TIFF:
+tiff(file="D:/CRED/fish_cruise_routine_report/monitoring_report/2019_status_report/figures/pacific_graph_sizeTIFF.tiff",width=7,height=5.8,pointsize=1/300,units='in',res=300)
+l<-ggplot(dt, aes(fill=Size_class, y=Biomass, x=Island)) + 
+  geom_bar(width = 0.85, position= position_dodge(width=0.5), stat="identity", colour="black") +
+  geom_errorbar(limits, position=dodge, width=0.25) + 
+  scale_fill_brewer(palette = "YlOrRd") + 
+  facet_grid(Size_class ~ Region, scales = "free", space="free_x") + 
+  theme_bw() +
+  labs(y = expression(paste("Fish biomass (g ", m^-2,")")))
+l
+dev.off()
