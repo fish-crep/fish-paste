@@ -104,6 +104,7 @@ wd$LND<-NULL
 wd.out<-merge(orig.wd, wd[,c("OBJECTID", "DEPTH_BIN", "HARD_10", "HARD_50", "ZONE_CODE")], by="OBJECTID", all.x=T)  #was previously joining on OBJECTID
 
 # save file 
+setwd("X:/GIS/Projects/CommonMaps/02_PostProcess/02_rscriptoutput/20190809")
 write.csv(wd.out,file=paste("FISH_FIELDS",gridf, sep="_"), row.names = FALSE)
 #write.csv(wd.out,file=paste("IDWx", gridf, sep="_"))
 
