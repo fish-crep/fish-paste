@@ -1,12 +1,19 @@
 #### Add fish fields to common map grrds  #####
+
+####!!!!!!! This code is a compilation of all islands in the MHI. As each island becomes available, that island is added to the GRIDFILES list. When that island is added, to run this code JUST FOR THAT ISLAND, indicate the item number in the list as INDEX. For example, if you added niihau and are running that island, INDEX<-5
+
+library(tidyverse)
 rm(list=ls(all=TRUE))
-setwd("/Users/ivor.williams/Documents/CRED/Fish Team/Grids")
+setwd("X:/GIS/Projects/CommonMaps/02_PostProcess/01_gdbexport/MHI_2018")
 
 # bring in common csv file, change file name for each island
-### not all islands have hard/soft information or reef zones
+### not all islands have hard/soft information or reef zones - BUT AT THIS POINT, ALL *SHOULD* HAVE REEF ZONE
+a<-read.csv("lan_50m_grid_join_table.csv")
 
-GRIDFILES<-c("oah_50m_grid_join_table1.csv", "oah_50m_grid_join_table2.csv", "mol_50m_grid_join_table.csv", "kau_50m_grid_join_table.csv", "nii_50m_grid_join_table.csv")
-INDEX<-2
+GRIDFILES<-c("oah_50m_grid_join_table1.csv", "oah_50m_grid_join_table2.csv", "mol_50m_grid_join_table.csv", "kau_50m_grid_join_table.csv", "nii_50m_grid_join_table.csv", "lan_50m_grid_join_table.csv")
+
+# set this for island you are running, MOST LIKELY last item in the GRIDFILES list
+INDEX<-6
 gridf<-GRIDFILES[INDEX]
 
 wd<-orig.wd<-read.csv(gridf)
@@ -24,6 +31,11 @@ wd[which(wd$Bty_Mean >= -30 & wd$Bty_Mean < -18),]$DEPTH_BIN<-"DEEP"
 wd[which(wd$Bty_Mean < -30),]$DEPTH_BIN<-"MESO"
 # not all grids have this, but some have values of 1
 #wd[which(wd$Bty_Mean >= 0),]$DEPTH_BIN<-"LAND"    #Possibly set to SHAL! (as default) .. as these are right next to land!
+
+# check for missing depth bin values
+head(wd %>% filter(DEPTH_BIN == "MISSING")) # SHOULD RETURN ZERO ROWS
+
+# check data to see if we have a range of hard bottom percentage values
 table(wd$DEPTH_BIN, wd$Hard_Per)
 
 if("Hard_Per" %in% colnames(wd)){
@@ -57,10 +69,8 @@ if("Hard_Per" %in% colnames(wd)){
 
 wd$ZONE_CODE<-"FRF"   #Default
 # add reef zone field - whatever is largest
+# set INDEX to islands in GRIDFILES list that DO NOT HAVE REEF ZONE FIELDS ! but all SHOULD have! 
 if(!INDEX %in% c(999)){
-	# RZ_NAMES<-c("RZ_FRF_Per", "RZ_BRF_Per", "RZ_LAG_Per", "RZ_RCF_Per", "RZ_PRS_Per", "RZ_LND_Per", "RZ_UNK_Per")
-	# wd$MAX_POS<-apply(wd[,RZ_NAMES],1,which.max)
-	# RZONES<-c("FRF", "BRF", "LAG", "RCF", "PRS", "LND", "UNK")
 #Modified to not set to LND here ... can only do that below (if LND is > 50) .. so just picking the dominant reef type
 	RZ_NAMES<-c("RZ_FRF_Per", "RZ_BRF_Per", "RZ_LAG_Per", "RZ_RCF_Per", "RZ_PRS_Per", "RZ_OTH_Per")
 	wd$MAX_POS<-apply(wd[,RZ_NAMES],1,which.max)
@@ -94,7 +104,8 @@ wd$LND<-NULL
 wd.out<-merge(orig.wd, wd[,c("OBJECTID", "DEPTH_BIN", "HARD_10", "HARD_50", "ZONE_CODE")], by="OBJECTID", all.x=T)  #was previously joining on OBJECTID
 
 # save file 
-write.csv(wd.out,file=paste("IDW", gridf, sep="_"), row.names = FALSE)
+write.csv(wd.out,file=paste("FISH_FIELDS",gridf, sep="_"), row.names = FALSE)
 #write.csv(wd.out,file=paste("IDWx", gridf, sep="_"))
 
 table(wd$ZONE_CODE)
+# in next processing step, check OTHER delineations (channel, etc.)
