@@ -1,4 +1,4 @@
-REGION,ISLAND,SEC_NAME,REEF_ZONE,DEPTH_BIN,AREA_HA,REP_CARD,RAMP_CURRENT,RAMP_BASIC,MARI2011,MARI2014,TUT10_12,AS_SANCTUARY,bA_BENTHIC_REP_CARD,bBENTHIC_SEC_CODE,bGEN_MHI_STRUCTURE,bPROTECTION_DS,NH,BENTHIC_BASIC,SAMOA_CLIMATE,BENTHIC_2018,NOTES
+REGION,ISLAND,SEC_NAME,REEF_ZONE,DEPTH_BIN,AREA_HA,REP_CARD,RAMP_CURRENT,RAMP_BASIC,MARI2011,MARI2014,TUT10_12,AS_SANCTUARY,bA_BENTHIC_REP_CARD,bBENTHIC_SEC_CODE,bGEN_MHI_STRUCTURE,bPROTECTION,NH,BENTHIC_BASIC,SAMOA_CLIMATE,BENTHIC_2018,NOTES
 CT,Timor Leste,ATA,Forereef,Mid,1,NOT,ATA,ATA,NOT,NOT,NOT,NOT,Timor Leste,Timor Leste,NA,NA,NA,Timor Leste,NOT,ATA,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
 CT,Timor Leste,ATA,Forereef,Shallow,1,NOT,ATA,ATA,NOT,NOT,NOT,NOT,Timor Leste,Timor Leste,NA,NA,NA,Timor Leste,NOT,ATA,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"
 CT,Timor Leste,BAU,Forereef,Mid,1,NOT,BAU,BAU,NOT,NOT,NOT,NOT,Timor Leste,Timor Leste,NA,NA,NA,Timor Leste,NOT,BAU,"Unkown Size ,, setting to 1 (so all reef zones equal, and as placeholder that is obvioulsy wrong)"

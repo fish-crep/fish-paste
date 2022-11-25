@@ -1,0 +1,16 @@
+#Read in SITEVISIT table from Oracle & prepare file to match the columns in SURVEY MASTER file.
+#Send this revised SITEVISIT table to Kisei to merge sector name
+
+sv<-read.csv("T:/Benthic/Data/REA Coral Demography & Cover/RA2201_V0_SITE_VISIT_DATA.csv")
+
+c("SITEVISITID",	"REGION",	"ISLAND",	"SITE",	"OLD_SITE",	"OCC_SITEID",	"REEF_ZONE",	"DEPTH_BIN",
+"ROUNDID",	"MISSIONID",	"OBS_YEAR",	"DATE_",	"HABITAT_CODE",	"LATITUDE_SV",	"LONGITUDE_SV",	"LATITUDE_LOV",	"LONGITUDE_LOV",
+"EXCLUDE_FLAG",	"CLIMATE_STATION_YN",	"PERM_SITE",	"TRANSECT_PHOTOS",	"PHOTOMOSAIC_YN",	"new_MIN_DEPTH_M",	"new_MAX_DEPTH_M",	"benth",
+"fish",	"arms_d",	"arms_r",	"cau_d",	"cau_r",	"microb",	"ARMS",	"Benthic",	"CAU",	"Fish",	"Oceanography",	"SEC_NAME",	"HUMANS20",	"HUMANS200",	"TYPE",	"ANALYSIS_SCHEME",	"bANALYSIS_SCHEME",	"ANALYSIS_YEAR",
+"TUT2012",	"OTHER_AREA_GROUPING",	"SPECIAL_PROJ_YN",	"SPECIAL_PROJ_DESCRIPTION")
+
+#Tweaks
+colnames(sv)[colnames(sv)=="MAX_Z_M"]<-"new_MAX_DEPTH_M"
+colnames(sv)[colnames(sv)=="MIN_Z_M"]<-"new_MIN_DEPTH_M"
+colnames(sv)[colnames(sv)=="LONGITUDE_LOS"]<-"LONGITUDE_LOV"
+colnames(sv)[colnames(sv)=="LATITUDE_LOS"]<-"LATITUDE_LOV"
