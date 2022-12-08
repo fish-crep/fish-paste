@@ -1,0 +1,81 @@
+#Read in SITEVISIT table from Oracle & prepare file to match the columns in SURVEY MASTER file.
+#Send this revised SITEVISIT table to Kisei to merge sector name
+
+```{r} 
+rm(list = ls()) # clear workspace
+library(tidyverse)
+
+raw<-read.csv("C:/Users/tye.kindinger/Desktop/Cleaned_sitevisit_112322_SEC_NAME.csv") # 806 sites
+
+# Only OCC sites with photoquads / SfM  (May want to eventually include all OCC sites into survey master- this will be a bigger lift)
+raw_bf <- raw %>% filter(!(TYPE %in% c("Oceanography") & PHOTOMOSAIC_YN == "NO" & TRANSECT_PHOTOS == "NO")) # 593 sites
+
+## QC
+raw_bf %>% distinct(TYPE, PHOTOMOSAIC_YN, TRANSECT_PHOTOS, CB_ACTIVITY_YN, FISH_REA_YN) %>% arrange(TYPE)
+raw_bf %>% filter(TYPE == "Fish" & FISH_REA_YN == "NO") # 5 sites (TYPE = Fish) with CTD/water samples but no Fish surveys?? 
+raw_bf %>% filter(SITE %in% c("ROT-717", "ROT-742", "AGU-541", "AGU-549")) %>% distinct(SITE, TYPE, CTD_ACTIVITY_YN, H2O_ACTIVITY_YN, FISH_REA_YN)
+
+raw_bf %>% filter(CB_ACTIVITY_YN == "YES") %>% distinct(TYPE)
+raw_bf %>% filter(ASSOC_OCC_SITEID != "")
+# carb budget fish surveys --> want all to have FISH_REA_YN = NO
+raw_bf %>% filter(TYPE == "Fish" & CB_ACTIVITY_YN == "YES") 
+raw_bf %>% filter(FISH_REA_YN == "YES" & CB_ACTIVITY_YN == "YES") # GUA-2587 needs to be fixed!
+
+# check sector names assigned to sites
+raw_bf %>% distinct(SEC_NAME)
+raw_bf %>% filter(grepl("TUT_", SEC_NAME)) %>% distinct(TYPE) # 18 benthic sites from Tutuila (Samoa)
+raw_bf %>% filter(grepl("TUT_", SEC_NAME)) %>% distinct(EXCLUDE_FLAG) # NOT currently excluded
+raw_bf %>% filter(grepl("HAW_", SEC_NAME)) # 2 Fish sites from Kona, HI
+raw_bf %>% filter(grepl("HAW_", SEC_NAME)) %>% distinct(EXCLUDE_FLAG) # GOOD TO GO --> excluded already
+
+## FIX QC ISSUES
+sv <- raw_bf %>% filter(!(TYPE == "Fish" & FISH_REA_YN == "NO")) %>% # REMOVE sites that are TYPE = Fish but are only water sampling (5 sites - see list above)
+  filter(!(FISH_REA_YN == "YES" & CB_ACTIVITY_YN == "YES")) %>% # REMOVE 1 CB site (not Fish REA or benthic PQ/SfM) --> CHECK if there's a way to indicate the fish surveys but indicate they're non-NCRMP w/ EXCLUDE_FLAG column
+  mutate(EXCLUDE_FLAG = ifelse(grepl("TUT_", SEC_NAME), "YES", EXCLUDE_FLAG)) # indicate EXCLUDE for Samoa mission (non-NCRMP)
+
+## CLEANUP
+colnames(sv)[colnames(sv)=="MAX_DEPTH_M"]<-"new_MAX_DEPTH_M"
+colnames(sv)[colnames(sv)=="MIN_DEPTH_M"]<-"new_MIN_DEPTH_M"
+colnames(sv)[colnames(sv)=="LONGITUDE_LOS"]<-"LONGITUDE_LOV"
+colnames(sv)[colnames(sv)=="LATITUDE_LOS"]<-"LATITUDE_LOV"
+colnames(sv)[colnames(sv)=="MICROBIAL_YN"]<-"microb"
+colnames(sv)[colnames(sv)=="CAUS_DEPLOY_YN"]<-"cau_d"
+colnames(sv)[colnames(sv)=="CAUS_RETRIEVE_YN"]<-"cau_r"
+
+## INDICATORS OF SITE TYPE
+sv.final <- sv %>% mutate(Benthic = ifelse(TYPE == "Benthic", 1, 0)) %>% 
+  mutate(Fish = ifelse(TYPE == "Fish" & FISH_REA_YN == "YES", 1, 0)) %>%
+  mutate(Oceanography = ifelse(TYPE == "Oceanography", 1, 0)) %>%
+  mutate(CAU = ifelse(cau_r== "YES", 1, 0))
+ 
+write.csv(sv.final, "C:/Users/tye.kindinger/Desktop/Cleaned_SITEVISIT_12072022.csv")
+```
+
+
+
+
+sv$PERM_SITE<-NA
+sv$OLD_SITE<-NA
+sv$benth<-NA
+sv$fish<-NA
+sv$ARMS<-NA
+sv$microb<-NA
+sv$arms_r<-NA
+sv$arms_d<-NA
+sv$SEC_NAME<-NA
+sv$HUMANS20<-NA 
+sv$HUMANS200<-NA 
+sv$TYPE<- NA
+sv$ANALYSIS_SCHEME<-NA
+sv$bANALYSIS_SCHEME<-NA
+sv$ANALYSIS_YEAR<-NA
+sv$TUT2012<-NA
+sv$OTHER_AREA_GROUPING<-NA
+sv$SPECIAL_PROJ_YN<-NA
+sv$SPECIAL_PROJ_DESCRIPTION<-NA
+sv$OBS_YEAR<-2022
+
+sv.final <- sv %>% select(SITEVISITID,	REGION,	ISLAND,	SITE,	OLD_SITE,	OCC_SITEID,	REEF_ZONE,	DEPTH_BIN,  ROUNDID,	MISSIONID,	OBS_YEAR,	DATE_,	HABITAT_CODE,	LATITUDE_SV, LONGITUDE_SV,	LATITUDE_LOV,	LONGITUDE_LOV, EXCLUDE_FLAG,	CLIMATE_STATION_YN,	PERM_SITE,	TRANSECT_PHOTOS,	PHOTOMOSAIC_YN,	new_MIN_DEPTH_M,	new_MAX_DEPTH_M,	benth, fish,	arms_d,	arms_r,	cau_d,	cau_r,	microb,	ARMS,	Benthic,	CAU,	Fish,	Oceanography,	SEC_NAME,	HUMANS20,	HUMANS200,	TYPE,	ANALYSIS_SCHEME,	bANALYSIS_SCHEME,	ANALYSIS_YEAR, TUT2012,	OTHER_AREA_GROUPING,	SPECIAL_PROJ_YN,	SPECIAL_PROJ_DESCRIPTION)
+
+write.csv(sv.final, "C:/Users/tye.kindinger/Desktop/Cleaned_SITEVISIT_12072022.csv")
+```
