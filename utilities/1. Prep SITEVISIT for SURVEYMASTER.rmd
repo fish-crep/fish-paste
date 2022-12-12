@@ -11,13 +11,16 @@ raw_bf <- raw %>% filter(!(TYPE %in% c("Oceanography") & PHOTOMOSAIC_YN == "NO" 
 ## QC
 raw_bf %>% distinct(TYPE, PHOTOMOSAIC_YN, TRANSECT_PHOTOS, CB_ACTIVITY_YN, FISH_REA_YN) %>% arrange(TYPE)
 raw_bf %>% filter(TYPE == "Fish" & FISH_REA_YN == "NO") # 5 sites (TYPE = Fish) with CTD/water samples but no Fish surveys?? 
-raw_bf %>% filter(SITE %in% c("ROT-717", "ROT-742", "AGU-541", "AGU-549")) %>% distinct(SITE, TYPE, CTD_ACTIVITY_YN, H2O_ACTIVITY_YN, FISH_REA_YN)
+raw_bf %>% filter(SITE %in% c("ROT-717", "ROT-742", "AGU-541", "AGU-556", "AGU-549")) %>% distinct(SITEVISITID, SITE, TYPE, CTD_ACTIVITY_YN, H2O_ACTIVITY_YN, FISH_REA_YN) 
+# have unique SITEVISITIDs: REMOVE 38167, 38168, 38404, 38405,38406
 
 raw_bf %>% filter(CB_ACTIVITY_YN == "YES") %>% distinct(TYPE)
 raw_bf %>% filter(ASSOC_OCC_SITEID != "")
 # carb budget fish surveys --> want all to have FISH_REA_YN = NO
 raw_bf %>% filter(TYPE == "Fish" & CB_ACTIVITY_YN == "YES") 
 raw_bf %>% filter(FISH_REA_YN == "YES" & CB_ACTIVITY_YN == "YES") # GUA-2587 needs to be fixed!
+raw_bf %>% filter(SITE == "GUA-2587")
+# has unique SITEVISITID: REMOVE 39740
 
 # check sector names assigned to sites
 raw_bf %>% distinct(SEC_NAME)
@@ -67,12 +70,14 @@ library(tidyverse)
 ## MARIANAS 2022 QC: all sector assignments look good & all sites fall into forereef areas; no reassignments needed
 
 sv.final <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12072022_cleaned_sitevisit_CC_SEC_NAME_KT_prep_TK.csv") # 587 sites
-sv.fish <- sv.final %>% filter(Fish == 1) # FISH SITES ONLY --> 322 sites
+sv.fish <- sv.final %>% filter(Fish == 1) %>% # FISH SITES ONLY --> 322 sites
+  filter(SITEVISITID != 39522) # REMOVE 1 site that doesn't have any data --> survey was incomplete!
+# 321 sites
 
 # Specify EXTRA sites surveyed specifically for Guam MPA project inside Piti Bomb --> EXCLUDE_FLAG = YES ; otherwise, influence of Piti in Guam MP sector (all MPAs typically pooled per year) will be off/greater than in other years
 Gmpa <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/GuamMPAProject_PitiAsan_NCRMP_site_table.csv") # load GuamMPA project site indicator from Kaylyn
 # FIX QC issues
-Gmpa.qc <- Gmpa %>% filter(SITE != "GUA-026")  # remove 1 extra site --> erroneous
+Gmpa.qc <- Gmpa %>% filter(SITE != "GUA-026")  # remove 1 extra site --> erroneous (SITEVISITID = 39740)
   
 # merge with SITEVISIT
 sv.QC <- sv.fish %>% left_join(Gmpa.qc %>% select(SITEVISITID, SEC_NAME, ANALYSIS_SCHEME, starts_with("SPECIAL")) %>% dplyr::rename(SEC_MPA = SEC_NAME), by = c("SITEVISITID"))
@@ -82,20 +87,28 @@ sv.QC %>% select(SEC_NAME, SEC_MPA, ANALYSIS_SCHEME, starts_with("SPECIAL")) %>%
 sv.clean <- sv.QC %>% 
   mutate(SEC_MPA = ifelse(SITEVISITID %in% c(38981, 39407, 39000), "GUA_ASAN", SEC_MPA)) %>% # sites missed by Kaylyn in Asan 
   mutate(ANALYSIS_SCHEME = ifelse(SEC_MPA == "GUA_ASAN", "NO SCHEME", ANALYSIS_SCHEME)) %>% # turn all Asan sites to NO SCHEME
-  # indicate which sites in Asan to include as NCRMP 00> optimal target #s given we had more time in Guam due to ship delays
+  # indicate which sites in Asan to include as NCRMP --> optimal target #s given we had more time in Guam due to ship delays
   mutate(ANALYSIS_SCHEME = ifelse(SITEVISITID %in% c(38480, 39103, 39084, 38482, 38483, 39002, 38981, 39727, 38481, 38484, 39432, 39434, 39060), "RAMP_BASIC", ANALYSIS_SCHEME)) %>% 
   
   mutate(SPECIAL_PROJ_YN = ifelse(SEC_NAME == "GUA_PITI_BOMB" | SEC_MPA == "GUA_ASAN", -1, 0)) %>% # indicate all sites in Piti & Asan --> use in GuamMPA project
   mutate(SPECIAL_PROJ_DESCRIPTION = ifelse(SEC_NAME == "GUA_PITI_BOMB" | SEC_MPA == "GUA_ASAN", "Guam_Piti_2022", NA)) %>% 
   mutate(ANALYSIS_SCHEME = ifelse(SEC_NAME == "GUA_PITI_BOMB" & is.na(ANALYSIS_SCHEME), "NO SCHEME", ANALYSIS_SCHEME)) %>% # sites missed by Kaylyn in Piti --> NO SCHEME (non-NCRMP sites)
-  mutate(ANALYSIS_SCHEME = ifelse(SITEVISITID %in% c(39522, 39520), "RAMP_BASIC", ANALYSIS_SCHEME)) # 2 sites missed by Kaylyn in Piti --> NO SCHEME (non-NCRMP sites)
+  mutate(ANALYSIS_SCHEME = ifelse(SITEVISITID %in% c(39433, 39520, 39102, 39504, 39083, 39105, 39101), "RAMP_BASIC", ANALYSIS_SCHEME)) # indicate additional sites in Piti to include as NCRMP --> optimal target #s given we had more time in Guam due to ship delays
 
 # check
 sv.clean %>% select(SEC_NAME, SEC_MPA, ANALYSIS_SCHEME, starts_with("SPECIAL")) %>% distinct() %>% arrange(SEC_NAME)
+sv.clean %>% filter(SPECIAL_PROJ_DESCRIPTION == "Guam_Piti_2022" & ANALYSIS_SCHEME == "RAMP_BASIC") %>% group_by(SEC_NAME, DEPTH_BIN) %>% dplyr::summarise(n = n_distinct(SITEVISITID)) %>% as.data.frame() %>% arrange(SEC_NAME)
+# good to go! 
+#GUA_PITI_BOMB	Deep	5		
+#GUA_PITI_BOMB	Mid	4		
+#GUA_PITI_BOMB	Shallow	6		
+#GUA_WEST_OPEN	Deep	3		
+#GUA_WEST_OPEN	Mid	5		
+#GUA_WEST_OPEN	Shallow	5	
+
   
 # FINAL CLEANUP
 sv.clean %>% select(SEC_NAME, ANALYSIS_SCHEME, starts_with("SPECIAL"), EXCLUDE_FLAG) %>% distinct() %>% arrange(SEC_NAME)
-
 
 sv.qc.final <- sv.clean %>% select(-SEC_MPA) %>%
   # fill in remaining indicator values
@@ -107,7 +120,9 @@ sv.qc.final <- sv.clean %>% select(-SEC_MPA) %>%
   # fill in remaining NAs
   mutate(ANALYSIS_SCHEME = ifelse(is.na(ANALYSIS_SCHEME), "RAMP_BASIC", ANALYSIS_SCHEME)) %>%
   mutate(SPECIAL_PROJ_YN = ifelse(is.na(SPECIAL_PROJ_YN), 0, SPECIAL_PROJ_YN)) 
-  
+
+sv.qc.final %>% select(SEC_NAME, ANALYSIS_SCHEME, EXCLUDE_FLAG, starts_with("SPECIAL")) %>% distinct() %>% arrange(SEC_NAME)
+
 # REMERGE with benthic sites
 sv.fishQC <- sv.qc.final %>% 
   bind_rows(sv.final %>% filter(Fish == 0) %>% # 265 benthic sites
@@ -117,7 +132,7 @@ sv.fishQC <- sv.qc.final %>%
 sv.fishQC %>% distinct(SEC_NAME, SPECIAL_PROJ_DESCRIPTION, SPECIAL_PROJ_YN, EXCLUDE_FLAG)
 
 ## SAVE
-write.csv(sv.fishQC, "C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12082022_SITEVISIT_QC_TLK.csv")
+write.csv(sv.fishQC, "C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12122022_SITEVISIT_QC_TLK.csv")
 
 ```
 
@@ -126,7 +141,7 @@ write.csv(sv.fishQC, "C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise worki
 rm(list = ls()) # clear workspace
 library(tidyverse)
 
-sv.ready <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12082022_SITEVISIT_QC_TLK.csv") %>% mutate_all(na_if,"")  # 587 sites
+sv.ready <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12122022_SITEVISIT_QC_TLK.csv") %>% mutate_all(na_if,"")  # 586 sites
 
 SM <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/SURVEY MASTER.csv") # load most recent SURVEY MASTER
 
@@ -198,7 +213,55 @@ write.csv(sm.final, "C:/Users/tye.kindinger/Desktop/SM_fish_2022.csv")
 ```
 
 
-####
+#### 2022 FISH DATA
+```{r} 
+rm(list = ls()) # clear workspace
+library(tidyverse)
 
+fish <- read.csv("C:/Users/tye.kindinger/Desktop/V0_FISH_REA_MARIAN_2022.csv") # load most recent fish data --> 37,042 rows
+fish %>% distinct(SITEVISITID) # 319 sites
 
+sm <- read.csv("C:/Users/tye.kindinger/Desktop/SM_fish_2022.csv") %>% filter(OBS_YEAR == 2022 & Fish == 1)  # load most recent survey master
+sm %>% distinct(SITEVISITID) # 321 sites
+
+## QC FISH DATA based on findings above while QCing SM
+
+# merge sm and check for sites that should be removed: 
+# (1) REMOVE 5 sites that are TYPE = Fish but are only water sampling --> SITEVISITID %in% c(38167, 38168, 38404, 38405,38406) 
+# (2) REMOVE 1 CB site (not Fish REA or benthic PQ/SfM) --> SITEVISITID = 39740
+# (3) REMOVE 1 site that doesn't have any data (survey was incomplete) --> SITEVISITID = 39522
+# (4) REMOVE 1 site that was an error (never existed) --> SITEVISITID = 39740
+
+fish.sm <- fish %>% select(-EXCLUDE_FLAG, -DATE_) %>%  # all rows have EXCLUDE_FLAG = 0 (keep) --> use QCed exclude column from SM!
+  left_join(sm %>% select(SITEVISITID, DATE_, SEC_NAME, EXCLUDE_FLAG, starts_with("SPECIAL")), by = c("SITEVISITID")) %>% # use SM DATE_ because still in number format of dates
+  # CLEAN UP date formatting for merging with ongoing dataset --> POSIXct %m/%d/%Y	
+  separate(DATE_, c("DATE", "X_TIME"), sep = " ", remove = FALSE) %>% mutate(DATE2 = as.POSIXct(DATE, format = "%m/%d/%Y")) %>% select(-DATE_, -DATE) %>% dplyr::rename(DATE_ = DATE2)
+
+# checks
+fish.sm %>% distinct(SEC_NAME) # HIMARC sites weren't included --> GOOD!
+sm %>% left_join(fish.sm %>% distinct(SITEVISITID) %>% mutate(x = "Y"), by = c("SITEVISITID")) %>% filter(is.na(x)) # sites in SM but missing from fish data --> HIMARC sites are missing --> OK!
+fish.sm %>% select(EXCLUDE_FLAG, starts_with("SPECIAL")) %>% distinct() # GuamMPA sites look good
+fish.sm %>% filter(SPECIAL_PROJ_YN == "-1") %>% group_by(SEC_NAME, DEPTH_BIN, EXCLUDE_FLAG) %>% dplyr::summarise(n = n_distinct(SITEVISITID)) %>% arrange(SEC_NAME, EXCLUDE_FLAG) # GOOD!
+# GUA_WEST_OPEN: deep = 3, mid = 5, shallow = 5 | GUA_PITI_BOMB: deep = 5, mid = 4, shallow = 6
+
+fish.sm %>% filter(SITEVISITID %in% c(38167, 38168, 38404, 38405, 38406, 39740, 39522, 39740))  # specific sites that needed to be removed --> GOOD! Not included / no fish data
+
+sm %>% filter(OBS_YEAR == 2022 & Fish == 1 & EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID)  # 297 sites
+fish.sm %>% filter(EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID) # 297 sites
+# all NCRMP sites present!
+
+# SAVE
+write.csv(fish.sm, "C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/2022 Fish data/fishdata_2022.csv")
+  
+## COMBINE WITH REST OF FISH DATA
+load("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.rdata")
+df # 988,383 rows
+
+fish.full <- fish.sm %>% # 37,042 rows  
+  bind_rows(df) 
+# 1,025,425 rows
+
+# SAVE
+save(fish.full, file = "C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.rdata")
+```
 
