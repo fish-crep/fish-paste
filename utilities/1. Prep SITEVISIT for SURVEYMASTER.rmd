@@ -143,6 +143,10 @@ library(tidyverse)
 
 sv.ready <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12122022_SITEVISIT_QC_TLK.csv") %>% mutate_all(na_if,"")  # 586 sites
 
+# COMPARE SEC_NAME with Sectors-Strata-Areas file
+sectors<-read.csv("C:/Users/Tye.Kindinger/Desktop/FISH TEAM/fish-paste/data/Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
+sv.ready %>% distinct(SEC_NAME) %>% mutate(x = "Y") %>% right_join(sv.ready, by = c("SEC_NAME")) %>% distinct(SEC_NAME, x) # look good!
+
 SM <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/SURVEY MASTER.csv") # load most recent SURVEY MASTER
 
 # compare column names with those in SURVEYMASTER
@@ -176,7 +180,7 @@ sv.final <- sv.ready %>%
 #  mutate(microb = ifelse(MICROBIAL_SAMPLE == "YES", 1, 0)) %>%
   
 # TLK ADDITIONAL CLEANING
-  
+
   # COMBINE assoc_OCC with OCC_siteID
   mutate(OCC_SITEID = ifelse(is.na(OCC_SITEID) & !is.na(ASSOC_OCC_SITEID), ASSOC_OCC_SITEID, OCC_SITEID)) %>% # NOTE: even though repeating OCC_SITEIDs, they each have a unique SITEVISITID
   # RECODE YN columns into -1-0-1 indicators
@@ -187,7 +191,7 @@ sv.final <- sv.ready %>%
   # REMOVE columns NOT in SurveyMaster
   select(-ASSOC_OCC_SITEID, -contains("DEPLOY"), -contains("RETRIEVE"), -contains("ACTIVITY_"), -contains("COMMENTS_"), -contains("CORAL_"), -DISTRICT, -DIVE, -FISH_REA_YN, -LOCALTIME, 
         -contains("_Z_"), -contains("OBJECTID_"), -SECTOR, -SITEDESCRIPTION, -VISIBILITY, -VISIBILITY_M)
-        
+      
 
 ## ADD LATEST SITES TO SURVEY MASTER
 SM.full <- SM %>% bind_rows(sv.final %>% mutate_at(vars(SPECIAL_PROJ_YN), ~as.character(.)))
