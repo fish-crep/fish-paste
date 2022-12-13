@@ -143,11 +143,37 @@ library(tidyverse)
 
 sv.ready <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/Site visit tables/12122022_SITEVISIT_QC_TLK.csv") %>% mutate_all(na_if,"")  # 586 sites
 
-# COMPARE SEC_NAME with Sectors-Strata-Areas file
+# COMPARE SEC_NAME with Sectors-Strata-Areas file & SurveyMaster
 sectors<-read.csv("C:/Users/Tye.Kindinger/Desktop/FISH TEAM/fish-paste/data/Sectors-Strata-Areas.csv", stringsAsFactors=FALSE)
-sv.ready %>% distinct(SEC_NAME) %>% mutate(x = "Y") %>% right_join(sv.ready, by = c("SEC_NAME")) %>% distinct(SEC_NAME, x) # look good!
-
 SM <- read.csv("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/SURVEY MASTER.csv") # load most recent SURVEY MASTER
+
+# Marianas sectors
+sv.ready %>% distinct(ISLAND, SEC_NAME) %>% mutate(doc = "sm.22") %>% 
+  bind_rows(sectors %>% filter(REGION == "MARIAN") %>% distinct(ISLAND, SEC_NAME) %>% mutate(doc = "sec")) %>%
+  bind_rows(SM %>% filter(REGION == "MARIAN" & OBS_YEAR > 2009) %>% distinct(ISLAND, SEC_NAME) %>% mutate(doc = "SM")) %>% arrange(ISLAND, SEC_NAME) %>% 
+  # create summary table
+  mutate(ISLAND = "x") %>% spread(doc, ISLAND) # NEED TO UPDATE!
+
+# Hawaii & Tutuila sectors
+sv.ready %>% filter(REGION != "MARIAN") %>% distinct(ISLAND, SEC_NAME) %>% mutate(doc = "sm.22") %>% 
+  bind_rows(sectors %>% filter(ISLAND %in% c("Hawaii", "Tutuila")) %>% distinct(ISLAND, SEC_NAME) %>% mutate(doc = "sec")) %>%
+  bind_rows(SM %>% filter(ISLAND %in% c("Hawaii", "Tutuila") & OBS_YEAR > 2009) %>% distinct(ISLAND, SEC_NAME) %>% mutate(doc = "SM")) %>% arrange(ISLAND, SEC_NAME) %>% 
+  # create summary table
+  mutate(ISLAND = "x") %>% spread(doc, ISLAND) # GOOD TO GO!
+
+# FIX SEC_NAME for consistency
+sv.sec <- sv.ready %>% mutate(SEC_NAME = ifelse(ISLAND != "Guam" & REGION == "MARIAN", ISLAND, # use ISLAND spelling for non-Guam SEC_NAME
+                                                ifelse(SEC_NAME == "GUA_PATI_PT", "GUA_PATI_POINT", # fix 2 Guam sectors
+                                                ifelse(SEC_NAME == "GUA_TUMON_BAY", "GUA_TUMON", SEC_NAME)))) %>% distinct(SEC_NAME)
+
+sv.ready %>% distinct(REGION)
+
+SM %>% filter(OBS_YEAR > 2009 & OBS_YEAR < 2022 & REGION == "MARIAN") %>% filter(is.na(SEC_NAME)) # Note: NA is an Oceanography site (can ignore for Fish)
+
+sm.final %>% filter(OBS_YEAR > 2009 & OBS_YEAR < 2022 & REGION == "MARIAN" & !is.na(SEC_NAME)) %>% distinct(SEC_NAME) %>% arrange(SEC_NAME)
+
+sm.final %>% distinct(REGION)
+```
 
 # compare column names with those in SURVEYMASTER
 sv.ready[,order(colnames(sv.ready))] %>% names()
@@ -206,11 +232,14 @@ sm.final <- SM.full %>% filter(OBS_YEAR == 2022) %>%
 
   # add back in rest of sites
   bind_rows(SM.full %>% filter(OBS_YEAR != 2022)) %>% arrange(SITEVISITID) %>%
+  
   # reorder columns
   dplyr::relocate(SEC_NAME, REEF_ZONE, DEPTH_BIN, new_MIN_DEPTH_M, new_MAX_DEPTH_M, .after = ISLAND) %>%
   dplyr::relocate(ROUNDID, MISSIONID, .after = SITEVISITID) %>%
   dplyr::relocate(LATITUDE_SV, LONGITUDE_SV, LATITUDE_LOV, LONGITUDE_LOV, .after = OCC_SITEID) %>%
   dplyr::relocate(ANALYSIS_YEAR, .after = OBS_YEAR)
+
+## CHECK for consistent SEC_NAME
 
 
 write.csv(sm.final, "C:/Users/tye.kindinger/Desktop/SM_fish_2022.csv")
