@@ -31,6 +31,9 @@ x<-x[,DATA_COLS]
 ## Update SITE to have three numeric digits (eg OAH-01 becomes OAH-001)
 x$SITE<-SiteNumLeadingZeros(x$SITE)
 
+## TLK:  FIX MISSING REP FOR 1 SITE IN SAIPAN (doesn't get included as NA) 
+x <- x %>% mutate_at(vars(REP), ~as.character(.)) %>% mutate(REP = ifelse(is.na(REP) & SITEVISITID == 11181, "A", REP)) %>% mutate_at(vars(REP), ~as.factor(.))
+
 x[is.na(x$TRAINING_YN),]$TRAINING_YN<-FALSE   # Training flag of NA is equivalent to a FALSE .. as none of the older data was 'training data'
 x<-subset(x, x$TRAINING_YN==FALSE)
 x<-subset(x, x$EXCLUDE_FLAG==0, drop=TRUE)
