@@ -254,14 +254,15 @@ fish.sm %>% filter(EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID) # 297 sites
 write.csv(fish.sm, "C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/2022 Fish data/fishdata_2022.csv")
   
 ## COMBINE WITH REST OF FISH DATA
-load("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.rdata")
+load("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/DEFUNCT files/defunct_pre2022_ALL_REA_FISH_RAW.rdata")
 df # 988,383 rows
 
-fish.full <- fish.sm %>% # 37,042 rows  
+# NAME df SO CONSISTENT WITH FISH SCRIPTS!!
+df <- fish.sm %>% # 37,042 rows  
   bind_rows(df) 
 # 1,025,425 rows
 
 # SAVE
-save(fish.full, file = "C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.rdata")
+save(df, file = "C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.RData")
 ```
 
