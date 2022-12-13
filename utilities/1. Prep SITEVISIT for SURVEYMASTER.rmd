@@ -235,7 +235,7 @@ sm %>% distinct(SITEVISITID) # 321 sites
 fish.sm <- fish %>% select(-EXCLUDE_FLAG, -DATE_) %>%  # all rows have EXCLUDE_FLAG = 0 (keep) --> use QCed exclude column from SM!
   left_join(sm %>% select(SITEVISITID, DATE_, SEC_NAME, EXCLUDE_FLAG, starts_with("SPECIAL")), by = c("SITEVISITID")) %>% # use SM DATE_ because still in number format of dates
   # CLEAN UP date formatting for merging with ongoing dataset --> POSIXct %m/%d/%Y	
-  separate(DATE_, c("DATE", "X_TIME"), sep = " ", remove = FALSE) %>% mutate(DATE2 = as.POSIXct(DATE, format = "%m/%d/%Y")) %>% select(-DATE_, -DATE) %>% dplyr::rename(DATE_ = DATE2)
+  separate(DATE_, c("DATE", "X_TIME"), sep = " ", remove = FALSE) %>% mutate(DATE2 = as.POSIXct(DATE, format = "%m/%d/%Y")) %>% select(-DATE_, -DATE, -X_TIME) %>% dplyr::rename(DATE_ = DATE2)
 
 # checks
 fish.sm %>% distinct(SEC_NAME) # HIMARC sites weren't included --> GOOD!
@@ -243,7 +243,6 @@ sm %>% left_join(fish.sm %>% distinct(SITEVISITID) %>% mutate(x = "Y"), by = c("
 fish.sm %>% select(EXCLUDE_FLAG, starts_with("SPECIAL")) %>% distinct() # GuamMPA sites look good
 fish.sm %>% filter(SPECIAL_PROJ_YN == "-1") %>% group_by(SEC_NAME, DEPTH_BIN, EXCLUDE_FLAG) %>% dplyr::summarise(n = n_distinct(SITEVISITID)) %>% arrange(SEC_NAME, EXCLUDE_FLAG) # GOOD!
 # GUA_WEST_OPEN: deep = 3, mid = 5, shallow = 5 | GUA_PITI_BOMB: deep = 5, mid = 4, shallow = 6
-
 fish.sm %>% filter(SITEVISITID %in% c(38167, 38168, 38404, 38405, 38406, 39740, 39522, 39740))  # specific sites that needed to be removed --> GOOD! Not included / no fish data
 
 sm %>% filter(OBS_YEAR == 2022 & Fish == 1 & EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID)  # 297 sites
@@ -252,17 +251,29 @@ fish.sm %>% filter(EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID) # 297 sites
 
 # SAVE
 write.csv(fish.sm, "C:/Users/tye.kindinger/Desktop/FISH TEAM/Post-cruise workings/2022_Marianas/2022 Fish data/fishdata_2022.csv")
-  
+
+
 ## COMBINE WITH REST OF FISH DATA
 load("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/DEFUNCT files/defunct_pre2022_ALL_REA_FISH_RAW.rdata")
 df # 988,383 rows
 
 # NAME df SO CONSISTENT WITH FISH SCRIPTS!!
-df <- fish.sm %>% # 37,042 rows  
-  bind_rows(df) 
+df <- fish.sm %>% # 37,042 rows
+  ## UPDATE columns so consistent with earlier datasets/scripts
+  mutate_if(sapply(., is.character), as.factor) %>% 
+  # clean up remaining
+  mutate_at(vars(SECTOR, OTHER_TYPE, COMPLEXITY, HYBRID, OLD_SIZE_BINS), ~as.factor(.)) %>% 
+  mutate_at(vars(HUMANPOPULATIONWITHIN20KM, SURVEY_LENGTH_M, SURVEY_WIDTH_M,  FISH_BLT_CORISID, FISH_SPC_CORISID, SPECIAL_PROJ_YN), ~as.integer(.)) %>%
+  mutate_at(vars(HARD_CORAL, SOFT_CORAL, MA, CCA, TA, SAND, TUNICATE, ZOANTHID, CORALLIMORPH, CLAM, CYANO, SPONGE, OTHER, starts_with("SUBSTRATE_HEIGHT_")), ~as.numeric(.)) %>%
+  # REMOVE columns from SurveyMaster
+  select(-SEC_NAME, -SPECIAL_PROJ_YN, -SPECIAL_PROJ_DESCRIPTION) %>%
+  # ADD prior data
+  bind_rows(df) # 988,383 rows
+
 # 1,025,425 rows
 
 # SAVE
 save(df, file = "C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.RData")
+  
 ```
 
