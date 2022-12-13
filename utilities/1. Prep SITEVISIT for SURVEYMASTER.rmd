@@ -164,29 +164,21 @@ sv.ready %>% filter(REGION != "MARIAN") %>% distinct(ISLAND, SEC_NAME) %>% mutat
 # FIX SEC_NAME for consistency
 sv.sec <- sv.ready %>% mutate(SEC_NAME = ifelse(ISLAND != "Guam" & REGION == "MARIAN", ISLAND, # use ISLAND spelling for non-Guam SEC_NAME
                                                 ifelse(SEC_NAME == "GUA_PATI_PT", "GUA_PATI_POINT", # fix 2 Guam sectors
-                                                ifelse(SEC_NAME == "GUA_TUMON_BAY", "GUA_TUMON", SEC_NAME)))) %>% distinct(SEC_NAME)
+                                                ifelse(SEC_NAME == "GUA_TUMON_BAY", "GUA_TUMON", SEC_NAME))))
 
-sv.ready %>% distinct(REGION)
-
-SM %>% filter(OBS_YEAR > 2009 & OBS_YEAR < 2022 & REGION == "MARIAN") %>% filter(is.na(SEC_NAME)) # Note: NA is an Oceanography site (can ignore for Fish)
-
-sm.final %>% filter(OBS_YEAR > 2009 & OBS_YEAR < 2022 & REGION == "MARIAN" & !is.na(SEC_NAME)) %>% distinct(SEC_NAME) %>% arrange(SEC_NAME)
-
-sm.final %>% distinct(REGION)
-```
 
 # compare column names with those in SURVEYMASTER
-sv.ready[,order(colnames(sv.ready))] %>% names()
+sv.sec[,order(colnames(sv.sec))] %>% names()
 
 # MISSING FROM SITEVISIT:
 # OLD_SITE, OCC_SITEID, PERM_SITE, benth, fish, arms_d, arms_r, microb, ARMS, HUMANS20, HUMANS200, TYPE = RANDOM, FIXED, Haphazard, NA, BAD HABITAT, bANALYSIS_SCHEME, ANALYSIS_YEAR, TUT2012, OTHER_AREA_GROUPING
 
 # CHECK OCC SITE COLUMNS
-sv.ready %>% distinct(ASSOC_OCC_SITEID, OCC_SITEID)
-sv.ready %>% filter(!is.na(ASSOC_OCC_SITEID) & !is.na(OCC_SITEID)) # when values in both columns, they're the same SITEID
+sv.sec %>% distinct(ASSOC_OCC_SITEID, OCC_SITEID)
+sv.sec %>% filter(!is.na(ASSOC_OCC_SITEID) & !is.na(OCC_SITEID)) # when values in both columns, they're the same SITEID
 
 ## CLEAN UP
-sv.final <- sv.ready %>% 
+sv.final <- sv.sec %>% 
 # TRANSLATED FROM IVOR'S Update SurveyMaster SCRIPT:
   
   # EXTRACT year from date-time
@@ -298,7 +290,7 @@ df <- fish.sm %>% # 37,042 rows
   mutate_at(vars(SECTOR, OTHER_TYPE, COMPLEXITY, HYBRID, OLD_SIZE_BINS), ~as.factor(.)) %>% 
   mutate_at(vars(HUMANPOPULATIONWITHIN20KM, SURVEY_LENGTH_M, SURVEY_WIDTH_M,  FISH_BLT_CORISID, FISH_SPC_CORISID, SPECIAL_PROJ_YN), ~as.integer(.)) %>%
   mutate_at(vars(HARD_CORAL, SOFT_CORAL, MA, CCA, TA, SAND, TUNICATE, ZOANTHID, CORALLIMORPH, CLAM, CYANO, SPONGE, OTHER, starts_with("SUBSTRATE_HEIGHT_")), ~as.numeric(.)) %>%
-  # REMOVE columns from SurveyMaster
+  # REMOVE columns from SurveyMaster --> add in CLEAN script
   select(-SEC_NAME, -SPECIAL_PROJ_YN, -SPECIAL_PROJ_DESCRIPTION) %>%
   # ADD prior data
   bind_rows(df) # 988,383 rows
