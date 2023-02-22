@@ -238,13 +238,13 @@ write.csv(sm.final, "C:/Users/tye.kindinger/Desktop/SM_fish_2022.csv")
 ```
 
 
-#### 2022 FISH DATA
+#### 2022 FISH DATA --> include ALL REA/SPC surveys conducted in 2022 (will filter out non-NCRMP in scripts)
 ```{r} 
 rm(list = ls()) # clear workspace
 library(tidyverse)
 
-fish <- read.csv("C:/Users/tye.kindinger/Desktop/V0_FISH_REA_MARIAN_2022.csv") # load most recent fish data --> 37,042 rows
-fish %>% distinct(SITEVISITID) # 319 sites
+fish <- read.csv("C:/Users/tye.kindinger/Desktop/2022_Fish_data.csv") # load most recent fish data --> 37,274 rows
+fish %>% distinct(SITEVISITID) # 321 sites
 
 sm <- read.csv("C:/Users/tye.kindinger/Desktop/SM_fish_2022.csv") %>% filter(OBS_YEAR == 2022 & Fish == 1)  # load most recent survey master
 sm %>% distinct(SITEVISITID) # 321 sites
@@ -257,18 +257,17 @@ sm %>% distinct(SITEVISITID) # 321 sites
 # (3) REMOVE 1 site that doesn't have any data (survey was incomplete) --> SITEVISITID = 39522
 # (4) REMOVE 1 site that was an error (never existed) --> SITEVISITID = 39740
 
-fish.sm <- fish %>% select(-EXCLUDE_FLAG, -DATE_) %>%  # all rows have EXCLUDE_FLAG = 0 (keep) --> use QCed exclude column from SM!
+fish.sm <- fish %>% select(-DATE_) %>%  # all rows have EXCLUDE_FLAG = 0 (keep) --> use QCed exclude column from SM!
   left_join(sm %>% select(SITEVISITID, DATE_, SEC_NAME, EXCLUDE_FLAG, starts_with("SPECIAL")), by = c("SITEVISITID")) %>% # use SM DATE_ because still in number format of dates
   # CLEAN UP date formatting for merging with ongoing dataset --> POSIXct %m/%d/%Y	
   separate(DATE_, c("DATE", "X_TIME"), sep = " ", remove = FALSE) %>% mutate(DATE2 = as.POSIXct(DATE, format = "%m/%d/%Y")) %>% select(-DATE_, -DATE, -X_TIME) %>% dplyr::rename(DATE_ = DATE2)
 
 # checks
-fish.sm %>% distinct(SEC_NAME) # HIMARC sites weren't included --> GOOD!
-sm %>% left_join(fish.sm %>% distinct(SITEVISITID) %>% mutate(x = "Y"), by = c("SITEVISITID")) %>% filter(is.na(x)) # sites in SM but missing from fish data --> HIMARC sites are missing --> OK!
+sm %>% left_join(fish.sm %>% distinct(SITEVISITID) %>% mutate(x = "Y"), by = c("SITEVISITID")) %>% filter(is.na(x)) # sites in SM but missing from fish data --> OK!
 fish.sm %>% select(EXCLUDE_FLAG, starts_with("SPECIAL")) %>% distinct() # GuamMPA sites look good
 fish.sm %>% filter(SPECIAL_PROJ_YN == "-1") %>% group_by(SEC_NAME, DEPTH_BIN, EXCLUDE_FLAG) %>% dplyr::summarise(n = n_distinct(SITEVISITID)) %>% arrange(SEC_NAME, EXCLUDE_FLAG) # GOOD!
 # GUA_WEST_OPEN: deep = 3, mid = 5, shallow = 5 | GUA_PITI_BOMB: deep = 5, mid = 4, shallow = 6
-fish.sm %>% filter(SITEVISITID %in% c(38167, 38168, 38404, 38405, 38406, 39740, 39522, 39740))  # specific sites that needed to be removed --> GOOD! Not included / no fish data
+fish.sm %>% filter(SITEVISITID %in% c(38167, 38168, 38404, 38405, 38406, 39740, 39522, 39740))  # specific sites that needed to be removed (listed above) --> GOOD! Not included / no fish data
 
 sm %>% filter(OBS_YEAR == 2022 & Fish == 1 & EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID)  # 297 sites
 fish.sm %>% filter(EXCLUDE_FLAG == 0) %>% distinct(SITEVISITID) # 297 sites
@@ -283,19 +282,17 @@ load("C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/DEFUNCT files/def
 df # 988,383 rows
 
 # NAME df SO CONSISTENT WITH FISH SCRIPTS!!
-df <- fish.sm %>% # 37,042 rows
+df <- fish.sm %>% # 37,274 rows
   ## UPDATE columns so consistent with earlier datasets/scripts
   mutate_if(sapply(., is.character), as.factor) %>% 
   # clean up remaining
-  mutate_at(vars(SECTOR, OTHER_TYPE, COMPLEXITY, HYBRID, OLD_SIZE_BINS), ~as.factor(.)) %>% 
-  mutate_at(vars(HUMANPOPULATIONWITHIN20KM, SURVEY_LENGTH_M, SURVEY_WIDTH_M,  FISH_BLT_CORISID, FISH_SPC_CORISID, SPECIAL_PROJ_YN), ~as.integer(.)) %>%
+  mutate_at(vars(OTHER_TYPE), ~as.factor(.)) %>% 
+  mutate_at(vars(SPECIAL_PROJ_YN), ~as.integer(.)) %>%
   mutate_at(vars(HARD_CORAL, SOFT_CORAL, MA, CCA, TA, SAND, TUNICATE, ZOANTHID, CORALLIMORPH, CLAM, CYANO, SPONGE, OTHER, starts_with("SUBSTRATE_HEIGHT_")), ~as.numeric(.)) %>%
-  # REMOVE columns from SurveyMaster --> add in CLEAN script
-  select(-SEC_NAME, -SPECIAL_PROJ_YN, -SPECIAL_PROJ_DESCRIPTION) %>%
   # ADD prior data
   bind_rows(df) # 988,383 rows
 
-# 1,025,425 rows
+# 1,025,657 rows
 
 # SAVE
 save(df, file = "C:/Users/tye.kindinger/Desktop/FISH TEAM/fish-paste/data/ALL_REA_FISH_RAW.RData")
