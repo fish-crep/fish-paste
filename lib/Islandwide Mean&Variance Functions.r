@@ -21,7 +21,9 @@ Calc_PerStrata <- function (sample_data, data_cols, pooling_level = c("ISLAND", 
   # Calculate aggregate Mean, Var, N	
   strata.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean)
   strata.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var)
-  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #Modified TAO 2024-03-12
+  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
   strata.means$N<-strata.vars$N<-N
   strata.se<-strata.vars
   strata.se[,data_cols]<-sqrt(strata.vars[,data_cols])/sqrt(N)
@@ -453,7 +455,9 @@ tmp_length<-function(x){length(x[!is.na(x)])}
   s.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean, na.rm=T)
   s.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var, na.rm=T)
   s.N<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], tmp_length)
-  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #Modified TAO 2024-03-12
+  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
   s.means$N<-s.vars$N<-s.N$N<-N
   s.se<-s.vars
   s.se[,data_cols]<-sqrt(s.vars[,data_cols])/sqrt(s.N[,data_cols])
