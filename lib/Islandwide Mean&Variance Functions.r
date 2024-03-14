@@ -19,11 +19,11 @@ Calc_PerStrata <- function (sample_data, data_cols, pooling_level = c("ISLAND", 
   sample_data<-sample_data[,BASE_DATA_COLS]
   
   # Calculate aggregate Mean, Var, N	
-  strata.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean)
-  strata.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var)
-  #N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
-  #Modified TAO 2024-03-12
-  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
+  strata.means<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean)
+  strata.vars<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var)
+  N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #Modified TAO 2024-03-12 - there appears to be some weird context-dependent behavior here. I'm trying to fix with stats::
+  #N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
   strata.means$N<-strata.vars$N<-N
   strata.se<-strata.vars
   strata.se[,data_cols]<-sqrt(strata.vars[,data_cols])/sqrt(N)
@@ -47,7 +47,7 @@ GRID_CELL_SIZE<-50*50   #grid cells are 50*50
 AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 	#Generate output structures
-	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level)],sum)
+	pooled.means<-stats::aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level)],sum)
 	pooled.means[,data_cols]<-NA
 	pooled.se<-pooled.means
 	pooled.means$TOT_AREA_WT<-NA
@@ -163,8 +163,8 @@ Calc_SampleAreas<-function (means_data, pooling_fields=c("REGION", "ISLAND", "SE
 #strata_weights<-sectors
 
 	#aggregate the means data and the sectors data to match the output_level and strata_fields
-	tmp.areas<-aggregate(list(TotalArea=strata_weights$AREA_HA), by=strata_weights[,pooling_fields],sum)
-	tmp.means<-aggregate(list(N=means_data$N), by=means_data[,pooling_fields],sum)
+	tmp.areas<-stats::aggregate(list(TotalArea=strata_weights$AREA_HA), by=strata_weights[,pooling_fields],sum)
+	tmp.means<-stats::aggregate(list(N=means_data$N), by=means_data[,pooling_fields],sum)
 
 	#now calculate the actual area per output_level that there are means_data for
 	
@@ -225,7 +225,7 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 
 	#Generate data frame to hold total area for each of the pooling_fields i.e sums total area of all records that match the pooling_fields
-	habitat_areas<-aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,pooling_fields], sum)             # this is the size of each of the base sample areas [eg szie of FOREREEF within ISLAND within REGION
+	habitat_areas<-stats::aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,pooling_fields], sum)             # this is the size of each of the base sample areas [eg szie of FOREREEF within ISLAND within REGION
 
 
 	#Create "OL" "AL" amd "PL" fields, which concatentates the various sets of fields above .. will make it much easier to match between the different data structures
@@ -248,12 +248,12 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 	
 	#Generate output structures
-	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level, "OL", "AL")],sum)
+	pooled.means<-stats::aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level, "OL", "AL")],sum)
 	pooled.means[,data_cols]<-NA
 	pooled.se<-pooled.means
 	
 	#generate a simplifed habitat_area output table, pooled at the output_level, to be passed out of the function
-	hab.areas.out<-aggregate(list(TotalArea=means_data$TotalArea), by=means_data[,c(output_level,"OL", "AL")], sum)
+	hab.areas.out<-stats::aggregate(list(TotalArea=means_data$TotalArea), by=means_data[,c(output_level,"OL", "AL")], sum)
 #	hab.areas.out$TotalAreaWithSamples<-0
 	
 
@@ -289,7 +289,7 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 	#also generate a total area table for total area at the level that 
 	habitat_areas_table$AL<-FieldConcat(habitat_areas_table,aggregation_level)
-	AL_habitat_area<-aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,c(aggregation_level, "AL")], sum)		# this is the total area of habitat at the aggregation level (eg all habitat within the REGION or the ISLAND within REGION or whatever)
+	AL_habitat_area<-stats::aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,c(aggregation_level, "AL")], sum)		# this is the total area of habitat at the aggregation level (eg all habitat within the REGION or the ISLAND within REGION or whatever)
 	hab.areas.out$TotalAreaWithSamples<-hab.areas.out$TotalArea
 	hab.areas.out$TotalArea<-NULL
 	hab.areas.out<-merge(hab.areas.out,AL_habitat_area,by=c(aggregation_level, "AL"),all.x=TRUE)
@@ -363,7 +363,7 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 	}
   
 	#calculate total area sampled per survey year, per island, per methods
-	TotAreaSampled<-aggregate(weighting.data[,"Area"],by=weighting.data[,c(output_level,"OL")], sum)
+	TotAreaSampled<-stats::aggregate(weighting.data[,"Area"],by=weighting.data[,c(output_level,"OL")], sum)
 	names(TotAreaSampled)<-c(output_level, "OL", "TotArea")
 
 	#also calculate total area in all strata at that output_level (whether or not there are samples there)
@@ -413,8 +413,8 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
   	#sum means data per island, method, srvy.yr and do same for var_data BUT square root the sum of the weighted sevar_data_data to get pooled_SE
   	xxx<-names(means_data)
   	output.cols<-xxx[!xxx %in% c(data_cols, strata_field, "N")]
-  	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output.cols)], sum)
-  	pooled.se<-aggregate(var_data[,c("N", data_cols)],by=var_data[,c(output.cols)], sum)  #IDW this is effectively variance of sample means for entire domain
+  	pooled.means<-stats::aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output.cols)], sum)
+  	pooled.se<-stats::aggregate(var_data[,c("N", data_cols)],by=var_data[,c(output.cols)], sum)  #IDW this is effectively variance of sample means for entire domain
   	pooled.se[,data_cols]<-sqrt(pooled.se[,data_cols])	                                # converting this to standard deviation of sample means for entire domain (=equiv to sample SE)
 
  	#sort means, se, and TotArea by OL 
@@ -452,12 +452,12 @@ tmp_length<-function(x){length(x[!is.na(x)])}
   sample_data<-sample_data[,BASE_DATA_COLS]
   
   # Calculate aggregate Mean, Var, N	
-  s.means<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean, na.rm=T)
-  s.vars<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var, na.rm=T)
-  s.N<-aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], tmp_length)
-  #N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
-  #Modified TAO 2024-03-12
-  N<-aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
+  s.means<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean, na.rm=T)
+  s.vars<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var, na.rm=T)
+  s.N<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], tmp_length)
+  N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #Modified TAO 2024-03-12 - there appears to be some weird context-dependent behavior here. I'm trying to fix with stats::
+  #N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
   s.means$N<-s.vars$N<-s.N$N<-N
   s.se<-s.vars
   s.se[,data_cols]<-sqrt(s.vars[,data_cols])/sqrt(s.N[,data_cols])
@@ -490,7 +490,7 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 
 	#Generate data frame to hold total area for each of the pooling_fields i.e sums total area of all records that match the pooling_fields
-	habitat_areas<-aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,pooling_fields], sum)             # this is the size of each of the base sample areas [eg szie of FOREREEF within ISLAND within REGION
+	habitat_areas<-stats::aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,pooling_fields], sum)             # this is the size of each of the base sample areas [eg szie of FOREREEF within ISLAND within REGION
 
 
 	#Create "OL" "AL" amd "PL" fields, which concatentates the various sets of fields above .. will make it much easier to match between the different data structures
@@ -517,12 +517,12 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 	
 	#Generate output structures
-	pooled.means<-aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level, "OL", "AL")],sum)
+	pooled.means<-stats::aggregate(means_data[,c("N", data_cols)],by=means_data[,c(output_level, "OL", "AL")],sum)
 	pooled.means[,data_cols]<-NA
 	pooled.se<-pooled.means
 	
 	#generate a simplifed habitat_area output table, pooled at the output_level, to be passed out of the function
-	hab.areas.out<-aggregate(list(TotalArea=means_data$TotalArea), by=means_data[,c(output_level,"OL", "AL")], sum)
+	hab.areas.out<-stats::aggregate(list(TotalArea=means_data$TotalArea), by=means_data[,c(output_level,"OL", "AL")], sum)
 #	hab.areas.out$TotalAreaWithSamples<-0
 	
 
@@ -572,7 +572,7 @@ AREA_UNITS<-100*100     # units of the area numbers in csv file are hectares
 
 	#also generate a total area table for total area at the level that 
 	habitat_areas_table$AL<-FieldConcat(habitat_areas_table,aggregation_level)
-	AL_habitat_area<-aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,c(aggregation_level, "AL")], sum)		# this is the total area of habitat at the aggregation level (eg all habitat within the REGION or the ISLAND within REGION or whatever)
+	AL_habitat_area<-stats::aggregate(list(TotalArea=habitat_areas_table$AREA_HA), by=habitat_areas_table[,c(aggregation_level, "AL")], sum)		# this is the total area of habitat at the aggregation level (eg all habitat within the REGION or the ISLAND within REGION or whatever)
 	hab.areas.out$TotalAreaWithSamples<-hab.areas.out$TotalArea
 	hab.areas.out$TotalArea<-NULL
 	hab.areas.out<-merge(hab.areas.out,AL_habitat_area,by=c(aggregation_level, "AL"),all.x=TRUE)
