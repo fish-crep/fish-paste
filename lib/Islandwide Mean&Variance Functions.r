@@ -21,9 +21,10 @@ Calc_PerStrata <- function (sample_data, data_cols, pooling_level = c("ISLAND", 
   # Calculate aggregate Mean, Var, N	
   strata.means<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean)
   strata.vars<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var)
-  #N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
   #Modified TAO 2024-03-12 - there appears to be some weird context-dependent behavior here. I'm trying to fix with stats::3-13; 3-14 stats didn't work, back to SITEVISITID
-  N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
+  #3-15 back to X working better. Sooo weird.
+  N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
   strata.means$N<-strata.vars$N<-N
   strata.se<-strata.vars
   strata.se[,data_cols]<-sqrt(strata.vars[,data_cols])/sqrt(N)
@@ -455,9 +456,10 @@ tmp_length<-function(x){length(x[!is.na(x)])}
   s.means<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], mean, na.rm=T)
   s.vars<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], var, na.rm=T)
   s.N<-stats::aggregate(sample_data[,data_cols],by=sample_data[,pooling_level], tmp_length)
-  #N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
   #Modified TAO 2024-03-12 - there appears to be some weird context-dependent behavior here. I'm trying to fix with stats::3-13; 3-14 stats didn't work, back to SITEVISITID
-  N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
+  #3-15 back to X working better. Sooo weird.
+  N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$x
+  #N<-stats::aggregate(sample_data[,"SITEVISITID"],by=sample_data[,pooling_level], length)$SITEVISITID
   s.means$N<-s.vars$N<-s.N$N<-N
   s.se<-s.vars
   s.se[,data_cols]<-sqrt(s.vars[,data_cols])/sqrt(s.N[,data_cols])
